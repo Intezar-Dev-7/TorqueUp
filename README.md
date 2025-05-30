@@ -1,14 +1,19 @@
-# 🚗🏍️ Car & Bike Service Center Management System (TorqueUp)
+# ⚙️ TorqueUp – Car & Bike Service Center Management System (SaaS)
 
-A powerful, all-in-one **Service Center Management System** tailored for car and bike service businesses. This platform helps manage everything from bookings to billing, inventory, staff roles, and customer communications — all optimized for speed, clarity, and customer satisfaction.
-## 💼 About the Project
+**TorqueUp** is an all-in-one SaaS platform that simplifies and streamlines operations for car and bike service centers. From customer bookings and vehicle tracking to job management, inventory, invoicing, and real-time notifications — TorqueUp empowers workshops with digital tools to improve efficiency, reduce errors, and provide an exceptional customer experience.
 
-This system is built to digitize and streamline operations at vehicle service centers. It supports real-time scheduling, job tracking, vehicle histories, billing, and notifications — empowering staff and improving the customer experience.
-
-Designed with scalability and reliability in mind, this solution serves as the technical backbone of a modern vehicle service business.
+> 🚫 **Note:** This project is a **proprietary SaaS solution** and is **not open source**. Unauthorized usage, forking, or distribution is strictly prohibited.
 
 ---
 
+## 🚀 Key Highlights
+
+- 📅 Real-time bookings & mechanic scheduling  
+- 🔧 Job tracking from diagnostics to delivery  
+- 🧰 Integrated inventory and stock alerts  
+- 🧾 Smart invoicing with tax & discount support  
+- 🔔 Customer notifications via SMS, email, and push  
+- 📊 Business insights with detailed reports  
 ## 🧩 Core Features
 
 ### ✅ User Management
@@ -50,6 +55,8 @@ Designed with scalability and reliability in mind, this solution serves as the t
 - Customer engagement metrics
 
 ---
+## 📌 Project Status
+🚧 **TorqueUp is currently under development.**  
 
 ## 🛑 License
 
