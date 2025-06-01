@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MaterialApp(
-    home: BookingsPage(),
-    debugShowCheckedModeBanner: false,
-  ));
+  runApp(MaterialApp(home: BookingsPage(), debugShowCheckedModeBanner: false));
 }
 
 class BookingsPage extends StatelessWidget {
@@ -15,7 +12,7 @@ class BookingsPage extends StatelessWidget {
       'name': 'Hemant sahu',
       'vehicle': 'MP05MV6802',
       'type': 'Gen. service',
-      'status': 'In service'
+      'status': 'In service',
     },
     {
       'start': '11:00 AM',
@@ -23,9 +20,11 @@ class BookingsPage extends StatelessWidget {
       'name': 'Rajaram sahu',
       'vehicle': 'MP05MV6802',
       'type': 'Gen. service',
-      'status': 'In service'
+      'status': 'In service',
     },
   ];
+
+  BookingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -59,16 +58,21 @@ class BookingsPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Bookings',
-                          style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold)),
+                      Text(
+                        'Bookings',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       Row(
                         children: [
                           Icon(Icons.notifications_none),
                           SizedBox(width: 10),
                           CircleAvatar(
-                              backgroundColor: Colors.orange,
-                              child: Text('C')),
+                            backgroundColor: Colors.orange,
+                            child: Text('C'),
+                          ),
                           SizedBox(width: 10),
                           ElevatedButton(
                             onPressed: () {},
@@ -93,28 +97,34 @@ class BookingsPage extends StatelessWidget {
                         flex: 2,
                         child: Container(
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Color(0xFFE5E9F3)),
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0xFFE5E9F3),
+                          ),
                           padding: EdgeInsets.all(16),
                           child: Column(
                             children: [
-                              Text("September 2021",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16)),
+                              Text(
+                                "September 2021",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
                               SizedBox(height: 10),
                               Wrap(
                                 runSpacing: 8,
                                 spacing: 8,
                                 children: List.generate(
                                   30,
-                                      (index) => CircleAvatar(
-                                    backgroundColor: (index == 18)
-                                        ? Colors.black
-                                        : Colors.white,
-                                    foregroundColor: (index == 18)
-                                        ? Colors.white
-                                        : Colors.black,
+                                  (index) => CircleAvatar(
+                                    backgroundColor:
+                                        (index == 18)
+                                            ? Colors.black
+                                            : Colors.white,
+                                    foregroundColor:
+                                        (index == 18)
+                                            ? Colors.white
+                                            : Colors.black,
                                     child: Text('${index + 1}'),
                                   ),
                                 ),
@@ -132,11 +142,15 @@ class BookingsPage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Bookings',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20)),
+                            Text(
+                              'Bookings',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
                             SizedBox(height: 20),
-                            ...bookings.map((b) => BookingCard(data: b)).toList(),
+                            ...bookings.map((b) => BookingCard(data: b)),
                           ],
                         ),
                       ),
@@ -152,10 +166,7 @@ class BookingsPage extends StatelessWidget {
   }
 
   Widget sidebarItem(String title) {
-    return ListTile(
-      title: Text(title),
-      leading: Icon(Icons.circle, size: 10),
-    );
+    return ListTile(title: Text(title), leading: Icon(Icons.circle, size: 10));
   }
 }
 
@@ -178,22 +189,24 @@ class BookingCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(data['start']!, style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(
+                  data['start']!,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 Text(data['end']!),
               ],
             ),
             SizedBox(width: 20),
-            Container(
-              width: 2,
-              height: 60,
-              color: Colors.black,
-            ),
+            Container(width: 2, height: 60, color: Colors.black),
             SizedBox(width: 20),
             // Info
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(data['name']!, style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(
+                  data['name']!,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 Text(data['vehicle']!),
               ],
             ),
@@ -202,10 +215,16 @@ class BookingCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text('Type', style: TextStyle(color: Colors.grey)),
-                Text(data['type']!, style: TextStyle(fontWeight: FontWeight.w500)),
+                Text(
+                  data['type']!,
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                ),
                 SizedBox(height: 8),
                 Text('Status', style: TextStyle(color: Colors.grey)),
-                Text(data['status']!, style: TextStyle(fontWeight: FontWeight.w500)),
+                Text(
+                  data['status']!,
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                ),
               ],
             ),
           ],

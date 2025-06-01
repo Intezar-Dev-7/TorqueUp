@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_elevated_button.dart';
 import 'package:frontend/common/widgets/custom_textfield.dart';
 
+import 'package:frontend/features/admin/widgets/side_navigation_bar.dart';
+
 class ServiceCenterForm extends StatefulWidget {
   const ServiceCenterForm({super.key});
 
@@ -120,12 +122,13 @@ class _ServiceCenterFormState extends State<ServiceCenterForm> {
                       CustomElevatedButton(
                         text: 'Add',
                         onPressed: () {
-                          // Navigator.push(
-                          //   context,
-                          //   (MaterialPageRoute(
-                          //     builder: (context) => ServiceCenterForm(),
-                          //   )),
-                          // );
+                          Navigator.push(
+                            context,
+                            (MaterialPageRoute(
+                              builder:
+                                  (context) => SideNavigationBar(title: ''),
+                            )),
+                          );
                         },
                       ),
                     ],

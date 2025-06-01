@@ -3,7 +3,6 @@ import 'package:frontend/common/widgets/custom_elevated_button.dart';
 import 'package:frontend/common/widgets/custom_textfield.dart';
 import 'package:frontend/features/auth/screens/signup_screen.dart';
 import 'package:frontend/features/auth/widgets/forgot_password_screen.dart';
-import 'package:sign_in_button/sign_in_button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
