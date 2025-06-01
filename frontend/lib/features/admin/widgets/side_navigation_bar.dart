@@ -17,8 +17,8 @@ import 'package:frontend/features/receptionist/screens/services_screen.dart';
 import 'package:iconsax/iconsax.dart';
 
 class SideNavigationBar extends StatefulWidget {
-  const SideNavigationBar({super.key, required this.title});
-  final String title;
+  const SideNavigationBar({super.key});
+
   @override
   State<SideNavigationBar> createState() => _SideNavigationBarState();
 }

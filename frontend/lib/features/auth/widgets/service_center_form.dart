@@ -125,8 +125,7 @@ class _ServiceCenterFormState extends State<ServiceCenterForm> {
                           Navigator.push(
                             context,
                             (MaterialPageRoute(
-                              builder:
-                                  (context) => SideNavigationBar(title: ''),
+                              builder: (context) => SideNavigationBar(),
                             )),
                           );
                         },
