@@ -1,30 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_elevated_button.dart';
 import 'package:frontend/common/widgets/custom_textfield.dart';
-import 'package:frontend/features/auth/screens/signup_screen.dart';
-import 'package:frontend/features/auth/widgets/forgot_password_screen.dart';
-import 'package:sign_in_button/sign_in_button.dart';
+import 'package:frontend/features/auth/screens/login_screen.dart';
+import 'package:frontend/features/auth/widgets/service_center_form.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
+  final FocusNode _nameFocusNode = FocusNode();
 
   @override
   void dispose() {
     super.dispose();
+    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
 
+    _nameFocusNode.dispose();
     _emailFocusNode.dispose();
     _passwordFocusNode.dispose();
   }
@@ -70,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "Login To Your Account",
+                        "Create Your Account",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 18,
@@ -78,6 +81,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       SizedBox(height: 20),
+                      CustomTextField(
+                        controller: _nameController,
+                        hintText: 'Name',
+                        focusNode: _nameFocusNode,
+                      ),
+                      SizedBox(height: 10),
                       CustomTextField(
                         controller: _emailController,
                         hintText: 'Email',
@@ -90,8 +99,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         focusNode: _passwordFocusNode,
                       ),
                       SizedBox(height: 10),
-
+                      // Add a new textfield asking the user to enter his role
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Radio<String>(
                             value: '',
@@ -102,38 +112,29 @@ class _LoginScreenState extends State<LoginScreen> {
                               });
                             },
                           ),
-                          SizedBox(width: 8),
+                          SizedBox(width: 5),
                           Text(
-                            "Remember me",
+                            "By Proceeding futher , you agree to our Terms & Conditions",
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: 12,
+                              fontSize: 10,
                               fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(width: 112),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ForgotPasswordScreen(),
-                                ),
-                              );
-                            },
-                            child: Text(
-                              "Forgot Password ?",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ),
                             ),
                           ),
                         ],
                       ),
                       SizedBox(height: 10),
-                      CustomElevatedButton(text: 'login', onPressed: () {}),
+                      CustomElevatedButton(
+                        text: 'Create Account',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            (MaterialPageRoute(
+                              builder: (context) => ServiceCenterForm(),
+                            )),
+                          );
+                        },
+                      ),
                       SizedBox(height: 20),
                       Text(
                         "Or Login with",
@@ -143,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 40),
+                      SizedBox(height: 27),
                       // Google and Apple Sign In Options
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -168,18 +169,18 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 50),
+                      SizedBox(height: 7),
                       TextButton(
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SignupScreen(),
+                              builder: (context) => LoginScreen(),
                             ),
                           );
                         },
                         child: Text(
-                          "Create Account ",
+                          "Already Have An account? Login in ",
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 15,
