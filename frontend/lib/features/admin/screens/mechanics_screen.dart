@@ -10,6 +10,6 @@ class MechanicsScreen extends StatefulWidget {
 class _MechanicsScreenState extends State<MechanicsScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Center(child: Text("Mechanics"));
   }
 }
