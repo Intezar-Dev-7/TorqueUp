@@ -3,6 +3,7 @@ import 'package:frontend/common/widgets/custom_elevated_button.dart';
 import 'package:frontend/common/widgets/custom_textfield.dart';
 import 'package:frontend/features/auth/screens/signup_screen.dart';
 import 'package:frontend/features/auth/widgets/forgot_password_screen.dart';
+import 'package:frontend/features/receptionist/receptionist_main.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -132,7 +133,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                       SizedBox(height: 10),
-                      CustomElevatedButton(text: 'login', onPressed: () {}),
+                      CustomElevatedButton(
+                        text: 'login',
+                        onPressed:
+                            () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ReceptionistMain(),
+                              ),
+                            ),
+                      ),
                       SizedBox(height: 20),
                       Text(
                         "Or Login with",
