@@ -6,12 +6,15 @@ class SideNavBar extends StatelessWidget {
   final Function(int) onTap;
   final int selectedIndex;
   final List<Map<String, dynamic>> navItems;
-  const SideNavBar({required this.onTap, required this.selectedIndex, required this.navItems});
+  const SideNavBar({
+    super.key,
+    required this.onTap,
+    required this.selectedIndex,
+    required this.navItems,
+  });
 
   @override
   Widget build(BuildContext context) {
-
-
     return Container(
       color: AppColors.grey,
       child: Column(
@@ -27,7 +30,10 @@ class SideNavBar extends StatelessWidget {
                   return Container(
                     margin: EdgeInsets.symmetric(vertical: 6, horizontal: 6),
                     decoration: BoxDecoration(
-                      borderRadius: selectedIndex == index ? BorderRadius.circular(10) : BorderRadius.circular(0),
+                      borderRadius:
+                          selectedIndex == index
+                              ? BorderRadius.circular(10)
+                              : BorderRadius.circular(0),
                       color:
                           selectedIndex == index
                               ? AppColors.white
@@ -44,7 +50,9 @@ class SideNavBar extends StatelessWidget {
                         item['title'] as String,
                         style: TextStyle(
                           color:
-                              selectedIndex == index ? Colors.black : Colors.grey,
+                              selectedIndex == index
+                                  ? Colors.black
+                                  : Colors.grey,
                           fontWeight:
                               selectedIndex == index
                                   ? FontWeight.bold

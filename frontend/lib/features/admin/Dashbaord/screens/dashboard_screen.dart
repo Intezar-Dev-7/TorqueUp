@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_appbar.dart';
-import 'package:frontend/features/admin/widgets/custom_container.dart';
-import 'package:frontend/features/admin/widgets/inventory_alert_widget.dart';
-import 'package:frontend/features/admin/widgets/mechanics_availability_widget.dart';
-import 'package:frontend/features/admin/widgets/revenue_widget.dart';
+import 'package:frontend/features/admin/Dashbaord/widgets/custom_container.dart';
+import 'package:frontend/features/admin/Dashbaord/widgets/inventory_alert_widget.dart';
+import 'package:frontend/features/admin/Dashbaord/widgets/mechanics_availability_widget.dart';
+import 'package:frontend/features/admin/Dashbaord/widgets/revenue_widget.dart';
 import 'package:frontend/features/admin/widgets/todays_booking_widget.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -24,7 +24,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomContainer(
                 title: "Today's Income",

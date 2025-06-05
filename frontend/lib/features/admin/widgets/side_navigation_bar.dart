@@ -6,12 +6,12 @@ import 'package:easy_sidemenu/easy_sidemenu.dart'
         SideMenuItem,
         SideMenuStyle;
 import 'package:flutter/material.dart';
-import 'package:frontend/features/admin/screens/bookings_screen.dart';
-import 'package:frontend/features/admin/screens/dashboard_screen.dart';
-import 'package:frontend/features/admin/screens/inventory_screen.dart';
-import 'package:frontend/features/admin/screens/mechanics_screen.dart';
-import 'package:frontend/features/admin/screens/reports_and_analytics_screen.dart';
-import 'package:frontend/features/admin/screens/settings_screen.dart';
+import 'package:frontend/features/admin/Bookings/screens/bookings_screen.dart';
+import 'package:frontend/features/admin/Dashbaord/screens/dashboard_screen.dart';
+import 'package:frontend/features/admin/Inventory/screens/inventory_screen.dart';
+import 'package:frontend/features/admin/Mechanics/screens/mechanics_screen.dart';
+import 'package:frontend/features/admin/ReportsAndAnalytics/screens/reports_and_analytics_screen.dart';
+import 'package:frontend/features/admin/Settings/screens/settings_screen.dart';
 import 'package:frontend/features/receptionist/screens/customer_screen.dart';
 import 'package:frontend/features/receptionist/screens/services_screen.dart';
 import 'package:iconsax/iconsax.dart';
