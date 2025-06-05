@@ -41,11 +41,11 @@ class _RevenueWidgetState extends State<RevenueWidget> {
     final labels = selectedView == 'Monthly' ? months : years;
 
     return Container(
-      width: 400,
-      height: 280,
+      width: 390,
+      height: 265,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
@@ -68,7 +68,7 @@ class _RevenueWidgetState extends State<RevenueWidget> {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.start,
                 ),
-                SizedBox(width: 190),
+                SizedBox(width: 320),
                 DropdownButton<String>(
                   value: selectedView,
                   items: const [

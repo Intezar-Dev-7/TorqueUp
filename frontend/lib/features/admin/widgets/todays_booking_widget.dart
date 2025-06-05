@@ -12,8 +12,8 @@ class _TodaysBookingWidgetState extends State<TodaysBookingWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 400,
-      height: 280,
+      width: 390,
+      height: 265,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(18),
@@ -39,7 +39,7 @@ class _TodaysBookingWidgetState extends State<TodaysBookingWidget> {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.start,
                 ),
-                SizedBox(width: 160),
+                SizedBox(width: 290),
                 TextButton(
                   onPressed: () {},
                   child: Text(

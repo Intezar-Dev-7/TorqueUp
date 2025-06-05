@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_appbar.dart';
 import 'package:frontend/features/admin/widgets/custom_container.dart';
+import 'package:frontend/features/admin/widgets/inventory_alert_widget.dart';
+import 'package:frontend/features/admin/widgets/mechanics_availability_widget.dart';
 import 'package:frontend/features/admin/widgets/revenue_widget.dart';
 import 'package:frontend/features/admin/widgets/todays_booking_widget.dart';
 import 'package:iconsax/iconsax.dart';
@@ -19,6 +21,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
       backgroundColor: Colors.white,
       appBar: CustomAppbar(text: 'Dashboard'),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -48,25 +51,25 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    RevenueWidget(),
+                    Expanded(child: RevenueWidget()),
                     SizedBox(width: 16),
-                    TodaysBookingWidget(),
+                    Expanded(child: TodaysBookingWidget()),
                   ],
                 ),
                 SizedBox(height: 16),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    // Expanded(child: InventoryAlertWidget()),
+                    Expanded(child: InventoryAlertWidget()),
                     SizedBox(width: 16),
-                    // Expanded(child: MechanicsAvailabilityWidget()),
+                    Expanded(child: MechanicsAvailabilityWidget()),
                   ],
                 ),
               ],

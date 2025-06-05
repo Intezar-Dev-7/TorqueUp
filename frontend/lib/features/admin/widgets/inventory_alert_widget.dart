@@ -10,6 +10,21 @@ class InventoryAlertWidget extends StatefulWidget {
 class _InventoryAlertWidgetState extends State<InventoryAlertWidget> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Container(
+      width: 390,
+      height: 265,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            blurRadius: 5,
+            spreadRadius: 1,
+            offset: Offset(2, 2),
+          ),
+        ],
+      ),
+    );
   }
 }
