@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/admin/widgets/side_navigation_bar.dart';
+import 'package:frontend/features/receptionist/receptionist_main.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: SideNavigationBar(),
+      home: ReceptionistMain(),
     );
   }
 }
