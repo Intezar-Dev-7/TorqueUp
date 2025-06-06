@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
-import '../../../utils/constant.dart';
+import 'package:frontend/utils/colors.dart';
 
 class DashTopWidget extends StatelessWidget {
   String icon;
@@ -13,7 +11,11 @@ class DashTopWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
       decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
@@ -25,17 +27,21 @@ class DashTopWidget extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Image(image: AssetImage(icon), width: 200),
-          Divider(color: Colors.grey, thickness: 1),
+          Image(image: AssetImage(icon), width: 30),
+          SizedBox(width: 6),
+          VerticalDivider(color: AppColors.grey30, thickness: 2,endIndent: 5,indent: 5),
+          SizedBox(width: 6),
           Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 title,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
               Text(
                 value.toString(),
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               ),
             ],
           ),

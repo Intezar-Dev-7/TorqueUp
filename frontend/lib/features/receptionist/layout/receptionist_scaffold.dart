@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/utils/constant.dart';
+import '../../../utils/colors.dart';
 import '../widgets/side_nav_bar.dart';
 import '../widgets/app_bar.dart';
 
@@ -15,11 +17,11 @@ class ReceptionistScaffold extends StatelessWidget {
   });
 
   final navItems = [
-    {'icon': Icons.dashboard, 'title': 'Dashboard'},
-    {'icon': Icons.calendar_today, 'title': 'Bookings'},
-    {'icon': Icons.people, 'title': 'Customers'},
-    {'icon': Icons.build, 'title': 'Services'},
-    {'icon': Icons.engineering, 'title': 'Mechanics'},
+    {'icon': NavIcons.dashboard, 'title': 'Dashboard'},
+    {'icon': NavIcons.booking, 'title': 'Bookings'},
+    {'icon': NavIcons.customer, 'title': 'Customers'},
+    {'icon': NavIcons.services, 'title': 'Services'},
+    {'icon': NavIcons.mechanics, 'title': 'Mechanics'},
   ];
 
   @override
@@ -40,7 +42,7 @@ class ReceptionistScaffold extends StatelessWidget {
           if (MediaQuery.of(context).size.width >= 800)
             Container(
               width: 220,
-              color: Colors.grey[200],
+              color: AppColors.grey,
               child: SideNavBar(
                 onTap: onItemSelected,
                 selectedIndex: selectedIndex,

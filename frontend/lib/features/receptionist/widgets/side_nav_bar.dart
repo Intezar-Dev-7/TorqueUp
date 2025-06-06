@@ -49,8 +49,9 @@ class SideNavBar extends StatelessWidget {
                     ),
                     child: ListTile(
                       contentPadding: EdgeInsets.symmetric(horizontal: 20),
-                      leading: Icon(
-                        item['icon'] as IconData,
+                      leading: Image.asset(
+                        item['icon'] as String,
+                        width: selectedIndex == index ? 30 : 20,
                         color:
                             selectedIndex == index ? Colors.black : Colors.grey,
                       ),
