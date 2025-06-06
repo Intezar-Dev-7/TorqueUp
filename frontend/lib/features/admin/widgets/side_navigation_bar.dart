@@ -6,12 +6,12 @@ import 'package:easy_sidemenu/easy_sidemenu.dart'
         SideMenuItem,
         SideMenuStyle;
 import 'package:flutter/material.dart';
-import 'package:frontend/features/admin/screens/bookings_screen.dart';
-import 'package:frontend/features/admin/screens/dashboard_screen.dart';
-import 'package:frontend/features/admin/screens/inventory_screen.dart';
-import 'package:frontend/features/admin/screens/mechanics_screen.dart';
-import 'package:frontend/features/admin/screens/reports_and_analytics_screen.dart';
-import 'package:frontend/features/admin/screens/settings_screen.dart';
+import 'package:frontend/features/admin/Bookings/screens/bookings_screen.dart';
+import 'package:frontend/features/admin/Dashbaord/screens/dashboard_screen.dart';
+import 'package:frontend/features/admin/Inventory/screens/inventory_screen.dart';
+import 'package:frontend/features/admin/Mechanics/screens/mechanics_screen.dart';
+import 'package:frontend/features/admin/ReportsAndAnalytics/screens/reports_and_analytics_screen.dart';
+import 'package:frontend/features/admin/Settings/screens/settings_screen.dart';
 import 'package:frontend/features/receptionist/screens/customer_screen.dart';
 import 'package:frontend/features/receptionist/screens/services_screen.dart';
 import 'package:iconsax/iconsax.dart';
@@ -77,88 +77,79 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
               SideMenuItem(
                 title: 'Dashboard',
                 onTap: (index, _) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => DashBoardScreen()),
-                  );
+                  sideMenu.changePage(index); // ✅ This keeps the layout
                 },
                 icon: const Icon(Icons.home),
               ),
               SideMenuItem(
                 title: 'Bookings',
                 onTap: (index, _) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => BookingsScreen()),
-                  );
+                  sideMenu.changePage(index);
                 },
                 icon: const Icon(Iconsax.calendar),
               ),
               SideMenuItem(
                 title: 'Customers',
                 onTap: (index, _) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => CustomerScreen()),
-                  );
+                  sideMenu.changePage(index);
                 },
                 icon: const Icon(Iconsax.people),
               ),
               SideMenuItem(
                 title: 'Services',
                 onTap: (index, _) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ServicesScreen()),
-                  );
+                  sideMenu.changePage(index);
                 },
                 icon: const Icon(Iconsax.box),
               ),
               SideMenuItem(
                 title: 'Mechanics',
                 onTap: (index, _) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MechanicsScreen()),
-                  );
+                  sideMenu.changePage(index);
                 },
                 icon: const Icon(Iconsax.people5),
               ),
               SideMenuItem(
                 title: 'Inventory',
                 onTap: (index, _) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => InventoryScreen()),
-                  );
+                  sideMenu.changePage(index);
                 },
                 icon: const Icon(Iconsax.box_14),
               ),
               SideMenuItem(
                 title: 'Reports & Analytics',
                 onTap: (index, _) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ReportsAndAnalyticsScreen(),
-                    ),
-                  );
+                  sideMenu.changePage(index);
                 },
                 icon: const Icon(Iconsax.bill),
               ),
               SideMenuItem(
                 title: 'Settings',
                 onTap: (index, _) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SettingsScreen()),
-                  );
+                  sideMenu.changePage(index);
                 },
                 icon: const Icon(Iconsax.settings),
               ),
             ],
           ),
           const VerticalDivider(width: 0),
+          Expanded(
+            child: PageView(
+              controller: pageController,
+              physics:
+                  const NeverScrollableScrollPhysics(), // Optional: disable swiping
+              children: const [
+                DashBoardScreen(),
+                BookingsScreen(),
+                CustomerScreen(),
+                ServicesScreen(),
+                MechanicsScreen(),
+                InventoryScreen(),
+                ReportsAndAnalyticsScreen(),
+                SettingsScreen(),
+              ],
+            ),
+          ),
         ],
       ),
     );

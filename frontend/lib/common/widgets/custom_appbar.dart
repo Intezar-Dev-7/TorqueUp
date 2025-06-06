@@ -8,7 +8,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.white,
-      elevation: 1,
+      elevation: 0,
       automaticallyImplyLeading: true,
       title: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -47,7 +47,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                 const SizedBox(width: 12),
                 const CircleAvatar(
                   radius: 20,
-                  foregroundImage: AssetImage('assets/images/avatar.png'),
+                  foregroundImage: AssetImage(''),
                   backgroundColor: Colors.grey,
                 ),
                 const SizedBox(width: 12),

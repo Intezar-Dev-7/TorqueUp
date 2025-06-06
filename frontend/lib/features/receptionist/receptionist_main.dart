@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/receptionist/screens/dashboard_screen.dart';
-import '../admin/screens/bookings_screen.dart';
-import '../admin/screens/customers_screen.dart';
-import '../admin/screens/mechanics_screen.dart';
-import '../admin/screens/services_screen.dart';
+import '../admin/Bookings/screens/bookings_screen.dart';
+import '../customers/screens/customers_screen.dart';
+import '../admin/Mechanics/screens/mechanics_screen.dart';
+import '../admin/services/screens/services_screen.dart';
 import 'layout/receptionist_scaffold.dart';
 
 class ReceptionistMain extends StatefulWidget {
-  const ReceptionistMain({Key? key}) : super(key: key);
+  const ReceptionistMain({super.key});
 
   @override
   State<ReceptionistMain> createState() => _ReceptionistMainState();
