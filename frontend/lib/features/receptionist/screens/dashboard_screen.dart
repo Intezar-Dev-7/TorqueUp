@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/features/receptionist/widgets/app_bar.dart'
-    show CustomAppBar;
 import 'package:frontend/features/receptionist/widgets/dash_top_widget.dart';
 import 'package:frontend/utils/colors.dart';
 import 'package:frontend/utils/constant.dart';
