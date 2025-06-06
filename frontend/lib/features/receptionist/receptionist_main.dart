@@ -17,7 +17,7 @@ class _ReceptionistMainState extends State<ReceptionistMain> {
   int selectedIndex = 0;
 
   final List<Widget> pages = [
-    const DashboardScreen(),
+    DashboardScreen(),
     const BookingsScreen(),
     const CustomersScreen(),
     const ServicesScreen(),

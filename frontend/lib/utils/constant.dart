@@ -19,4 +19,5 @@ class GenIcons{
   static String money = 'assets/general_icons/money.png';
   static String sales = 'assets/general_icons/sales.png';
   static String appLogo = 'assets/appLogo/TorqueUpLogo.png';
+  static String appLogoTrans = 'assets/appLogo/TorqueUpLogoTrans.png';
 }

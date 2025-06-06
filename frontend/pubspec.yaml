@@ -70,7 +70,7 @@ flutter:
     - assets/nav_icons/
     - assets/service_status_icons/
     - assets/general_icons/
-    - assets/appLogo/TorqueUpLogo.png
+    - assets/appLogo/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
