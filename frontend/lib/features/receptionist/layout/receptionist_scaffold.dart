@@ -22,6 +22,7 @@ class ReceptionistScaffold extends StatelessWidget {
     {'icon': NavIcons.customer, 'title': 'Customers'},
     {'icon': NavIcons.services, 'title': 'Services'},
     {'icon': NavIcons.mechanics, 'title': 'Mechanics'},
+    {'icon': NavIcons.settings, 'title': 'Notifications'},
   ];
 
   @override

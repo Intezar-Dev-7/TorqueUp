@@ -51,7 +51,9 @@ class CustomAppBar extends StatelessWidget {
               borderRadius: BorderRadius.circular(50),
             ),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+
+              },
               icon: const Icon(Icons.notifications_none),
             ),
           ),

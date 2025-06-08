@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/admin/widgets/side_navigation_bar.dart';
+import 'package:frontend/features/auth/screens/login_screen.dart';
 import 'package:frontend/features/receptionist/receptionist_main.dart';
+
+import 'features/receptionist/screens/customer_screen.dart';
 
 void main() {
   runApp(MyApp());

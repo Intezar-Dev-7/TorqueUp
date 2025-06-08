@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/features/receptionist/screens/customer_screen.dart';
 import 'package:frontend/features/receptionist/screens/dashboard_screen.dart';
+import 'package:frontend/features/receptionist/screens/notification_screen.dart';
 import '../admin/Bookings/screens/bookings_screen.dart';
-import '../customers/screens/customers_screen.dart';
 import '../admin/Mechanics/screens/mechanics_screen.dart';
 import '../admin/services/screens/services_screen.dart';
 import 'layout/receptionist_scaffold.dart';
@@ -19,9 +20,10 @@ class _ReceptionistMainState extends State<ReceptionistMain> {
   final List<Widget> pages = [
     DashboardScreen(),
     const BookingsScreen(),
-    const CustomersScreen(),
+    const CustomerScreen(),
     const ServicesScreen(),
     const MechanicsScreen(),
+    const NotificationScreen(),
   ];
 
   void onNavItemTap(int index) {

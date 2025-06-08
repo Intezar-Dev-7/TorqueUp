@@ -3,16 +3,8 @@ import '../../../utils/constant.dart';
 final List<dynamic> top_widget_data = [
   {'icon': GenIcons.money, 'title': 'Today\'s Revenue', 'value': 5320},
   {'icon': ServiceIcons.inProgress, 'title': 'Active Services', 'value': 5},
-  {
-    'icon': ServiceIcons.completed,
-    'title': 'Completed Services',
-    'value': 16,
-  },
-  {
-    'icon': ServiceIcons.scheduled,
-    'title': 'Scheduled Services',
-    'value': 14,
-  },
+  {'icon': ServiceIcons.completed, 'title': 'Completed Services', 'value': 16},
+  {'icon': ServiceIcons.scheduled, 'title': 'Scheduled Services', 'value': 14},
 ];
 final List<dynamic> appointments = [
   {
@@ -133,14 +125,14 @@ final List<dynamic> mechanic_availability_data = [
     'Vehicle_no': 'ABC123',
     'time_slot': '12:00 PM - 2:00 PM',
   },
-      {
-      'serial_no': 03,
-      'name': 'Peter Parker',
-      'status': 'idle',
-      'Vehicle': '',
-      'Vehicle_no': '',
-      'time_slot': '',
-    },
+  {
+    'serial_no': 03,
+    'name': 'Peter Parker',
+    'status': 'idle',
+    'Vehicle': '',
+    'Vehicle_no': '',
+    'time_slot': '',
+  },
   {
     'serial_no': 04,
     'name': 'Lamby came',
@@ -149,14 +141,14 @@ final List<dynamic> mechanic_availability_data = [
     'Vehicle_no': 'ABC123',
     'time_slot': '3:00 PM - 5:00 PM',
   },
-      {
-      'serial_no': 05,
-      'name': 'Michele',
-      'status': 'idle',
-      'Vehicle': '',
-      'Vehicle_no': '',
-      'time_slot': '',
-    },
+  {
+    'serial_no': 05,
+    'name': 'Michele',
+    'status': 'idle',
+    'Vehicle': '',
+    'Vehicle_no': '',
+    'time_slot': '',
+  },
 ];
 final inventory_item = [
   {
@@ -165,7 +157,6 @@ final inventory_item = [
     'name': 'Castrol Active',
     'desc': '20W-40',
     'available': 19,
-
   },
   {
     'serial_no': 02,
@@ -180,5 +171,74 @@ final inventory_item = [
     'name': 'Motul Oil',
     'desc': '4T 20W-40',
     'available': 24,
+  },
+];
+final List<Map<String, String>> customers = const [
+  {
+    'id': '01',
+    'name': 'Hemant Sahu',
+    'phone': '8243294872',
+    'email': 'hemantsahu123@gmail.com',
+    'address': 'schema 103 kesar bag bridge indore',
+    'vehicles': 'CT100, TATA Curvv, Honda Shine 125',
+  },
+  {
+    'id': '02',
+    'name': 'Rajaram Sahu',
+    'phone': '8243294872',
+    'email': 'rajaramsahu123@gmail.com',
+    'address': 'schema 103 kesar bag bridge indore',
+    'vehicles': 'CT100, TATA Curvv, Honda Shine 125',
+  },
+  {
+    'id': '03',
+    'name': 'Sourabh kori',
+    'phone': '8243294872',
+    'email': 'sourabhkori123@gmail.com',
+    'address': 'schema 103 kesar bag bridge indore',
+    'vehicles': 'CT100, TATA Curvv, Honda Shine 125',
+  },
+  {
+    'id': '04',
+    'name': 'Vivek Ahirwar',
+    'phone': '8243294872',
+    'email': 'vivekahir123@gmail.com',
+    'address': 'schema 103 kesar bag bridge indore',
+    'vehicles': 'CT100, TATA Curvv, Honda Shine 125',
+  },
+];
+final List<Map<String, dynamic>> notification_data = [
+  {
+    'id': '01',
+    'title': 'New Booking',
+    'type': 'Booking',
+    'time': '10:00 AM',
+    'desc': 'New booking for Honda Shine 125',
+    'read': false,
+  },
+  {
+    'id': '02',
+    'title': 'MP05MV6802',
+    'type': 'Invoice',
+    'time': '11:20 AM',
+    'desc': 'General service invoice for Bajaj CT100',
+    'read': true,
+  },
+  {
+    'id': '03',
+    'title': 'MP05MV6802',
+    'type': 'Repairing',
+    'time': '11:50 AM',
+    'desc': 'Honda Shine 125 repairing work',
+    'read': false,
+  },
+  {
+    'id': '04',
+    'title': 'New Booking',
+    'type': 'Booking',
+    'time': '10:00 AM',
+    'desc':
+        'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here,content here making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident',
+    'read': false,
   },
 ];
