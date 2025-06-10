@@ -22,6 +22,7 @@ class GenIcons{
   static String appLogoTrans = 'assets/appLogo/TorqueUpLogoTrans.png';
   static String remove = 'assets/general_icons/remove.png';
   static String add = 'assets/general_icons/add.png';
+  static String ticket = 'assets/general_icons/ticket.png';
 }
 class GenImages{
   static String apollo = 'assets/images/gen_images/apollo.png';

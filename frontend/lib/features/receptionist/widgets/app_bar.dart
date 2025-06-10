@@ -4,35 +4,38 @@ import 'package:frontend/utils/colors.dart';
 class CustomAppBar extends StatelessWidget {
   final String title;
 
-  const CustomAppBar({super.key, required this.title});
+  const CustomAppBar({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.grey,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
       height: 60,
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      decoration: BoxDecoration(
+        color: AppColors.grey,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 3,
+            offset: Offset(0, 1),
+          ),
+        ],
+      ),
       child: Row(
         children: [
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const Text(
-                  "Let's check your Garage today",
-                  style: TextStyle(fontSize: 12, color: Colors.grey),
-                ),
-              ],
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
             ),
           ),
+          Spacer(),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 6),
             decoration: BoxDecoration(

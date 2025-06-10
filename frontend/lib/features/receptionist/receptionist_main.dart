@@ -7,14 +7,14 @@ import '../admin/Mechanics/screens/mechanics_screen.dart';
 import '../admin/services/screens/services_screen.dart';
 import 'layout/receptionist_scaffold.dart';
 
-class ReceptionistMain extends StatefulWidget {
-  const ReceptionistMain({super.key});
+class ReceptionistMainScreen extends StatefulWidget {
+  const ReceptionistMainScreen({super.key});
 
   @override
-  State<ReceptionistMain> createState() => _ReceptionistMainState();
+  _ReceptionistMainScreenState createState() => _ReceptionistMainScreenState();
 }
 
-class _ReceptionistMainState extends State<ReceptionistMain> {
+class _ReceptionistMainScreenState extends State<ReceptionistMainScreen> {
   int selectedIndex = 0;
 
   final List<Widget> pages = [
@@ -26,16 +26,16 @@ class _ReceptionistMainState extends State<ReceptionistMain> {
     const NotificationScreen(),
   ];
 
-  void onNavItemTap(int index) {
-    setState(() => selectedIndex = index);
-  }
-
   @override
   Widget build(BuildContext context) {
     return ReceptionistScaffold(
-      body: pages[selectedIndex],
-      onItemSelected: onNavItemTap,
       selectedIndex: selectedIndex,
+      onItemSelected: (index) {
+        setState(() {
+          selectedIndex = index;
+        });
+      },
+      body: pages[selectedIndex],
     );
   }
 }

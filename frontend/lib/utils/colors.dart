@@ -5,4 +5,5 @@ class AppColors{
   static final Color grey30 = Color(0xFFA0AEC0);
   static final Color white = Color(0xFFFFFFFF);
   static final Color black = Color(0xFF000000);
+  static final Color transparent = Colors.transparent;
 }
