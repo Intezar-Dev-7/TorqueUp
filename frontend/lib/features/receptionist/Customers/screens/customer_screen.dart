@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/receptionist/widgets/cus_elevated_button.dart';
 import 'package:frontend/utils/colors.dart';
-import '../data/dummy_data.dart';
-import '../widgets/cus_search_filter.dart';
+import '../../data/dummy_data.dart';
+import '../../widgets/cus_search_filter.dart';
 import '../widgets/customer_card.dart';
 
 class CustomerScreen extends StatefulWidget {

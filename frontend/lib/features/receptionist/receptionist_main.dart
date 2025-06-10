@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/features/receptionist/screens/customer_screen.dart';
-import 'package:frontend/features/receptionist/screens/dashboard_screen.dart';
-import 'package:frontend/features/receptionist/screens/notification_screen.dart';
+import 'package:frontend/features/receptionist/Customers/screens/customer_screen.dart';
+import 'package:frontend/features/receptionist/Dashboard/screens/dashboard_screen.dart';
+import 'package:frontend/features/receptionist/Notifications/screens/notification_screen.dart';
 import '../admin/Bookings/screens/bookings_screen.dart';
 import '../admin/Mechanics/screens/mechanics_screen.dart';
 import '../admin/services/screens/services_screen.dart';
