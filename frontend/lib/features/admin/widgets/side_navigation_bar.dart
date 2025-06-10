@@ -16,6 +16,8 @@ import 'package:frontend/features/receptionist/screens/customer_screen.dart';
 import 'package:frontend/features/receptionist/screens/services_screen.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../customers/screens/customers_screen.dart';
+
 class SideNavigationBar extends StatefulWidget {
   const SideNavigationBar({super.key});
 
@@ -141,7 +143,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
               children: const [
                 DashBoardScreen(),
                 BookingsScreen(),
-                CustomerScreen(),
+                CustomersScreen(),
                 ServicesScreen(),
                 MechanicsScreen(),
                 InventoryScreen(),

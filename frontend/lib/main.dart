@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/features/admin/widgets/side_navigation_bar.dart';
+import 'package:frontend/features/receptionist/receptionist_main.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,8 +16,9 @@ class MyApp extends StatelessWidget {
       title: 'TorqueUp',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        textTheme: GoogleFonts.interTextTheme(),
       ),
-      home: SideNavigationBar(),
+      home: ReceptionistMainScreen(),
     );
   }
 }
