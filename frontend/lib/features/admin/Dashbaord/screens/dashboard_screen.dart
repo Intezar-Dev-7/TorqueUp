@@ -4,7 +4,8 @@ import 'package:frontend/features/admin/Dashbaord/widgets/custom_container.dart'
 import 'package:frontend/features/admin/Dashbaord/widgets/inventory_alert_widget.dart';
 import 'package:frontend/features/admin/Dashbaord/widgets/mechanics_availability_widget.dart';
 import 'package:frontend/features/admin/Dashbaord/widgets/revenue_widget.dart';
-import 'package:frontend/features/admin/widgets/todays_booking_widget.dart';
+import 'package:frontend/features/admin/Dashbaord/widgets/todays_booking_widget.dart';
+
 import 'package:iconsax/iconsax.dart';
 
 class DashBoardScreen extends StatefulWidget {
