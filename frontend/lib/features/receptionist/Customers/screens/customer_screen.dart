@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/features/receptionist/widgets/cus_elevated_button.dart';
+import 'package:frontend/common/widgets/custom_elevated_button.dart';
 import 'package:frontend/utils/colors.dart';
 import '../../data/dummy_data.dart';
-import '../../widgets/cus_search_filter.dart';
+import '../../../../common/widgets/cus_search_filter.dart';
 import '../widgets/customer_card.dart';
 
 class CustomerScreen extends StatefulWidget {
@@ -21,28 +21,31 @@ class _CustomerScreenState extends State<CustomerScreen> {
       appBar: AppBar(
         toolbarHeight: 80,
         backgroundColor: AppColors.grey,
-        title: cus_search_filter(searchText: 'Search customer by name,email...', button: CusElevatedButton(buttonText: 'Add Customer', onPressed: (){}),)
+        title: cus_search_filter(
+          searchText: 'Search customer by name,email...',
+          button: CustomElevatedButton(text: 'Add Customer', onPressed: () {}),
+        ),
       ),
       body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Customer List
-            Expanded(
-              child: ListView.builder(
-                itemCount: customers.length,
-                itemBuilder: (context, index) {
-                  final customer = customers[index];
-                  return InkWell(
-                    onTap: ()=> setState(() => selected = index),
-                    child: CustomerCard(
-                      customer: customer,
-                      isSelected: selected == index,
-                    ),
-                  );
-                },
-              ),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Customer List
+          Expanded(
+            child: ListView.builder(
+              itemCount: customers.length,
+              itemBuilder: (context, index) {
+                final customer = customers[index];
+                return InkWell(
+                  onTap: () => setState(() => selected = index),
+                  child: CustomerCard(
+                    customer: customer,
+                    isSelected: selected == index,
+                  ),
+                );
+              },
             ),
-          ],
+          ),
+        ],
       ),
     );
   }
