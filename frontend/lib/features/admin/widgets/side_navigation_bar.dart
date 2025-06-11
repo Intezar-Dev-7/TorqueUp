@@ -12,7 +12,6 @@ import 'package:frontend/features/admin/Inventory/screens/inventory_screen.dart'
 import 'package:frontend/features/admin/Mechanics/screens/mechanics_screen.dart';
 import 'package:frontend/features/admin/ReportsAndAnalytics/screens/reports_and_analytics_screen.dart';
 import 'package:frontend/features/admin/Settings/screens/settings_screen.dart';
-import 'package:frontend/features/receptionist/Customers/screens/customer_screen.dart';
 import 'package:frontend/features/receptionist/Services/screens/services_screen.dart';
 import 'package:iconsax/iconsax.dart';
 

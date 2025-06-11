@@ -95,7 +95,7 @@ class _TodaysBookingWidgetState extends State<TodaysBookingWidget> {
                                 cells: [
                                   DataCell(
                                     Text(
-                                      appt["sno"],
+                                      appt.serialNo,
                                       style: TextStyle(fontSize: 12),
                                     ),
                                   ),
@@ -107,11 +107,11 @@ class _TodaysBookingWidgetState extends State<TodaysBookingWidget> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          appt["vehicle"],
+                                          appt.vehicle,
                                           style: TextStyle(fontSize: 12),
                                         ),
                                         Text(
-                                          appt["number"],
+                                          appt.vehicle,
                                           style: const TextStyle(
                                             fontSize: 10,
                                             color: Colors.grey,
@@ -122,29 +122,29 @@ class _TodaysBookingWidgetState extends State<TodaysBookingWidget> {
                                   ),
                                   DataCell(
                                     Text(
-                                      appt["owner"],
+                                      appt.owner,
                                       style: TextStyle(fontSize: 12),
                                     ),
                                   ),
                                   DataCell(
                                     Text(
-                                      appt["work"],
+                                      appt.work,
                                       style: TextStyle(fontSize: 12),
                                     ),
                                   ),
                                   DataCell(
                                     Text(
-                                      appt["slot"],
+                                      appt.timeSlot,
                                       style: TextStyle(fontSize: 12),
                                     ),
                                   ),
                                   DataCell(
                                     Icon(
-                                      appt["status"] == "done"
+                                      appt.status == "done"
                                           ? Icons.check_circle
                                           : Icons.access_time,
                                       color:
-                                          appt["status"] == "done"
+                                          appt.status == "done"
                                               ? Colors.green
                                               : Colors.orange,
                                     ),

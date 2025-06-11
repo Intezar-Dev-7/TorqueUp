@@ -6,7 +6,7 @@ import 'package:frontend/utils/colors.dart';
 import '../../data/dummy_data.dart';
 
 class DashboardScreen extends StatelessWidget {
-  DashboardScreen({super.key});
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

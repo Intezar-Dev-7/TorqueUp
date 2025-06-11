@@ -3,9 +3,13 @@ import 'package:frontend/features/receptionist/data/dummy_data.dart';
 import 'package:frontend/utils/colors.dart';
 
 class MechanicsAvailabilityWidget extends StatelessWidget {
+  const MechanicsAvailabilityWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
+      height: 266,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
@@ -81,42 +85,42 @@ class MechanicsAvailabilityWidget extends StatelessWidget {
                       ),
                     ],
                     rows:
-                        mechanic_availability_data
+                        mechanics
                             .take(3)
                             .map(
                               (mechanic) => DataRow(
                                 cells: [
                                   DataCell(
                                     Text(
-                                      mechanic['serial_no'].toString(),
+                                      mechanic.serialNo,
                                       style: TextStyle(fontSize: 12),
                                     ),
                                   ),
                                   DataCell(
                                     Text(
-                                      mechanic['name'],
+                                      mechanic.name,
                                       style: TextStyle(fontSize: 12),
                                     ),
                                   ),
                                   DataCell(
                                     Text(
-                                      mechanic['status'],
+                                      mechanic.status,
                                       style: TextStyle(fontSize: 12),
                                     ),
                                   ),
                                   DataCell(
                                     Text(
-                                      mechanic['Vehicle'].isEmpty
+                                      mechanic.workOnVehicle.isEmpty
                                           ? '- - - - - - - - '
-                                          : mechanic['Vehicle'],
+                                          : mechanic.workOnVehicle,
                                       style: TextStyle(fontSize: 12),
                                     ),
                                   ),
                                   DataCell(
                                     Text(
-                                      mechanic['time_slot'].isEmpty
+                                      mechanic.timeSlot.isEmpty
                                           ? '- - - - - - - - - - - - -'
-                                          : mechanic['time_slot'],
+                                          : mechanic.timeSlot,
                                       style: TextStyle(fontSize: 12),
                                     ),
                                   ),

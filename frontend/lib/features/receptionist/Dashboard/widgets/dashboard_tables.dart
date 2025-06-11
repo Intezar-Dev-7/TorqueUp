@@ -5,6 +5,8 @@ import 'package:frontend/features/receptionist/Dashboard/widgets/todays_appointm
 import 'package:frontend/utils/colors.dart';
 
 class DashboardTables extends StatelessWidget {
+  const DashboardTables({super.key});
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;

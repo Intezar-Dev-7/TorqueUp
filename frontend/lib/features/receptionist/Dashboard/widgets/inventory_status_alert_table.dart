@@ -4,12 +4,13 @@ import '../../data/dummy_data.dart';
 import '../../model/inventory_item_model.dart';
 
 class InventoryStatusTable extends StatefulWidget {
+  const InventoryStatusTable({super.key});
+
   @override
   _InventoryStatusTableState createState() => _InventoryStatusTableState();
 }
 
 class _InventoryStatusTableState extends State<InventoryStatusTable> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,11 +29,7 @@ class _InventoryStatusTableState extends State<InventoryStatusTable> {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildHeader(),
-          _buildTableHeader(),
-          _buildInventoryList(),
-        ],
+        children: [_buildHeader(), _buildTableHeader(), _buildInventoryList()],
       ),
     );
   }
@@ -48,11 +45,7 @@ class _InventoryStatusTableState extends State<InventoryStatusTable> {
               color: Colors.red[50],
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(
-              Icons.warning,
-              color: Colors.red,
-              size: 18,
-            ),
+            child: Icon(Icons.warning, color: Colors.red, size: 18),
           ),
           SizedBox(width: 12),
           Text(
@@ -149,12 +142,7 @@ class _InventoryStatusTableState extends State<InventoryStatusTable> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Colors.grey[100]!,
-            width: 1,
-          ),
-        ),
+        border: Border(bottom: BorderSide(color: Colors.grey[100]!, width: 1)),
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -207,10 +195,7 @@ class _InventoryStatusTableState extends State<InventoryStatusTable> {
                   SizedBox(height: 2),
                   Text(
                     item.productCode,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey[500],
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey[500]),
                   ),
                 ],
               ),
@@ -233,16 +218,10 @@ class _InventoryStatusTableState extends State<InventoryStatusTable> {
         ),
 
         // Add Quantity Controls
-        Expanded(
-          flex: 2,
-          child: _buildQuantityControls(item),
-        ),
+        Expanded(flex: 2, child: _buildQuantityControls(item)),
 
         // Add to Cart Button
-        Expanded(
-          flex: 2,
-          child: _buildAddButton(),
-        ),
+        Expanded(flex: 2, child: _buildAddButton()),
       ],
     );
   }
@@ -320,10 +299,7 @@ class _InventoryStatusTableState extends State<InventoryStatusTable> {
           children: [
             Spacer(),
             // Add Quantity Controls
-            Expanded(
-              flex: 2,
-              child: _buildQuantityControls(item),
-            ),
+            Expanded(flex: 2, child: _buildQuantityControls(item)),
             SizedBox(width: 12),
             // Add to Cart Button
             _buildAddButton(),
@@ -358,11 +334,7 @@ class _InventoryStatusTableState extends State<InventoryStatusTable> {
         color: backgroundColor,
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Icon(
-        iconData,
-        color: iconColor,
-        size: 20,
-      ),
+      child: Icon(iconData, color: iconColor, size: 20),
     );
   }
 
@@ -425,11 +397,7 @@ class _InventoryStatusTableState extends State<InventoryStatusTable> {
           color: color,
           borderRadius: BorderRadius.circular(4),
         ),
-        child: Icon(
-          icon,
-          color: Colors.white,
-          size: 16,
-        ),
+        child: Icon(icon, color: Colors.white, size: 16),
       ),
     );
   }

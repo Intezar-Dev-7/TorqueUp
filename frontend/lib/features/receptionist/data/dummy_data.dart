@@ -11,21 +11,21 @@ final List<dynamic> top_widget_data = [
 ];
 final inventory_item = [
   {
-    'serial_no': 01,
+    'serial_no': 1,
     'image': GenImages.castrol,
     'name': 'Castrol Active',
     'desc': '20W-40',
     'available': 19,
   },
   {
-    'serial_no': 02,
+    'serial_no': 2,
     'image': GenImages.apollo,
     'name': 'Apollo Tyre',
     'desc': '190/70',
     'available': 29,
   },
   {
-    'serial_no': 03,
+    'serial_no': 3,
     'image': GenImages.motul,
     'name': 'Motul Oil',
     'desc': '4T 20W-40',
@@ -195,23 +195,23 @@ final List<AppointmentData> appointments = [
 
 final List<MechanicData> mechanics = [
   MechanicData(
-    "01",
+    "1",
     "Mechanic one",
     "Working",
     "MP05\nMV6802",
     "10:30AM - 12:30PM",
   ),
-  MechanicData("02", "Mechanic one", "Idle", "-------", "----------------"),
+  MechanicData("2", "Mechanic one", "Idle", "-------", "----------------"),
   MechanicData(
-    "03",
+    "3",
     "Mechanic one",
     "Working",
     "MP05\nMV6802",
     "10:30AM - 12:30PM",
   ),
-  MechanicData("04", "Mechanic one", "Idle", "-------", "----------------"),
+  MechanicData("4", "Mechanic one", "Idle", "-------", "----------------"),
   MechanicData(
-    "05",
+    "5",
     "Mechanic one",
     "Working",
     "MP05\nMV6802",
