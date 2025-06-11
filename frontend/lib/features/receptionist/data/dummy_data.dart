@@ -1,154 +1,13 @@
 import '../../../utils/constant.dart';
+import '../model/appointment_model.dart';
+import '../model/inventory_item_model.dart';
+import '../model/mechanics_model.dart';
 
 final List<dynamic> top_widget_data = [
   {'icon': GenIcons.money, 'title': 'Today\'s Revenue', 'value': 5320},
   {'icon': ServiceIcons.inProgress, 'title': 'Active Services', 'value': 5},
   {'icon': ServiceIcons.completed, 'title': 'Completed Services', 'value': 16},
   {'icon': ServiceIcons.scheduled, 'title': 'Scheduled Services', 'value': 14},
-];
-final List<dynamic> appointments = [
-  {
-    "sno": "1",
-    "vehicle": "Tata Safari",
-    "number": "MP05MV6802",
-    "owner": "Raja Ram..",
-    "work": "Gen. Serv.",
-    "slot": "10-11",
-    "status": "done",
-  },
-  {
-    "sno": "2",
-    "vehicle": "Tata Curvv",
-    "number": "MP05MV6802",
-    "owner": "Hemant s..",
-    "work": "Repairing.",
-    "slot": "11-1",
-    "status": "pending",
-  },
-  {
-    "sno": "3",
-    "vehicle": "CT 100 ES",
-    "number": "MP05MV6802",
-    "owner": "Hemant s..",
-    "work": "Gen. Serv.",
-    "slot": "1-2",
-    "status": "pending",
-  },
-  {
-    "sno": "04",
-    "vehicle": "Shine 125",
-    "number": "MP05MV6802",
-    "owner": "Bhupendr..",
-    "work": "Gen. Serv.",
-    "slot": "2-3",
-    "status": "pending",
-  },
-  {
-    "sno": "05",
-    "vehicle": "Tata Safari",
-    "number": "MP05MV6802",
-    "owner": "Raja Ram..",
-    "work": "Gen. Serv.",
-    "slot": "3-4",
-    "status": "done",
-  },
-  {
-    "sno": "06",
-    "vehicle": "Tata Curvv",
-    "number": "MP05MV6802",
-    "owner": "Hemant s..",
-    "work": "Repairing.",
-    "slot": "4-6",
-    "status": "pending",
-  },
-  {
-    "sno": "7",
-    "vehicle": "CT 100 ES",
-    "number": "MP05MV6802",
-    "owner": "Hemant s..",
-    "work": "Gen. Serv.",
-    "slot": "6-7",
-    "status": "pending",
-  },
-  {
-    "sno": "8",
-    "vehicle": "Tata Safari",
-    "number": "MP05MV6802",
-    "owner": "Raja Ram..",
-    "work": "Gen. Serv.",
-    "slot": "7-8",
-    "status": "done",
-  },
-  {
-    "sno": "9",
-    "vehicle": "Tata Curvv",
-    "number": "MP05MV6802",
-    "owner": "Hemant s..",
-    "work": "Repairing.",
-    "slot": "8-10",
-    "status": "pending",
-  },
-  {
-    "sno": "10",
-    "vehicle": "CT 100 ES",
-    "number": "MP05MV6802",
-    "owner": "Hemant s..",
-    "work": "Gen. Serv.",
-    "slot": "10-11",
-    "status": "pending",
-  },
-  {
-    "sno": "11",
-    "vehicle": "Shine 125",
-    "number": "MP05MV6802",
-    "owner": "Bhupendr..",
-    "work": "Gen. Serv.",
-    "slot": "Tom.",
-    "status": "pending",
-  },
-];
-
-final List<dynamic> mechanic_availability_data = [
-  {
-    'serial_no': 01,
-    'name': 'John Doe',
-    'status': 'Working',
-    'Vehicle': 'Toyota Camry',
-    'Vehicle_no': 'ABC123',
-    'time_slot': '10:00 AM - 12:00 PM',
-  },
-  {
-    'serial_no': 02,
-    'name': 'Alex Smith',
-    'status': 'Working',
-    'Vehicle': 'Range rover',
-    'Vehicle_no': 'ABC123',
-    'time_slot': '12:00 PM - 2:00 PM',
-  },
-  {
-    'serial_no': 03,
-    'name': 'Peter Parker',
-    'status': 'idle',
-    'Vehicle': '',
-    'Vehicle_no': '',
-    'time_slot': '',
-  },
-  {
-    'serial_no': 04,
-    'name': 'Lamby came',
-    'status': 'Working',
-    'Vehicle': 'Toyota Camry',
-    'Vehicle_no': 'ABC123',
-    'time_slot': '3:00 PM - 5:00 PM',
-  },
-  {
-    'serial_no': 05,
-    'name': 'Michele',
-    'status': 'idle',
-    'Vehicle': '',
-    'Vehicle_no': '',
-    'time_slot': '',
-  },
 ];
 final inventory_item = [
   {
@@ -241,4 +100,150 @@ final List<Map<String, dynamic>> notification_data = [
         'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here,content here making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident',
     'read': false,
   },
+];
+
+final List<AppointmentData> appointments = [
+  AppointmentData(
+    "01",
+    "Tata Safari",
+    "Raja Ram.",
+    "Gen. Serv.",
+    "10-11",
+    AppointmentStatus.completed,
+  ),
+  AppointmentData(
+    "02",
+    "Tata Curvv",
+    "Hemant s.",
+    "Repairing",
+    "11-1",
+    AppointmentStatus.inProgress,
+  ),
+  AppointmentData(
+    "03",
+    "CT 100 ES",
+    "Hemant s.",
+    "Gen. Serv.",
+    "1-2",
+    AppointmentStatus.inProgress,
+  ),
+  AppointmentData(
+    "04",
+    "Shine 125",
+    "Bhupendr.",
+    "Gen. Serv.",
+    "2-3",
+    AppointmentStatus.inProgress,
+  ),
+  AppointmentData(
+    "05",
+    "Tata Safari",
+    "Raja Ram.",
+    "Gen. Serv.",
+    "3-4",
+    AppointmentStatus.completed,
+  ),
+  AppointmentData(
+    "06",
+    "Tata Curvv",
+    "Hemant s.",
+    "Repairing",
+    "4-6",
+    AppointmentStatus.inProgress,
+  ),
+  AppointmentData(
+    "07",
+    "CT 100 ES",
+    "Hemant s.",
+    "Gen. Serv.",
+    "6-7",
+    AppointmentStatus.inProgress,
+  ),
+  AppointmentData(
+    "08",
+    "Tata Safari",
+    "Raja Ram.",
+    "Gen. Serv.",
+    "7-8",
+    AppointmentStatus.completed,
+  ),
+  AppointmentData(
+    "09",
+    "Tata Curvv",
+    "Hemant s.",
+    "Repairing",
+    "8-10",
+    AppointmentStatus.inProgress,
+  ),
+  AppointmentData(
+    "10",
+    "CT 100 ES",
+    "Hemant s.",
+    "Gen. Serv.",
+    "10-11",
+    AppointmentStatus.inProgress,
+  ),
+  AppointmentData(
+    "11",
+    "Shine 125",
+    "Bhupendr.",
+    "Gen. Serv.",
+    "Tom",
+    AppointmentStatus.inProgress,
+  ),
+];
+
+final List<MechanicData> mechanics = [
+  MechanicData(
+    "01",
+    "Mechanic one",
+    "Working",
+    "MP05\nMV6802",
+    "10:30AM - 12:30PM",
+  ),
+  MechanicData("02", "Mechanic one", "Idle", "-------", "----------------"),
+  MechanicData(
+    "03",
+    "Mechanic one",
+    "Working",
+    "MP05\nMV6802",
+    "10:30AM - 12:30PM",
+  ),
+  MechanicData("04", "Mechanic one", "Idle", "-------", "----------------"),
+  MechanicData(
+    "05",
+    "Mechanic one",
+    "Working",
+    "MP05\nMV6802",
+    "10:30AM - 12:30PM",
+  ),
+];
+final List<InventoryItem> inventoryItems = [
+  InventoryItem(
+    serialNo: "01",
+    productName: "Castrol Active",
+    productCode: "20W-40",
+    availableQuantity: 29,
+    addQuantity: 5,
+    productImage: "assets/castrol_oil.png", // You can replace with actual asset
+    productType: ProductType.oil,
+  ),
+  InventoryItem(
+    serialNo: "02",
+    productName: "Apollo Tyre",
+    productCode: "190/70",
+    availableQuantity: 29,
+    addQuantity: 5,
+    productImage: "assets/apollo_tyre.png", // You can replace with actual asset
+    productType: ProductType.tyre,
+  ),
+  InventoryItem(
+    serialNo: "03",
+    productName: "Motul Oil",
+    productCode: "4T 20W-40",
+    availableQuantity: 29,
+    addQuantity: 5,
+    productImage: "assets/motul_oil.png", // You can replace with actual asset
+    productType: ProductType.oil,
+  ),
 ];

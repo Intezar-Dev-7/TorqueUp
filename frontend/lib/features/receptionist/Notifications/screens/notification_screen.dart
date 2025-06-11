@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/colors.dart';
-import '../data/dummy_data.dart';
+import '../../../../utils/colors.dart';
+import '../../data/dummy_data.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
