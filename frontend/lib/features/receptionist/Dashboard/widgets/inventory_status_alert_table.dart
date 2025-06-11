@@ -9,11 +9,9 @@ class InventoryStatusTable extends StatefulWidget {
 }
 
 class _InventoryStatusTableState extends State<InventoryStatusTable> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -28,11 +26,7 @@ class _InventoryStatusTableState extends State<InventoryStatusTable> {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildHeader(),
-          _buildTableHeader(),
-          _buildInventoryList(),
-        ],
+        children: [_buildHeader(), _buildTableHeader(), _buildInventoryList()],
       ),
     );
   }
@@ -48,22 +42,20 @@ class _InventoryStatusTableState extends State<InventoryStatusTable> {
               color: Colors.red[50],
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(
-              Icons.warning,
-              color: Colors.red,
-              size: 18,
-            ),
+            child: Icon(Icons.warning, color: Colors.red, size: 18),
           ),
           SizedBox(width: 12),
-          Text(
-            "Inventory status alert",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: Colors.grey[700],
+          Expanded(
+            child: Text(
+              "Inventory status alert",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Colors.grey[700],
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ),
-          Spacer(),
           GestureDetector(
             onTap: () {
               // Handle see all action
@@ -147,14 +139,9 @@ class _InventoryStatusTableState extends State<InventoryStatusTable> {
 
   Widget _buildInventoryRow(InventoryItem item, int index) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Colors.grey[100]!,
-            width: 1,
-          ),
-        ),
+        border: Border(bottom: BorderSide(color: Colors.grey[100]!, width: 1)),
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -207,10 +194,7 @@ class _InventoryStatusTableState extends State<InventoryStatusTable> {
                   SizedBox(height: 2),
                   Text(
                     item.productCode,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey[500],
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey[500]),
                   ),
                 ],
               ),
@@ -233,101 +217,86 @@ class _InventoryStatusTableState extends State<InventoryStatusTable> {
         ),
 
         // Add Quantity Controls
-        Expanded(
-          flex: 2,
-          child: _buildQuantityControls(item),
-        ),
+        Expanded(flex: 2, child: _buildQuantityControls(item)),
 
         // Add to Cart Button
-        Expanded(
-          flex: 2,
-          child: _buildAddButton(),
-        ),
+        Expanded(flex: 2, child: _buildAddButton()),
       ],
     );
   }
 
   Widget _buildCompactRow(InventoryItem item) {
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          children: [
-            // Serial Number
-            Expanded(
-              flex: 1,
-              child: Text(
-                item.serialNo,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey[500],
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-
-            // Product Info
-            Expanded(
-              flex: 3,
-              child: Row(
-                children: [
-                  _buildProductIcon(item.productType),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          item.productName,
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.grey[800],
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          item.productCode,
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: Colors.grey[500],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            // Available Quantity
-            Expanded(
-              flex: 2,
-              child: Text(
-                item.availableQuantity.toString(),
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.grey[700],
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
+        // Serial Number
+        Text(
+          item.serialNo,
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.grey[500],
+            fontWeight: FontWeight.w500,
+          ),
         ),
-        SizedBox(height: 12),
-        Row(
-          children: [
-            Spacer(),
-            // Add Quantity Controls
-            Expanded(
-              flex: 2,
-              child: _buildQuantityControls(item),
-            ),
-            SizedBox(width: 12),
-            // Add to Cart Button
-            _buildAddButton(),
-          ],
+        SizedBox(
+          width: 8,
+        ),
+        // Product Info
+        Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _buildProductIcon(item.productType),
+              SizedBox(width: 8),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      item.productName,
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey[800],
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      item.productCode,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey[500],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        // Available Quantity
+        Text(
+          item.availableQuantity.toString(),
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: Colors.grey[700],
+          ),
+          textAlign: TextAlign.center,
+        ),
+        Expanded(
+          child: Column(
+            children: [
+              // Add Quantity Controls
+              _buildQuantityControls(item),
+              SizedBox(height: 6,),
+              // Add to Cart Button
+              _buildAddButton(),
+            ],
+          ),
         ),
       ],
     );
@@ -358,11 +327,7 @@ class _InventoryStatusTableState extends State<InventoryStatusTable> {
         color: backgroundColor,
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Icon(
-        iconData,
-        color: iconColor,
-        size: 20,
-      ),
+      child: Icon(iconData, color: iconColor, size: 20),
     );
   }
 
@@ -425,11 +390,7 @@ class _InventoryStatusTableState extends State<InventoryStatusTable> {
           color: color,
           borderRadius: BorderRadius.circular(4),
         ),
-        child: Icon(
-          icon,
-          color: Colors.white,
-          size: 16,
-        ),
+        child: Icon(icon, color: Colors.white, size: 16),
       ),
     );
   }

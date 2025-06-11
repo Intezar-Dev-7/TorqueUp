@@ -5,9 +5,10 @@ import '../../model/appointment_model.dart';
 class TodaysAppointmentsTable extends StatelessWidget {
   const TodaysAppointmentsTable({super.key});
 
-
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    final bool isMobile = screenWidth < 600; // Phone
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -35,7 +36,11 @@ class TodaysAppointmentsTable extends StatelessWidget {
                     color: Colors.green[100],
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Icon(Icons.calendar_today, color: Colors.green, size: 16),
+                  child: Icon(
+                    Icons.calendar_today,
+                    color: Colors.green,
+                    size: 16,
+                  ),
                 ),
                 SizedBox(width: 12),
                 Text(
@@ -44,7 +49,7 @@ class TodaysAppointmentsTable extends StatelessWidget {
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: Colors.grey[700],
-                    overflow: TextOverflow.ellipsis
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 Spacer(),
@@ -73,10 +78,22 @@ class TodaysAppointmentsTable extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(flex: 1, child: Text("S. No", style: _headerStyle())),
-                Expanded(flex: 2, child: Text("Vehicle", style: _headerStyle())),
-                Expanded(flex: 2, child: Text("Owner", style: _headerStyle())),
+                Expanded(
+                  flex: 2,
+                  child: Text("Vehicle", style: _headerStyle()),
+                ),
+                Visibility(
+                  visible: !isMobile,
+                  child: Expanded(
+                    flex: 2,
+                    child: Text("Owner", style: _headerStyle()),
+                  ),
+                ),
                 Expanded(flex: 2, child: Text("Work", style: _headerStyle())),
-                Expanded(flex: 1, child: Text("Time Slot", style: _headerStyle())),
+                Expanded(
+                  flex: 1,
+                  child: Text("Time Slot", style: _headerStyle()),
+                ),
                 Expanded(flex: 1, child: Text("Status", style: _headerStyle())),
               ],
             ),
@@ -87,7 +104,7 @@ class TodaysAppointmentsTable extends StatelessWidget {
             child: ListView.builder(
               itemCount: appointments.length,
               itemBuilder: (context, index) {
-                return _buildAppointmentRow(appointments[index]);
+                return _buildAppointmentRow(appointments[index],isMobile);
               },
             ),
           ),
@@ -96,13 +113,11 @@ class TodaysAppointmentsTable extends StatelessWidget {
     );
   }
 
-  Widget _buildAppointmentRow(AppointmentData appointment) {
+  Widget _buildAppointmentRow(AppointmentData appointment,bool isMobile) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: Colors.grey[100]!, width: 1),
-        ),
+        border: Border(bottom: BorderSide(color: Colors.grey[100]!, width: 1)),
       ),
       child: Row(
         children: [
@@ -132,21 +147,18 @@ class TodaysAppointmentsTable extends StatelessWidget {
                 ),
                 Text(
                   "MP05MW6802",
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: Colors.grey[500],
-                  ),
+                  style: TextStyle(fontSize: 11, color: Colors.grey[500]),
                 ),
               ],
             ),
           ),
-          Expanded(
-            flex: 2,
-            child: Text(
-              appointment.owner,
-              style: TextStyle(
-                fontSize: 13,
-                color: Colors.grey[600],
+          Visibility(
+            visible: !isMobile,
+            child: Expanded(
+              flex: 2,
+              child: Text(
+                appointment.owner,
+                style: TextStyle(fontSize: 13, color: Colors.grey[600]),
               ),
             ),
           ),
@@ -154,10 +166,7 @@ class TodaysAppointmentsTable extends StatelessWidget {
             flex: 2,
             child: Text(
               appointment.work,
-              style: TextStyle(
-                fontSize: 13,
-                color: Colors.grey[600],
-              ),
+              style: TextStyle(fontSize: 13, color: Colors.grey[600]),
             ),
           ),
           Expanded(
@@ -177,9 +186,10 @@ class TodaysAppointmentsTable extends StatelessWidget {
               width: 24,
               height: 24,
               decoration: BoxDecoration(
-                color: appointment.status == AppointmentStatus.completed
-                    ? Colors.green
-                    : Colors.orange,
+                color:
+                    appointment.status == AppointmentStatus.completed
+                        ? Colors.green
+                        : Colors.orange,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(

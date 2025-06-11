@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/utils/constant.dart';
-import '../../../utils/colors.dart';
-import '../widgets/side_nav_bar.dart';
-import '../widgets/app_bar.dart';
+
+import '../../../../utils/colors.dart';
+import '../app_bar.dart';
+import '../side_nav_bar.dart';
 
 class ReceptionistScaffold extends StatelessWidget {
   final Widget body;

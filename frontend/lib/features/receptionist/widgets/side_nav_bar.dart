@@ -26,17 +26,18 @@ class SideNavBar extends StatelessWidget {
         children: [
           Container(
             padding: EdgeInsets.symmetric(vertical: 20),
-            child: isCollapsed
-                ? Image.asset(
-              GenIcons.appLogo,
-              // width: 40,
-              // height: 40,
-            )
-                : Image.asset(
-              GenIcons.appLogo,
-              // width: 60,
-              // height: 60,
-            ),
+            child:
+                isCollapsed
+                    ? Image.asset(
+                      GenIcons.appLogo,
+                      // width: 40,
+                      // height: 40,
+                    )
+                    : Image.asset(
+                      GenIcons.appLogo,
+                      // width: 60,
+                      // height: 60,
+                    ),
           ),
 
           // Navigation Items
@@ -52,9 +53,10 @@ class SideNavBar extends StatelessWidget {
 
                   return Container(
                     margin: EdgeInsets.symmetric(vertical: 4),
-                    child: isCollapsed
-                        ? _buildCollapsedItem(item, index, isSelected)
-                        : _buildExpandedItem(item, index, isSelected),
+                    child:
+                        isCollapsed
+                            ? _buildCollapsedItem(item, index, isSelected)
+                            : _buildExpandedItem(item, index, isSelected),
                   );
                 }),
               ],
@@ -66,12 +68,27 @@ class SideNavBar extends StatelessWidget {
   }
 
   // Collapsed version (icon only)
-  Widget _buildCollapsedItem(Map<String, dynamic> item, int index, bool isSelected) {
+  Widget _buildCollapsedItem(
+    Map<String, dynamic> item,
+    int index,
+    bool isSelected,
+  ) {
     Widget iconWidget = Container(
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: isSelected ? AppColors.white : Colors.transparent,
+        boxShadow:
+            isSelected
+                ? [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ]
+                : [],
       ),
       child: Image.asset(
         item['icon'],
@@ -98,11 +115,26 @@ class SideNavBar extends StatelessWidget {
   }
 
   // Expanded version (icon + text)
-  Widget _buildExpandedItem(Map<String, dynamic> item, int index, bool isSelected) {
+  Widget _buildExpandedItem(
+    Map<String, dynamic> item,
+    int index,
+    bool isSelected,
+  ) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: isSelected ? AppColors.white : Colors.transparent,
+        boxShadow:
+            isSelected
+                ? [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ]
+                : [],
       ),
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -122,9 +154,7 @@ class SideNavBar extends StatelessWidget {
         ),
         selected: isSelected,
         onTap: () => onTap(index),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
   }
