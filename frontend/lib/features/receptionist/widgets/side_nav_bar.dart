@@ -78,6 +78,17 @@ class SideNavBar extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: isSelected ? AppColors.white : Colors.transparent,
+        boxShadow:
+            isSelected
+                ? [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ]
+                : [],
       ),
       child: Image.asset(
         item['icon'],
@@ -113,6 +124,17 @@ class SideNavBar extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: isSelected ? AppColors.white : Colors.transparent,
+        boxShadow:
+            isSelected
+                ? [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ]
+                : [],
       ),
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),

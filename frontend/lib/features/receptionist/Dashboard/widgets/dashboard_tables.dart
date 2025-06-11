@@ -4,19 +4,29 @@ import 'package:frontend/features/receptionist/Dashboard/widgets/mechanics_avail
 import 'package:frontend/features/receptionist/Dashboard/widgets/todays_appointment_table.dart';
 import 'package:frontend/utils/colors.dart';
 
-class DashboardTables extends StatelessWidget {
-  const DashboardTables({super.key});
+class DashboardTables extends StatefulWidget {
+  @override
+  State<DashboardTables> createState() => _DashboardTablesState();
+}
+
+class _DashboardTablesState extends State<DashboardTables> {
+  int selectedIndex = 0;
+  final List<Widget> tableList = [
+    MechanicsAvailabilityTable(),
+    TodaysAppointmentsTable(),
+    InventoryStatusTable(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    bool isMobile = screenWidth < 1000;
+    bool isCompact = screenWidth < 1000;
     return Scaffold(
       backgroundColor: AppColors.white,
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
+      body: Container(
+        padding: EdgeInsets.all(10),
         child:
-            !isMobile
+            !isCompact
                 ? Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -37,28 +47,55 @@ class DashboardTables extends StatelessWidget {
                     Expanded(flex: 1, child: TodaysAppointmentsTable()),
                   ],
                 )
-                : SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 500,
-                        width: double.infinity,
-                        child: MechanicsAvailabilityTable(),
+                : Column(
+                  children: [
+                    Expanded(child: tableList[selectedIndex]),
+                    SizedBox(height: 10),
+                    Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                      SizedBox(height: 16),
-                      SizedBox(
-                        height: 500,
-                        width: double.infinity,
-                        child: TodaysAppointmentsTable(),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                selectedIndex =
+                                    (selectedIndex - 1) % tableList.length;
+                              });
+                            },
+                            icon: Icon(
+                              Icons.arrow_back_ios,
+                              color: AppColors.grey30,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                selectedIndex =
+                                    (selectedIndex + 1) % tableList.length;
+                              });
+                            },
+                            icon: Icon(
+                              Icons.arrow_forward_ios,
+                              color: AppColors.grey30,
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(height: 16),
-                      SizedBox(
-                        height: 500,
-                        width: double.infinity,
-                        child: InventoryStatusTable(),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
       ),
     );

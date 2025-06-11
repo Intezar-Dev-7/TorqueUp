@@ -7,7 +7,6 @@ import '../../model/mechanics_model.dart';
 class MechanicsAvailabilityTable extends StatelessWidget {
   const MechanicsAvailabilityTable({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,14 +30,18 @@ class MechanicsAvailabilityTable extends StatelessWidget {
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: AppColors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(6),
-                topRight: Radius.circular(6),
-              ),
+              borderRadius:  BorderRadius.circular(8),
             ),
             child: Row(
               children: [
-                Icon(Icons.build, color: Colors.orange, size: 20),
+                Container(
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.orange[50],
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(Icons.build, color: Colors.orange, size: 20),
+                ),
                 SizedBox(width: 8),
                 Text(
                   "Mechanics Availability",
@@ -46,7 +49,7 @@ class MechanicsAvailabilityTable extends StatelessWidget {
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: Colors.grey[700],
-                    overflow: TextOverflow.ellipsis
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 Spacer(),
@@ -73,8 +76,14 @@ class MechanicsAvailabilityTable extends StatelessWidget {
                 Expanded(flex: 1, child: Text("S. No", style: _headerStyle())),
                 Expanded(flex: 2, child: Text("Name", style: _headerStyle())),
                 Expanded(flex: 2, child: Text("Status", style: _headerStyle())),
-                Expanded(flex: 2, child: Text("Work on v.", style: _headerStyle())),
-                Expanded(flex: 1, child: Text("Time Slot", style: _headerStyle())),
+                Expanded(
+                  flex: 2,
+                  child: Text("Work on v.", style: _headerStyle()),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Text("Time Slot", style: _headerStyle()),
+                ),
               ],
             ),
           ),
@@ -92,6 +101,7 @@ class MechanicsAvailabilityTable extends StatelessWidget {
       ),
     );
   }
+
   Widget _buildMechanicRow(MechanicData mechanic, int index) {
     bool isWorking = mechanic.status == "Working";
 
@@ -168,6 +178,7 @@ class MechanicsAvailabilityTable extends StatelessWidget {
       ),
     );
   }
+
   TextStyle _headerStyle() {
     return TextStyle(
       fontSize: 12,

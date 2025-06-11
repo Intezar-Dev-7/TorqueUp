@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:frontend/features/admin/widgets/side_navigation_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'features/receptionist/widgets/layout/receptionist_main.dart';
+
 void main() {
   runApp(MyApp());
 }
