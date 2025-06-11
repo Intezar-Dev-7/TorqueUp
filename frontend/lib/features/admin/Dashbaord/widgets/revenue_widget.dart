@@ -56,20 +56,24 @@ class _RevenueWidgetState extends State<RevenueWidget> {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(8),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                Icon(Iconsax.coin, color: Colors.lightGreenAccent),
+                Image.asset("assets/general_icons/sales.png", width: 25),
                 SizedBox(width: 8),
                 const Text(
                   'Revenue',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.start,
                 ),
-                SizedBox(width: 320),
+                const Spacer(),
                 DropdownButton<String>(
+                  elevation: 2,
+
+                  borderRadius: BorderRadius.circular(15),
                   value: selectedView,
                   items: const [
                     DropdownMenuItem(value: 'Monthly', child: Text('Monthly')),

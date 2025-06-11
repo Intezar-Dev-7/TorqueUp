@@ -8,7 +8,7 @@ final List<dynamic> top_widget_data = [
 ];
 final List<dynamic> appointments = [
   {
-    "sno": "01",
+    "sno": "1",
     "vehicle": "Tata Safari",
     "number": "MP05MV6802",
     "owner": "Raja Ram..",
@@ -17,7 +17,7 @@ final List<dynamic> appointments = [
     "status": "done",
   },
   {
-    "sno": "02",
+    "sno": "2",
     "vehicle": "Tata Curvv",
     "number": "MP05MV6802",
     "owner": "Hemant s..",
@@ -26,7 +26,7 @@ final List<dynamic> appointments = [
     "status": "pending",
   },
   {
-    "sno": "03",
+    "sno": "3",
     "vehicle": "CT 100 ES",
     "number": "MP05MV6802",
     "owner": "Hemant s..",
@@ -62,7 +62,7 @@ final List<dynamic> appointments = [
     "status": "pending",
   },
   {
-    "sno": "07",
+    "sno": "7",
     "vehicle": "CT 100 ES",
     "number": "MP05MV6802",
     "owner": "Hemant s..",
@@ -71,7 +71,7 @@ final List<dynamic> appointments = [
     "status": "pending",
   },
   {
-    "sno": "08",
+    "sno": "8",
     "vehicle": "Tata Safari",
     "number": "MP05MV6802",
     "owner": "Raja Ram..",
@@ -80,7 +80,7 @@ final List<dynamic> appointments = [
     "status": "done",
   },
   {
-    "sno": "09",
+    "sno": "9",
     "vehicle": "Tata Curvv",
     "number": "MP05MV6802",
     "owner": "Hemant s..",

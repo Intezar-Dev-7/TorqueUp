@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:frontend/features/receptionist/data/dummy_data.dart';
 
 class TodaysBookingWidget extends StatefulWidget {
   const TodaysBookingWidget({super.key});
@@ -12,8 +12,8 @@ class _TodaysBookingWidgetState extends State<TodaysBookingWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 390,
-      height: 265,
+      width: double.infinity,
+      height: 266,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(18),
@@ -27,19 +27,20 @@ class _TodaysBookingWidgetState extends State<TodaysBookingWidget> {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                Icon(Iconsax.book_saved, color: Colors.lightGreenAccent),
+                Image.asset("assets/general_icons/ticket.png", width: 25),
                 SizedBox(width: 8),
                 const Text(
                   "Today's Booking",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.start,
                 ),
-                SizedBox(width: 290),
+                const Spacer(),
                 TextButton(
                   onPressed: () {},
                   child: Text(
@@ -48,6 +49,113 @@ class _TodaysBookingWidgetState extends State<TodaysBookingWidget> {
                   ),
                 ),
               ],
+            ),
+            SizedBox(height: 8),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: DataTableTheme(
+                  data: DataTableThemeData(
+                    headingTextStyle: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    dataRowMinHeight: 45, // ↓ default is 56, reduce as needed
+                    dataRowMaxHeight:
+                        45, // ↓ make both min and max same for compact rows
+                  ),
+                  child: DataTable(
+                    columnSpacing:
+                        40, // optional: reduce horizontal spacing too
+                    columns: const [
+                      DataColumn(
+                        label: Text('S. No', style: TextStyle(fontSize: 12)),
+                      ),
+                      DataColumn(
+                        label: Text('Vehicle', style: TextStyle(fontSize: 12)),
+                      ),
+                      DataColumn(
+                        label: Text('Owner', style: TextStyle(fontSize: 12)),
+                      ),
+                      DataColumn(
+                        label: Text('Work', style: TextStyle(fontSize: 12)),
+                      ),
+                      DataColumn(
+                        label: Text('B.Time', style: TextStyle(fontSize: 12)),
+                      ),
+                      DataColumn(
+                        label: Text('Status', style: TextStyle(fontSize: 12)),
+                      ),
+                    ],
+                    rows:
+                        appointments
+                            .take(3)
+                            .map(
+                              (appt) => DataRow(
+                                cells: [
+                                  DataCell(
+                                    Text(
+                                      appt["sno"],
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  DataCell(
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          appt["vehicle"],
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                        Text(
+                                          appt["number"],
+                                          style: const TextStyle(
+                                            fontSize: 10,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  DataCell(
+                                    Text(
+                                      appt["owner"],
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  DataCell(
+                                    Text(
+                                      appt["work"],
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  DataCell(
+                                    Text(
+                                      appt["slot"],
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                  DataCell(
+                                    Icon(
+                                      appt["status"] == "done"
+                                          ? Icons.check_circle
+                                          : Icons.access_time,
+                                      color:
+                                          appt["status"] == "done"
+                                              ? Colors.green
+                                              : Colors.orange,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                            .toList(),
+                  ),
+                ),
+              ),
             ),
           ],
         ),
