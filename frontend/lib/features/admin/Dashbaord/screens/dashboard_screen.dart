@@ -5,8 +5,7 @@ import 'package:frontend/features/admin/Dashbaord/widgets/inventory_alert_widget
 import 'package:frontend/features/admin/Dashbaord/widgets/mechanics_availability_widget.dart';
 import 'package:frontend/features/admin/Dashbaord/widgets/revenue_widget.dart';
 import 'package:frontend/features/admin/Dashbaord/widgets/todays_booking_widget.dart';
-
-import 'package:iconsax/iconsax.dart';
+import 'package:frontend/utils/constant.dart';
 
 class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({super.key});
@@ -25,26 +24,28 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomContainer(
                 title: "Today's Income",
-                icon: Icon(Iconsax.money, color: Colors.lightGreenAccent),
+                icon: Image.asset(ServiceIcons.incomeImage, width: 27),
                 value: 1299,
               ),
+              SizedBox(width: 8),
               CustomContainer(
                 title: "Completed Services",
-                icon: Icon(Icons.done, color: Colors.blueAccent),
+                icon: Image.asset(ServiceIcons.completed, width: 27),
                 value: 45,
               ),
+              SizedBox(width: 8),
               CustomContainer(
                 title: "Active Services",
-                icon: Icon(Icons.car_repair_outlined, color: Colors.grey[90]),
+                icon: Image.asset(ServiceIcons.inProgress, width: 27),
                 value: 6,
               ),
+              SizedBox(width: 8),
               CustomContainer(
                 title: "Pending Services",
-                icon: Icon(Icons.garage_outlined, color: Colors.yellowAccent),
+                icon: Image.asset(ServiceIcons.scheduled, width: 27),
                 value: 23,
               ),
 
@@ -52,7 +53,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

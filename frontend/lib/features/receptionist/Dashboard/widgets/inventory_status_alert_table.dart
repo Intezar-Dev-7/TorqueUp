@@ -4,6 +4,8 @@ import '../../data/dummy_data.dart';
 import '../../model/inventory_item_model.dart';
 
 class InventoryStatusTable extends StatefulWidget {
+  const InventoryStatusTable({super.key});
+
   @override
   _InventoryStatusTableState createState() => _InventoryStatusTableState();
 }

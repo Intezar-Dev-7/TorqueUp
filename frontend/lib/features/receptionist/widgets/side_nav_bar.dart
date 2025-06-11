@@ -10,13 +10,13 @@ class SideNavBar extends StatelessWidget {
   final bool showTooltips;
 
   const SideNavBar({
-    Key? key,
+    super.key,
     required this.onTap,
     required this.selectedIndex,
     required this.navItems,
     required this.isCollapsed,
     this.showTooltips = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

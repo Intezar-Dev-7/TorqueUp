@@ -4,10 +4,7 @@ import 'package:frontend/utils/colors.dart';
 class CustomAppBar extends StatelessWidget {
   final String title;
 
-  const CustomAppBar({
-    Key? key,
-    required this.title,
-  }) : super(key: key);
+  const CustomAppBar({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +51,7 @@ class CustomAppBar extends StatelessWidget {
               borderRadius: BorderRadius.circular(50),
             ),
             child: IconButton(
-              onPressed: () {
-
-              },
+              onPressed: () {},
               icon: const Icon(Icons.notifications_none),
             ),
           ),

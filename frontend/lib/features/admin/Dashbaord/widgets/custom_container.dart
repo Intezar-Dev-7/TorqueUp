@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomContainer extends StatelessWidget {
   final String title;
-  final Icon icon;
+  final Image icon;
   final int value;
   const CustomContainer({
     super.key,
@@ -24,7 +24,7 @@ class CustomContainer extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.2), // Light shadow color
+              color: Colors.grey.withOpacity(0.5), // Light shadow color
               blurRadius: 4,
               spreadRadius: 1,
               offset: const Offset(2, 2), // Soft offset

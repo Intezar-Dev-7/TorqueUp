@@ -1,4 +1,4 @@
-class NavIcons{
+class NavIcons {
   static String dashboard = 'assets/nav_icons/dashboard.png';
   static String services = 'assets/nav_icons/service.png';
   static String inventory = 'assets/nav_icons/inventory.png';
@@ -8,14 +8,23 @@ class NavIcons{
   static String mechanics = 'assets/nav_icons/mechanic.png';
   static String report = 'assets/nav_icons/reports.png';
   static String staff = 'assets/nav_icons/staff.png';
-  static List<String> icons = [dashboard, services, inventory, customer, settings];
+  static List<String> icons = [
+    dashboard,
+    services,
+    inventory,
+    customer,
+    settings,
+  ];
 }
-class ServiceIcons{
+
+class ServiceIcons {
   static String completed = 'assets/service_status_icons/completed.png';
   static String inProgress = 'assets/service_status_icons/active.png';
   static String scheduled = 'assets/service_status_icons/pending.png';
+  static String incomeImage = 'assets/service_status_icons/money.png';
 }
-class GenIcons{
+
+class GenIcons {
   static String money = 'assets/general_icons/money.png';
   static String sales = 'assets/general_icons/sales.png';
   static String appLogo = 'assets/appLogo/TorqueUpLogo.png';
@@ -24,7 +33,8 @@ class GenIcons{
   static String add = 'assets/general_icons/add.png';
   static String ticket = 'assets/general_icons/ticket.png';
 }
-class GenImages{
+
+class GenImages {
   static String apollo = 'assets/images/gen_images/apollo.png';
   static String castrol = 'assets/images/gen_images/castrol.png';
   static String motul = 'assets/images/gen_images/motul.png';
