@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/colors.dart';
+import '../../utils/colors.dart';
 
 class cus_search_filter extends StatelessWidget {
   const cus_search_filter({
@@ -53,7 +53,7 @@ class cus_search_filter extends StatelessWidget {
         const SizedBox(width: 16),
 
         // Add Custom Button
-        button
+        button,
       ],
     );
   }

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_appbar.dart';
-import 'package:frontend/features/admin/Dashbaord/widgets/custom_container.dart';
+import 'package:frontend/common/widgets/dash_info_card.dart';
+
 import 'package:frontend/features/admin/Dashbaord/widgets/inventory_alert_widget.dart';
 import 'package:frontend/features/admin/Dashbaord/widgets/mechanics_availability_widget.dart';
 import 'package:frontend/features/admin/Dashbaord/widgets/revenue_widget.dart';
 import 'package:frontend/features/admin/Dashbaord/widgets/todays_booking_widget.dart';
-import 'package:frontend/utils/constant.dart';
+import 'package:frontend/features/receptionist/data/dummy_data.dart';
 
 class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({super.key});
@@ -24,34 +25,19 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: [
-              CustomContainer(
-                title: "Today's Income",
-                icon: Image.asset(ServiceIcons.incomeImage, width: 27),
-                value: 1299,
-              ),
-              SizedBox(width: 8),
-              CustomContainer(
-                title: "Completed Services",
-                icon: Image.asset(ServiceIcons.completed, width: 27),
-                value: 45,
-              ),
-              SizedBox(width: 8),
-              CustomContainer(
-                title: "Active Services",
-                icon: Image.asset(ServiceIcons.inProgress, width: 27),
-                value: 6,
-              ),
-              SizedBox(width: 8),
-              CustomContainer(
-                title: "Pending Services",
-                icon: Image.asset(ServiceIcons.scheduled, width: 27),
-                value: 23,
-              ),
-
-              SizedBox(height: 40),
-            ],
+            children:
+                top_widget_data.map((item) {
+                  return DashInfoCard(
+                    icon: item['icon'],
+                    title: item['title'],
+                    value: item['value'],
+                    iconSize: 22,
+                    titleSize: 12,
+                    valueSize: 20,
+                  );
+                }).toList(),
           ),
+          SizedBox(height: 30),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(

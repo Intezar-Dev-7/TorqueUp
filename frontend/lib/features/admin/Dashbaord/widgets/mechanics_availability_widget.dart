@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/receptionist/data/dummy_data.dart';
-import 'package:frontend/utils/colors.dart';
 
 class MechanicsAvailabilityWidget extends StatelessWidget {
   const MechanicsAvailabilityWidget({super.key});

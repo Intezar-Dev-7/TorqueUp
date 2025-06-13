@@ -4,7 +4,7 @@ import 'package:frontend/common/widgets/custom_textfield.dart';
 import 'package:frontend/features/auth/screens/signup_screen.dart';
 import 'package:frontend/features/auth/widgets/forgot_password_screen.dart';
 
-import '../../receptionist/widgets/layout/receptionist_main.dart';
+import '../../receptionist/Dashboard/screens/receptionist_main.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

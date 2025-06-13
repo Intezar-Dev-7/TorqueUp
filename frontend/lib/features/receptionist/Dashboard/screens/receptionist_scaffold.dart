@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/common/widgets/custom_appbar.dart';
 import 'package:frontend/utils/constant.dart';
 
 import '../../../../utils/colors.dart';
-import '../app_bar.dart';
-import '../side_nav_bar.dart';
+
+import '../../widgets/side_nav_bar.dart';
 
 class ReceptionistScaffold extends StatelessWidget {
   final Widget body;
@@ -31,9 +32,9 @@ class ReceptionistScaffold extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     // Define breakpoints
-    final bool isMobile = screenWidth < 600;        // Phone
-    final bool isTablet = screenWidth >= 600 && screenWidth < 1024;  // Tablet
-    final bool isDesktop = screenWidth >= 1024;    // Desktop
+    final bool isMobile = screenWidth < 600; // Phone
+    final bool isTablet = screenWidth >= 600 && screenWidth < 1024; // Tablet
+    final bool isDesktop = screenWidth >= 1024; // Desktop
 
     // Determine sidebar behavior
     final bool showDrawer = isMobile;
@@ -50,37 +51,39 @@ class ReceptionistScaffold extends StatelessWidget {
 
     return Scaffold(
       // Drawer for mobile
-      drawer: showDrawer
-          ? Drawer(
-        backgroundColor: AppColors.grey,
-        child: SideNavBar(
-          onTap: (index) {
-            onItemSelected(index);
-            Navigator.of(context).pop(); // Close drawer
-          },
-          selectedIndex: selectedIndex,
-          navItems: navItems,
-          isCollapsed: false, // Always show full nav in drawer
-          showTooltips: false,// No tooltips needed in drawer
-        ),
-      )
-          : null,
+      drawer:
+          showDrawer
+              ? Drawer(
+                backgroundColor: AppColors.grey,
+                child: SideNavBar(
+                  onTap: (index) {
+                    onItemSelected(index);
+                    Navigator.of(context).pop(); // Close drawer
+                  },
+                  selectedIndex: selectedIndex,
+                  navItems: navItems,
+                  isCollapsed: false, // Always show full nav in drawer
+                  showTooltips: false, // No tooltips needed in drawer
+                ),
+              )
+              : null,
 
       // App bar for mobile (to show hamburger menu)
-      appBar: showDrawer
-          ? AppBar(
-        backgroundColor: AppColors.white,
-        elevation: 1,
-        title: Text(
-          navItems[selectedIndex]['title'].toString(),
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        iconTheme: IconThemeData(color: Colors.black),
-      )
-          : null,
+      appBar:
+          showDrawer
+              ? AppBar(
+                backgroundColor: AppColors.white,
+                elevation: 1,
+                title: Text(
+                  navItems[selectedIndex]['title'].toString(),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                iconTheme: IconThemeData(color: Colors.black),
+              )
+              : null,
 
       body: Row(
         children: [
@@ -94,7 +97,8 @@ class ReceptionistScaffold extends StatelessWidget {
                 selectedIndex: selectedIndex,
                 navItems: navItems,
                 isCollapsed: showCollapsedSidebar,
-                showTooltips: showCollapsedSidebar, // Show tooltips when collapsed
+                showTooltips:
+                    showCollapsedSidebar, // Show tooltips when collapsed
               ),
             ),
 
@@ -103,10 +107,7 @@ class ReceptionistScaffold extends StatelessWidget {
             child: Column(
               children: [
                 // Custom app bar for tablet and desktop
-                if (!showDrawer)
-                  CustomAppBar(
-                    title: navItems[selectedIndex]['title'].toString(),
-                  ),
+                if (!showDrawer) CustomAppbar(text: ''),
 
                 // Body content
                 Expanded(child: body),
