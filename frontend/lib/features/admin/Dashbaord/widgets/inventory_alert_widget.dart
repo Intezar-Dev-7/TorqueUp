@@ -33,7 +33,7 @@ class _InventoryAlertWidgetState extends State<InventoryAlertWidget> {
             Row(
               children: [
                 Image.asset(
-                  "assets/SideNavigaionBarIcons/inventory.png",
+                  "assets/sidebar_nav_icons/inventory.png",
                   width: 24,
                   color: Colors.red,
                 ),

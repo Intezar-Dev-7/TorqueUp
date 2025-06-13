@@ -28,7 +28,7 @@ class MechanicsAvailabilityWidget extends StatelessWidget {
             Row(
               children: [
                 Image.asset(
-                  "assets/SideNavigaionBarIcons/mechanic.png",
+                  "assets/sidebar_nav_icons/mechanic.png",
                   width: 25,
                 ),
                 SizedBox(width: 8),

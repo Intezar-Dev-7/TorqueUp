@@ -40,7 +40,7 @@ class _CustomCalendarWidgetState extends State<CustomCalendarWidget> {
       ),
       decoration: BoxDecoration(
         color: AppColors.grey30,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -73,8 +73,8 @@ class _CustomCalendarWidgetState extends State<CustomCalendarWidget> {
             _getMonthYearString(currentDate),
             style: TextStyle(
               fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              color: AppColors.black,
             ),
           ),
           IconButton(
@@ -193,11 +193,11 @@ class _CustomCalendarWidgetState extends State<CustomCalendarWidget> {
               day.day.toString(),
               style: TextStyle(
                 fontSize: 14,
-                fontWeight: isSelected || isToday ? FontWeight.w600 : FontWeight.w500,
+                fontWeight: FontWeight.bold,
                 color: isSelected
-                    ? widget.primaryColor ?? Color(0xFF9CA3AF)
+                    ? AppColors.black
                     : isCurrentMonth
-                    ? Colors.white
+                    ? Colors.black
                     : Colors.white.withOpacity(0.4),
               ),
             ),

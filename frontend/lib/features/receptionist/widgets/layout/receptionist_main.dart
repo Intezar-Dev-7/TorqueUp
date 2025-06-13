@@ -16,7 +16,7 @@ class ReceptionistMainScreen extends StatefulWidget {
 }
 
 class _ReceptionistMainScreenState extends State<ReceptionistMainScreen> {
-  int selectedIndex = 0;
+  int selectedIndex = 1;
 
   final List<Widget> pages = [
     DashboardScreen(),
