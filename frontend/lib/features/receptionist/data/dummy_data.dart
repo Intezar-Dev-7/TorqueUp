@@ -1,3 +1,5 @@
+import 'package:frontend/features/receptionist/model/booking_model.dart';
+
 import '../../../utils/constant.dart';
 import '../model/appointment_model.dart';
 import '../model/inventory_item_model.dart';
@@ -225,7 +227,8 @@ final List<InventoryItem> inventoryItems = [
     productCode: "20W-40",
     availableQuantity: 29,
     addQuantity: 5,
-    productImage: "assets/castrol_oil.png", // You can replace with actual asset
+    productImage: "assets/castrol_oil.png",
+    // You can replace with actual asset
     productType: ProductType.oil,
   ),
   InventoryItem(
@@ -234,7 +237,8 @@ final List<InventoryItem> inventoryItems = [
     productCode: "190/70",
     availableQuantity: 29,
     addQuantity: 5,
-    productImage: "assets/apollo_tyre.png", // You can replace with actual asset
+    productImage: "assets/apollo_tyre.png",
+    // You can replace with actual asset
     productType: ProductType.tyre,
   ),
   InventoryItem(
@@ -243,7 +247,46 @@ final List<InventoryItem> inventoryItems = [
     productCode: "4T 20W-40",
     availableQuantity: 29,
     addQuantity: 5,
-    productImage: "assets/motul_oil.png", // You can replace with actual asset
+    productImage: "assets/motul_oil.png",
+    // You can replace with actual asset
     productType: ProductType.oil,
+  ),
+];
+List<BookingData> bookings = [
+  BookingData(
+    booking_date: DateTime.now(),
+    booking_time: '9:00 AM - 10:00 AM',
+    vehicle_name: 'Tata Harrier',
+    owner_name: 'Hemant sahu',
+    vehicle_number: 'MP05MV6802',
+    service_type: 'General Service',
+    service_status: 'Completed',
+  ),
+  BookingData(
+    booking_date: DateTime.now(),
+    booking_time: '10:00 AM - 11:00 AM',
+    vehicle_name: 'Tata Safari',
+    owner_name: 'Rajaram sahu',
+    vehicle_number: 'MP05MV6802',
+    service_type: 'Repairing',
+    service_status: 'Pending',
+  ),
+  BookingData(
+    booking_date: DateTime.now(),
+    booking_time: '9:00 AM - 10:00 AM',
+    vehicle_name: 'Tata Harrier',
+    owner_name: 'Hemant sahu',
+    vehicle_number: 'MP05MV6802',
+    service_type: 'General Service',
+    service_status: 'Completed',
+  ),
+  BookingData(
+    booking_date: DateTime.now(),
+    booking_time: '10:00 AM - 11:00 AM',
+    vehicle_name: 'Tata Safari',
+    owner_name: 'Rajaram sahu',
+    vehicle_number: 'MP05MV6802',
+    service_type: 'Repairing',
+    service_status: 'Pending',
   ),
 ];
