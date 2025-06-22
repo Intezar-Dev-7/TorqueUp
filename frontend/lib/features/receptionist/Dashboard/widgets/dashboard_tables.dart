@@ -5,6 +5,8 @@ import 'package:frontend/features/receptionist/Dashboard/widgets/todays_appointm
 import 'package:frontend/utils/colors.dart';
 
 class DashboardTables extends StatefulWidget {
+  const DashboardTables({super.key});
+
   @override
   State<DashboardTables> createState() => _DashboardTablesState();
 }
