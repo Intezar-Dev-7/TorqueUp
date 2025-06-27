@@ -195,7 +195,7 @@ final List<AppointmentData> appointments = [
   ),
 ];
 
-final List<MechanicData> mechanics = [
+final List<MechanicData> mechanics_availability = [
   MechanicData(
     "1",
     "Mechanic one",
@@ -289,4 +289,121 @@ List<BookingData> bookings = [
     service_type: 'Repairing',
     service_status: 'Pending',
   ),
+];
+List<Map<String, String>> mechanics = [
+  {
+    "name": "Jane Cooper",
+    "phone": "7854123698",
+    "address": "Schema 103 kesar bag bridge",
+    "joinedDate": "Mar 1, 2022",
+    "daysJoined": "235",
+  },
+  {
+    "name": "Arlene McCoy",
+    "phone": "7854123698",
+    "address": "Schema 103 kesar bag bridge",
+    "joinedDate": "Mar 1, 2022",
+    "daysJoined": "235",
+  },
+  {
+    "name": "Deon Lie",
+    "phone": "7854123698",
+    "address": "Schema 103 kesar bag bridge",
+    "joinedDate": "Mar 1, 2022",
+    "daysJoined": "235",
+  },
+  {
+    "name": "Jane Cooper",
+    "phone": "7854123698",
+    "address": "Schema 103 kesar bag bridge",
+    "joinedDate": "Mar 1, 2022",
+    "daysJoined": "235",
+  },
+  {
+    "name": "Jane Cooper",
+    "phone": "7854123698",
+    "address": "Schema 103 kesar bag bridge",
+    "joinedDate": "Mar 1, 2022",
+    "daysJoined": "235",
+  },
+  {
+    "name": "Jane Cooper",
+    "phone": "7854123698",
+    "address": "Schema 103 kesar bag bridge",
+    "joinedDate": "Mar 1, 2022",
+    "daysJoined": "235",
+  },
+];
+
+final List<Map<String, dynamic>> service_vehicles = [
+  {
+    "name": "TATA Safari",
+    "number": "MP05 MV 0312",
+    "imageUrl": GenImages.safari,
+    "status": "Working",
+    "owner": {
+      "name": "Hemant sahu",
+      "contact": "909875219",
+      "mail": "hemantsahu@gmail.com",
+      "address": "Jummerati word 26 H.bad",
+    },
+    "car": {
+      "model": "Safari stealth",
+      "year": "2024",
+      "fuel": "Diesel",
+      "transmission": "Automatic",
+    },
+    "issues": [
+      {
+        "title": "Engine Overheating",
+        "desc": "After 15m of running engine is overheating",
+      },
+      {
+        "title": "Strange Engine Noises",
+        "desc": "Tik tik tik sound coming from engine",
+      },
+      {"title": "Brake Failure", "desc": "Brake is not Working"},
+    ],
+    "resolved": [
+      {
+        "title": "Wheel Alignment",
+        "desc": "Car turn left without rotate staring",
+      },
+    ],
+  },
+  {
+    "name": "Fortunar",
+    "number": "MP05 MV 6802",
+    "imageUrl": GenImages.safari,
+    "status": "Pending",
+    "owner": {
+      "name": "Rajaram sahu",
+      "contact": "85487956312",
+      "mail": "rajaramsahu@gmail.com",
+      "address": "Jummerati word 26 H.bad",
+    },
+    "car": {
+      "model": "Safari stealth",
+      "year": "2024",
+      "fuel": "Diesel",
+      "transmission": "Manual",
+    },
+    "issues": [
+      {
+        "title": "Engine Overheating",
+        "desc": "After 15m of running engine is overheating",
+      },
+      {
+        "title": "Strange Engine Noises",
+        "desc": "Tik tik tik sound coming from engine",
+      },
+      {"title": "Brake Failure", "desc": "Brake is not Working"},
+    ],
+    "resolved": [
+      {
+        "title": "Wheel Alignment",
+        "desc": "Car turn left without rotate staring",
+      },
+    ],
+  },
 ];

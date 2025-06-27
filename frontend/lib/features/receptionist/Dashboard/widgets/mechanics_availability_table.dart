@@ -91,9 +91,9 @@ class MechanicsAvailabilityTable extends StatelessWidget {
           // Table Rows
           Expanded(
             child: ListView.builder(
-              itemCount: mechanics.length,
+              itemCount: mechanics_availability.length,
               itemBuilder: (context, index) {
-                return _buildMechanicRow(mechanics[index], index);
+                return _buildMechanicRow(mechanics_availability[index], index);
               },
             ),
           ),

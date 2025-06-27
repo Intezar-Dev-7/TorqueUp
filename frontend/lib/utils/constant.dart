@@ -31,4 +31,5 @@ class GenImages {
   static String apollo = 'assets/images/apollo.png';
   static String castrol = 'assets/images/castrol.png';
   static String motul = 'assets/images/motul.png';
+  static String safari = 'assets/images/safari.png';
 }
