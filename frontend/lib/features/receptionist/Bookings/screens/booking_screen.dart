@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/common/widgets/custom_elevated_button.dart';
 import 'package:frontend/features/receptionist/Bookings/widgets/compact_calendar.dart';
 import 'package:frontend/features/receptionist/Bookings/widgets/custom_calendar_widget.dart';
 import 'package:frontend/features/receptionist/data/dummy_data.dart';
-import 'package:frontend/features/receptionist/widgets/cus_elevated_button.dart';
+
 import 'package:frontend/utils/colors.dart';
 
 class BookingScreen extends StatefulWidget {
@@ -28,7 +29,7 @@ class _BookingScreenState extends State<BookingScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("this is date"),
-            CusElevatedButton(buttonText: 'New Booking', onPressed: () {}),
+            CustomElevatedButton(text: "New Booking", onPressed: () {}),
           ],
         ),
         centerTitle: true,
@@ -108,7 +109,7 @@ class _BookingScreenState extends State<BookingScreen> {
                                               subtitleFontSize,
                                             ),
                                             VerticalDivider(
-                                              thickness: isMobile? 4 : 8,
+                                              thickness: isMobile ? 4 : 8,
                                               endIndent: 4,
                                               indent: 4,
                                               color: AppColors.black,
@@ -294,11 +295,17 @@ class _BookingScreenState extends State<BookingScreen> {
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: title_font_size,
-              overflow: TextOverflow.ellipsis
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           SizedBox(height: 6),
-          Text(sub_title, style: TextStyle(fontSize: subtitle_font_size,overflow: TextOverflow.ellipsis)),
+          Text(
+            sub_title,
+            style: TextStyle(
+              fontSize: subtitle_font_size,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
         ],
       ),
     );

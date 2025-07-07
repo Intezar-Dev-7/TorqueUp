@@ -240,9 +240,7 @@ class _InventoryStatusTableState extends State<InventoryStatusTable> {
             fontWeight: FontWeight.w500,
           ),
         ),
-        SizedBox(
-          width: 8,
-        ),
+        SizedBox(width: 8),
         // Product Info
         Expanded(
           child: Row(
@@ -267,10 +265,7 @@ class _InventoryStatusTableState extends State<InventoryStatusTable> {
                     ),
                     Text(
                       item.productCode,
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.grey[500],
-                      ),
+                      style: TextStyle(fontSize: 11, color: Colors.grey[500]),
                     ),
                   ],
                 ),
@@ -294,7 +289,7 @@ class _InventoryStatusTableState extends State<InventoryStatusTable> {
             children: [
               // Add Quantity Controls
               _buildQuantityControls(item),
-              SizedBox(height: 6,),
+              SizedBox(height: 6),
               // Add to Cart Button
               _buildAddButton(),
             ],
