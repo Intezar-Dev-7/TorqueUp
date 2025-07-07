@@ -84,7 +84,7 @@ class MechanicsAvailabilityWidget extends StatelessWidget {
                       ),
                     ],
                     rows:
-                        mechanics
+                        mechanics_availability
                             .take(3)
                             .map(
                               (mechanic) => DataRow(

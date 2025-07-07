@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_elevated_button.dart';
 import 'package:frontend/features/receptionist/Bookings/widgets/compact_calendar.dart';
-import 'package:frontend/features/receptionist/Bookings/widgets/custom_calendar_widget.dart';
 import 'package:frontend/features/receptionist/data/dummy_data.dart';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 74f401649530b7ac15cd560fedc76f62c4519cf5
 import 'package:frontend/utils/colors.dart';
 
 class BookingScreen extends StatefulWidget {
@@ -29,21 +31,24 @@ class _BookingScreenState extends State<BookingScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("this is date"),
+<<<<<<< HEAD
             CustomElevatedButton(text: "New Booking", onPressed: () {}),
+=======
+            CustomElevatedButton(text: 'New Booking', onPressed: () {}),
+>>>>>>> 74f401649530b7ac15cd560fedc76f62c4519cf5
           ],
         ),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(18),
-        child:
-            isMobile
-                ? Column(
+        child: isMobile ? Column(
                   children: [
                     Expanded(
                       flex: 2,
                       child: Container(
                         alignment: Alignment.topCenter,
+<<<<<<< HEAD
                         child:
                             isMobile
                                 ? CompactCalendarWidget()
@@ -271,12 +276,138 @@ class _BookingScreenState extends State<BookingScreen> {
                             ),
                           ),
                         ],
+=======
+                        child: CompactCalendarWidget()
+
+>>>>>>> 74f401649530b7ac15cd560fedc76f62c4519cf5
                       ),
                     ),
+
+                    bookingList(titleFontSize, subtitleFontSize, isMobile),
                   ],
+                ) :
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.topCenter,
+                    child:CompactCalendarWidget()
+
+                  ),
                 ),
+                SizedBox(width: 10),
+                bookingList(titleFontSize, subtitleFontSize, isMobile),
+              ],
+            )
+
       ),
     );
+  }
+
+  Expanded bookingList(double titleFontSize, double subtitleFontSize, bool isMobile) {
+    return Expanded(
+                    flex: 3,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Bookings',
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: bookings.length,
+                            itemBuilder: (context, index) {
+                              final booking = bookings[index];
+                              return Container(
+                                padding: EdgeInsets.all(10),
+                                height: 100,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: AppColors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 1,
+                                      blurRadius: 4,
+                                      offset: Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                margin: EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 6,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          cum_column_widget(
+                                            booking.booking_time
+                                                .split('-')
+                                                .first,
+                                            booking.booking_time
+                                                .split('-')
+                                                .last,
+                                            titleFontSize,
+                                            subtitleFontSize,
+                                          ),
+                                          VerticalDivider(
+                                            thickness: isMobile? 4 : 6,
+                                            endIndent: 4,
+                                            indent: 4,
+                                            color: AppColors.black,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(width: 10,),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          cum_column_widget(
+                                            booking.owner_name,
+                                            booking.vehicle_name,
+                                            titleFontSize,
+                                            subtitleFontSize,
+                                          ),
+                                          cum_column_widget(
+                                            'Type',
+                                            booking.service_type,
+                                            titleFontSize,
+                                            subtitleFontSize,
+                                          ),
+                                          cum_column_widget(
+                                            'Status',
+                                            booking.service_status,
+                                            titleFontSize,
+                                            subtitleFontSize,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
   }
 
   Widget cum_column_widget(
