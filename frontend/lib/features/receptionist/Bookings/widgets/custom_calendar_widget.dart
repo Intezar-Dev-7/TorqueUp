@@ -9,12 +9,12 @@ class CustomCalendarWidget extends StatefulWidget {
   final Color? backgroundColor;
 
   const CustomCalendarWidget({
-    Key? key,
+    super.key,
     this.initialDate,
     this.onDateSelected,
     this.primaryColor,
     this.backgroundColor,
-  }) : super(key: key);
+  });
 
   @override
   _CustomCalendarWidgetState createState() => _CustomCalendarWidgetState();

@@ -164,9 +164,9 @@ class _BookingScreenState extends State<BookingScreen> {
 
   Widget cum_column_widget(
     String title,
-    String sub_title,
-    double title_font_size,
-    double subtitle_font_size,
+    String subTitle,
+    double titleFontSize,
+    double subtitleFontSize,
   ) {
     return Expanded(
       child: Column(
@@ -177,15 +177,15 @@ class _BookingScreenState extends State<BookingScreen> {
             title,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: title_font_size,
+              fontSize: titleFontSize,
               overflow: TextOverflow.ellipsis,
             ),
           ),
           SizedBox(height: 6),
           Text(
-            sub_title,
+            subTitle,
             style: TextStyle(
-              fontSize: subtitle_font_size,
+              fontSize: subtitleFontSize,
               overflow: TextOverflow.ellipsis,
             ),
           ),

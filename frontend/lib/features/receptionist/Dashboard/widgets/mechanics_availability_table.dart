@@ -30,7 +30,7 @@ class MechanicsAvailabilityTable extends StatelessWidget {
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: AppColors.white,
-              borderRadius:  BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
               children: [
@@ -43,6 +43,7 @@ class MechanicsAvailabilityTable extends StatelessWidget {
                   child: Icon(Icons.build, color: Colors.orange, size: 20),
                 ),
                 SizedBox(width: 8),
+
                 Text(
                   "Mechanics Availability",
                   style: TextStyle(
@@ -52,13 +53,17 @@ class MechanicsAvailabilityTable extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
+
                 Spacer(),
-                Text(
-                  "See all",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline,
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    "See all",
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.blue,
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
                 ),
               ],

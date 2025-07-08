@@ -6,8 +6,7 @@ class CompactCalendarWidget extends StatefulWidget {
   final DateTime? initialDate;
   final Function(DateTime)? onDateSelected;
 
-  const CompactCalendarWidget({Key? key, this.initialDate, this.onDateSelected})
-    : super(key: key);
+  const CompactCalendarWidget({super.key, this.initialDate, this.onDateSelected});
 
   @override
   _CompactCalendarWidgetState createState() => _CompactCalendarWidgetState();

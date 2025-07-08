@@ -33,7 +33,18 @@ class _TodaysBookingWidgetState extends State<TodaysBookingWidget> {
           children: [
             Row(
               children: [
-                Image.asset("assets/general_icons/ticket.png", width: 25),
+                Container(
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.green[100],
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(
+                    Icons.calendar_today,
+                    color: Colors.green,
+                    size: 16,
+                  ),
+                ),
                 SizedBox(width: 8),
                 const Text(
                   "Today's Booking",
@@ -66,7 +77,7 @@ class _TodaysBookingWidgetState extends State<TodaysBookingWidget> {
                   ),
                   child: DataTable(
                     columnSpacing:
-                        40, // optional: reduce horizontal spacing too
+                        45, // optional: reduce horizontal spacing too
                     columns: const [
                       DataColumn(
                         label: Text('S. No', style: TextStyle(fontSize: 12)),

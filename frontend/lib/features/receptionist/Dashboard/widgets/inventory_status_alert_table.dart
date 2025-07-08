@@ -62,12 +62,15 @@ class _InventoryStatusTableState extends State<InventoryStatusTable> {
             onTap: () {
               // Handle see all action
             },
-            child: Text(
-              "See all",
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.blue[600],
-                fontWeight: FontWeight.w500,
+            child: TextButton(
+              onPressed: () {},
+              child: Text(
+                "See all",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.blue[600],
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ),

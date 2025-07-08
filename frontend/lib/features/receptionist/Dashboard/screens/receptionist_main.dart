@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/features/admin/Bookings/screens/bookings_screen.dart';
 import 'package:frontend/features/receptionist/Bookings/screens/booking_screen.dart';
 import 'package:frontend/features/receptionist/Customers/screens/customer_screen.dart';
 import 'package:frontend/features/receptionist/Dashboard/screens/dashboard_screen.dart';
@@ -16,10 +15,10 @@ class ReceptionistMainScreen extends StatefulWidget {
 }
 
 class _ReceptionistMainScreenState extends State<ReceptionistMainScreen> {
-  int selectedIndex = 3;
+  int selectedIndex = 0;
 
   final List<Widget> pages = [
-    DashboardScreen(),
+    const DashboardScreen(),
     const BookingScreen(),
     const CustomerScreen(),
     const ServicesScreen(),

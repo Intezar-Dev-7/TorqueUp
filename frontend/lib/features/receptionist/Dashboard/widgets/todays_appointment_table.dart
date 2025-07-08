@@ -53,12 +53,15 @@ class TodaysAppointmentsTable extends StatelessWidget {
                   ),
                 ),
                 Spacer(),
-                Text(
-                  "See all",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline,
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    "See all",
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.blue,
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
                 ),
               ],
@@ -104,7 +107,7 @@ class TodaysAppointmentsTable extends StatelessWidget {
             child: ListView.builder(
               itemCount: appointments.length,
               itemBuilder: (context, index) {
-                return _buildAppointmentRow(appointments[index],isMobile);
+                return _buildAppointmentRow(appointments[index], isMobile);
               },
             ),
           ),
@@ -113,7 +116,7 @@ class TodaysAppointmentsTable extends StatelessWidget {
     );
   }
 
-  Widget _buildAppointmentRow(AppointmentData appointment,bool isMobile) {
+  Widget _buildAppointmentRow(AppointmentData appointment, bool isMobile) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       decoration: BoxDecoration(

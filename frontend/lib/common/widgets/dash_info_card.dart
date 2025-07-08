@@ -48,30 +48,28 @@ class DashInfoCard extends StatelessWidget {
           ),
           const SizedBox(width: 4),
           22 == iconSize
-              ? Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      maxLines: 1,
-                      softWrap: true,
-                      style: TextStyle(
-                        fontSize: titleSize,
-                        fontWeight: FontWeight.bold,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+              ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    maxLines: 1,
+                    softWrap: true,
+                    style: TextStyle(
+                      fontSize: titleSize,
+                      fontWeight: FontWeight.bold,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    Text(
-                      value.toString(),
-                      style: TextStyle(
-                        fontSize: valueSize,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  ),
+                  Text(
+                    value.toString(),
+                    style: TextStyle(
+                      fontSize: valueSize,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               )
               : Column(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -37,14 +37,14 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   );
                 }).toList(),
           ),
-          SizedBox(height: 30),
+          SizedBox(height: 15),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Expanded(child: RevenueWidget()),
                     SizedBox(width: 16),
