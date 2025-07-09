@@ -40,8 +40,6 @@ class _RevenueWidgetState extends State<RevenueWidget> {
     final labels = selectedView == 'Monthly' ? months : years;
 
     return Container(
-      width: 390,
-      height: 265,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),

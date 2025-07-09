@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/receptionist/data/dummy_data.dart';
-
+import '../../../receptionist/model/appointment_model.dart';
 class TodaysBookingWidget extends StatefulWidget {
   const TodaysBookingWidget({super.key});
 
@@ -12,8 +12,6 @@ class _TodaysBookingWidgetState extends State<TodaysBookingWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      height: 266,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(18),

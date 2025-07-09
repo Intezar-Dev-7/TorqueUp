@@ -6,6 +6,7 @@ import 'package:frontend/features/admin/Dashbaord/widgets/inventory_alert_widget
 import 'package:frontend/features/admin/Dashbaord/widgets/mechanics_availability_widget.dart';
 import 'package:frontend/features/admin/Dashbaord/widgets/revenue_widget.dart';
 import 'package:frontend/features/admin/Dashbaord/widgets/todays_booking_widget.dart';
+import 'package:frontend/features/receptionist/Dashboard/widgets/todays_appointment_table.dart';
 import 'package:frontend/features/receptionist/data/dummy_data.dart';
 
 class DashBoardScreen extends StatefulWidget {
@@ -37,30 +38,34 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   );
                 }).toList(),
           ),
-          SizedBox(height: 15),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Expanded(child: RevenueWidget()),
-                    SizedBox(width: 16),
-                    Expanded(child: TodaysBookingWidget()),
-                  ],
-                ),
-                SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Expanded(child: InventoryAlertWidget()),
-                    SizedBox(width: 16),
-                    Expanded(child: MechanicsAvailabilityWidget()),
-                  ],
-                ),
-              ],
+          SizedBox(height: 10),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Expanded(child: RevenueWidget()),
+                        SizedBox(height: 16),
+                        Expanded(child: InventoryAlertWidget()),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(child: TodaysBookingWidget()),
+                        SizedBox(height: 16),
+                        Expanded(child: MechanicsAvailabilityWidget()),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
