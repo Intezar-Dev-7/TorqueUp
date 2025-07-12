@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_elevated_button.dart';
 import 'package:frontend/utils/colors.dart';
 import '../../data/dummy_data.dart';
-import '../../../../common/widgets/cus_search_filter.dart';
+import '../../../../common/widgets/cus_search_bar.dart';
 import '../widgets/customer_card.dart';
 
 class CustomerScreen extends StatefulWidget {
@@ -21,7 +21,7 @@ class _CustomerScreenState extends State<CustomerScreen> {
       appBar: AppBar(
         toolbarHeight: 80,
         backgroundColor: AppColors.grey,
-        title: cus_search_filter(
+        title: CustomSearchBar(
           searchText: 'Search customer by name,email...',
           button: CustomElevatedButton(text: 'Add Customer', onPressed: () {}),
         ),

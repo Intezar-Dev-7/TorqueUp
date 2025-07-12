@@ -107,7 +107,7 @@ class ReceptionistScaffold extends StatelessWidget {
             child: Column(
               children: [
                 // Custom app bar for tablet and desktop
-                if (!showDrawer) CustomAppbar(text: ''),
+                if (!showDrawer) CustomAppbar(title: '', subtitle: ''),
 
                 // Body content
                 Expanded(child: body),

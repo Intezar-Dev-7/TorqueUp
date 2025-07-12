@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
-  final String text;
-  const CustomAppbar({super.key, required this.text});
+  final String title;
+  final String subtitle;
+  const CustomAppbar({super.key, required this.title, required this.subtitle});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  text,
+                  title,
                   style: const TextStyle(
                     fontSize: 22,
                     color: Colors.black,
@@ -28,8 +29,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  "Let's Check Your Garage Today",
+                Text(
+                  subtitle,
                   style: TextStyle(fontSize: 14, color: Colors.black54),
                 ),
               ],

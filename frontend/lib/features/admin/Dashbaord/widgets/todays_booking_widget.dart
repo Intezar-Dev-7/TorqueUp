@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/receptionist/data/dummy_data.dart';
-import '../../../receptionist/model/appointment_model.dart';
+
 class TodaysBookingWidget extends StatefulWidget {
   const TodaysBookingWidget({super.key});
 
@@ -60,109 +60,105 @@ class _TodaysBookingWidgetState extends State<TodaysBookingWidget> {
               ],
             ),
             SizedBox(height: 8),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: DataTableTheme(
-                  data: DataTableThemeData(
-                    headingTextStyle: const TextStyle(
-                      fontWeight: FontWeight.bold,
+            SizedBox(
+              height: 200,
+              width: 650,
+              child: DataTableTheme(
+                data: DataTableThemeData(
+                  headingTextStyle: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                  dataRowMinHeight: 45, // ↓ default is 56, reduce as needed
+                  dataRowMaxHeight:
+                      45, // ↓ make both min and max same for compact rows
+                ),
+                child: DataTable(
+                  columnSpacing: 45, // optional: reduce horizontal spacing too
+                  columns: const [
+                    DataColumn(
+                      label: Text('S. No', style: TextStyle(fontSize: 12)),
                     ),
-                    dataRowMinHeight: 45, // ↓ default is 56, reduce as needed
-                    dataRowMaxHeight:
-                        45, // ↓ make both min and max same for compact rows
-                  ),
-                  child: DataTable(
-                    columnSpacing:
-                        45, // optional: reduce horizontal spacing too
-                    columns: const [
-                      DataColumn(
-                        label: Text('S. No', style: TextStyle(fontSize: 12)),
-                      ),
-                      DataColumn(
-                        label: Text('Vehicle', style: TextStyle(fontSize: 12)),
-                      ),
-                      DataColumn(
-                        label: Text('Owner', style: TextStyle(fontSize: 12)),
-                      ),
-                      DataColumn(
-                        label: Text('Work', style: TextStyle(fontSize: 12)),
-                      ),
-                      DataColumn(
-                        label: Text('B.Time', style: TextStyle(fontSize: 12)),
-                      ),
-                      DataColumn(
-                        label: Text('Status', style: TextStyle(fontSize: 12)),
-                      ),
-                    ],
-                    rows:
-                        appointments
-                            .take(3)
-                            .map(
-                              (appt) => DataRow(
-                                cells: [
-                                  DataCell(
-                                    Text(
-                                      appt.serialNo,
-                                      style: TextStyle(fontSize: 12),
-                                    ),
+                    DataColumn(
+                      label: Text('Vehicle', style: TextStyle(fontSize: 12)),
+                    ),
+                    DataColumn(
+                      label: Text('Owner', style: TextStyle(fontSize: 12)),
+                    ),
+                    DataColumn(
+                      label: Text('Work', style: TextStyle(fontSize: 12)),
+                    ),
+                    DataColumn(
+                      label: Text('B.Time', style: TextStyle(fontSize: 12)),
+                    ),
+                    DataColumn(
+                      label: Text('Status', style: TextStyle(fontSize: 12)),
+                    ),
+                  ],
+                  rows:
+                      appointments
+                          .take(3)
+                          .map(
+                            (appt) => DataRow(
+                              cells: [
+                                DataCell(
+                                  Text(
+                                    appt.serialNo,
+                                    style: TextStyle(fontSize: 12),
                                   ),
-                                  DataCell(
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          appt.vehicle,
-                                          style: TextStyle(fontSize: 12),
+                                ),
+                                DataCell(
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        appt.vehicle,
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                      Text(
+                                        appt.vehicle,
+                                        style: const TextStyle(
+                                          fontSize: 10,
+                                          color: Colors.grey,
                                         ),
-                                        Text(
-                                          appt.vehicle,
-                                          style: const TextStyle(
-                                            fontSize: 10,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                  DataCell(
-                                    Text(
-                                      appt.owner,
-                                      style: TextStyle(fontSize: 12),
-                                    ),
+                                ),
+                                DataCell(
+                                  Text(
+                                    appt.owner,
+                                    style: TextStyle(fontSize: 12),
                                   ),
-                                  DataCell(
-                                    Text(
-                                      appt.work,
-                                      style: TextStyle(fontSize: 12),
-                                    ),
+                                ),
+                                DataCell(
+                                  Text(
+                                    appt.work,
+                                    style: TextStyle(fontSize: 12),
                                   ),
-                                  DataCell(
-                                    Text(
-                                      appt.timeSlot,
-                                      style: TextStyle(fontSize: 12),
-                                    ),
+                                ),
+                                DataCell(
+                                  Text(
+                                    appt.timeSlot,
+                                    style: TextStyle(fontSize: 12),
                                   ),
-                                  DataCell(
-                                    Icon(
-                                      appt.status == "done"
-                                          ? Icons.check_circle
-                                          : Icons.access_time,
-                                      color:
-                                          appt.status == "done"
-                                              ? Colors.green
-                                              : Colors.orange,
-                                    ),
+                                ),
+                                DataCell(
+                                  Icon(
+                                    appt.status == "done"
+                                        ? Icons.check_circle
+                                        : Icons.access_time,
+                                    color:
+                                        appt.status == "done"
+                                            ? Colors.green
+                                            : Colors.orange,
                                   ),
-                                ],
-                              ),
-                            )
-                            .toList(),
-                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                          .toList(),
                 ),
               ),
             ),

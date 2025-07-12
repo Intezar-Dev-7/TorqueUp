@@ -6,7 +6,6 @@ import 'package:frontend/features/admin/Dashbaord/widgets/inventory_alert_widget
 import 'package:frontend/features/admin/Dashbaord/widgets/mechanics_availability_widget.dart';
 import 'package:frontend/features/admin/Dashbaord/widgets/revenue_widget.dart';
 import 'package:frontend/features/admin/Dashbaord/widgets/todays_booking_widget.dart';
-import 'package:frontend/features/receptionist/Dashboard/widgets/todays_appointment_table.dart';
 import 'package:frontend/features/receptionist/data/dummy_data.dart';
 
 class DashBoardScreen extends StatefulWidget {
@@ -21,7 +20,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppbar(text: 'Dashboard'),
+      appBar: CustomAppbar(title: 'Dashboard', subtitle: ''),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

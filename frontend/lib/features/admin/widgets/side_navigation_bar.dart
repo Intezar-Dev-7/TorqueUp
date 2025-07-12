@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/features/admin/Bookings/screens/bookings_screen.dart';
 import 'package:frontend/features/admin/Dashbaord/screens/dashboard_screen.dart';
 import 'package:frontend/features/admin/Inventory/screens/inventory_screen.dart';
-import 'package:frontend/features/admin/Mechanics/screens/mechanics_screen.dart';
+import 'package:frontend/features/admin/Mechanics/screens/staff.dart';
 import 'package:frontend/features/admin/ReportsAndAnalytics/screens/reports_and_analytics_screen.dart';
 import 'package:frontend/features/admin/Settings/screens/settings_screen.dart';
 import 'package:frontend/features/receptionist/Services/screens/services_screen.dart';
@@ -104,7 +104,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
                 icon: const Icon(Iconsax.box),
               ),
               SideMenuItem(
-                title: 'Mechanics',
+                title: 'Staff',
                 onTap: (index, _) {
                   sideMenu.changePage(index);
                 },

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../utils/colors.dart';
 
-class cus_search_filter extends StatelessWidget {
-  const cus_search_filter({
+class CustomSearchBar extends StatelessWidget {
+  const CustomSearchBar({
     super.key,
     required this.searchText,
     required this.button,

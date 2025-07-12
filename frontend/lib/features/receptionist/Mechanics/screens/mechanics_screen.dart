@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/common/widgets/cus_search_filter.dart';
+import 'package:frontend/common/widgets/cus_search_bar.dart';
 import 'package:frontend/common/widgets/custom_elevated_button.dart';
 import 'package:frontend/features/receptionist/Bookings/widgets/compact_calendar.dart';
 import 'package:frontend/features/receptionist/Bookings/widgets/custom_calendar_widget.dart';
@@ -34,7 +34,7 @@ class _MechanicsScreenState extends State<MechanicsScreen> {
       appBar: AppBar(
         toolbarHeight: 80,
         backgroundColor: AppColors.grey,
-        title: cus_search_filter(
+        title: CustomSearchBar(
           searchText: 'Search Mechanic by name,email...',
           button: CustomElevatedButton(text: 'Add Mechanic', onPressed: () {}),
         ),
@@ -100,7 +100,7 @@ class _MechanicsScreenState extends State<MechanicsScreen> {
                         const SizedBox(height: 22),
                         CircleAvatar(
                           backgroundColor: Colors.blue.shade100,
-                          radius: isTablet? 80 : 120,
+                          radius: isTablet ? 80 : 120,
                           child: const Icon(
                             Icons.person,
                             color: Colors.black,
