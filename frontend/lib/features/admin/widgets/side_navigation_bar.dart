@@ -12,10 +12,7 @@ import 'package:frontend/features/admin/Inventory/screens/inventory_screen.dart'
 import 'package:frontend/features/admin/Mechanics/screens/staff.dart';
 import 'package:frontend/features/admin/ReportsAndAnalytics/screens/reports_and_analytics_screen.dart';
 import 'package:frontend/features/admin/Settings/screens/settings_screen.dart';
-import 'package:frontend/features/receptionist/Services/screens/services_screen.dart';
 import 'package:iconsax/iconsax.dart';
-
-import '../../customers/screens/customers_screen.dart';
 
 class SideNavigationBar extends StatefulWidget {
   const SideNavigationBar({super.key});
@@ -89,20 +86,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
                 },
                 icon: const Icon(Iconsax.calendar),
               ),
-              SideMenuItem(
-                title: 'Customers',
-                onTap: (index, _) {
-                  sideMenu.changePage(index);
-                },
-                icon: const Icon(Iconsax.people),
-              ),
-              SideMenuItem(
-                title: 'Services',
-                onTap: (index, _) {
-                  sideMenu.changePage(index);
-                },
-                icon: const Icon(Iconsax.box),
-              ),
+
               SideMenuItem(
                 title: 'Staff',
                 onTap: (index, _) {
@@ -142,8 +126,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
               children: const [
                 DashBoardScreen(),
                 BookingsScreen(),
-                CustomersScreen(),
-                ServicesScreen(),
+
                 MechanicsScreen(),
                 InventoryScreen(),
                 ReportsAndAnalyticsScreen(),
