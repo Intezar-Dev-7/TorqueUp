@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_elevated_button.dart';
 import 'package:frontend/common/widgets/custom_textfield.dart';
 import 'package:frontend/features/auth/screens/login_screen.dart';
+import 'package:frontend/features/auth/widgets/other_login_options.dart';
 import 'package:frontend/features/auth/widgets/service_center_form.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -32,6 +33,7 @@ class _SignupScreenState extends State<SignupScreen> {
     _passwordFocusNode.dispose();
   }
 
+  String status = 'Admin';
   String _selectedOption = ''; // initial selected value
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class _SignupScreenState extends State<SignupScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5),
+          padding: const EdgeInsets.symmetric(vertical: 3),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -52,17 +54,17 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               Container(
                 width: 450,
-                height: 500,
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                padding: const EdgeInsets.all(20),
+                height: 510,
+                margin: const EdgeInsets.symmetric(vertical: 3),
+                // padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                      blurRadius: 10,
-                      color: Colors.black.withOpacity(0.2),
-                      spreadRadius: 2.5,
+                      blurRadius: 2,
+                      color: Colors.black.withOpacity(0.5),
+                      spreadRadius: 1,
                       offset: const Offset(0, 5), // changes position of shadow
                     ),
                   ],
@@ -100,6 +102,30 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       SizedBox(height: 10),
                       // Add a new textfield asking the user to enter his role
+                      SizedBox(
+                        height: 55,
+                        width: 340,
+                        child: DropdownButtonFormField<String>(
+                          elevation: 2,
+                          focusColor: Colors.black,
+                          borderRadius: BorderRadius.circular(18),
+
+                          value: status,
+                          decoration: const InputDecoration(labelText: 'Role'),
+                          items:
+                              ['Admin', 'Receptionist', 'Customer']
+                                  .map(
+                                    (s) => DropdownMenuItem(
+                                      value: s,
+                                      child: Text(s),
+                                    ),
+                                  )
+                                  .toList(),
+                          onChanged: (val) {
+                            status = val!;
+                          },
+                        ),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -135,7 +161,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           );
                         },
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 18),
                       Text(
                         "Or Login with",
                         style: TextStyle(
@@ -144,31 +170,9 @@ class _SignupScreenState extends State<SignupScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 27),
+                      SizedBox(height: 25),
                       // Google and Apple Sign In Options
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                        children: [
-                          GestureDetector(
-                            onTap: () {},
-                            child: Image.asset(
-                              'assets/general_icons/google.png',
-                              height: 30,
-                              width: 30,
-                            ),
-                          ),
-
-                          GestureDetector(
-                            onTap: () {},
-                            child: Image.asset(
-                              'assets/general_icons/apple.png',
-                              height: 30,
-                              width: 30,
-                            ),
-                          ),
-                        ],
-                      ),
+                      OtherLoginOptions(),
                       SizedBox(height: 7),
                       TextButton(
                         onPressed: () {

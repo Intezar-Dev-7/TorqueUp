@@ -188,6 +188,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           );
                         },
+                        style: TextButton.styleFrom(elevation: 2),
+
                         child: Text(
                           "Create Account ",
                           style: TextStyle(

@@ -54,7 +54,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
               const SizedBox(height: 32),
               _buildSettingsCard(
-                icon: Icons.ring_volume_rounded,
+                icon: Icons.email,
                 title: "Notifications",
                 child: SwitchListTile(
                   title: const Text("Enable Email Notifications"),
@@ -93,28 +93,46 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
 
               const SizedBox(height: 32),
-              Align(
-                alignment: Alignment.centerRight,
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    // Save logic here
-                  },
-                  icon: const Icon(Icons.save, color: Colors.white),
-                  label: const Text(
-                    "Save Changes",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 14,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(Icons.logout, color: Colors.white),
+                    label: const Text(
+                      "Logout",
+                      style: TextStyle(color: Colors.white),
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.redAccent,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 14,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
                   ),
-                ),
+                  ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(Icons.save, color: Colors.white),
+                    label: const Text(
+                      "Save Changes",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 14,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -138,7 +156,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             Row(
               children: [
-                Icon(icon, size: 22, color: Colors.blueGrey),
+                Icon(icon, size: 22, color: Colors.black),
                 const SizedBox(width: 8),
                 Text(
                   title,
@@ -150,7 +168,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ],
             ),
             const SizedBox(height: 16),
-            child,
           ],
         ),
       ),

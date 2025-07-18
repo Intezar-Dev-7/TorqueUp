@@ -67,9 +67,9 @@ class _ServiceCenterFormState extends State<ServiceCenterForm> {
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                      blurRadius: 10,
-                      color: Colors.black.withOpacity(0.2),
-                      spreadRadius: 2.5,
+                      blurRadius: 1,
+                      color: Colors.black.withOpacity(0.5),
+                      spreadRadius: 2,
                       offset: const Offset(0, 5), // changes position of shadow
                     ),
                   ],
