@@ -51,7 +51,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
             ),
 
             Expanded(
-              child: Container(
+              child: SizedBox(
                 height: double.infinity,
                 width: double.infinity,
                 child: DataTable(

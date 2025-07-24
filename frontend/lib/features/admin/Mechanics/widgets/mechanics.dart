@@ -23,7 +23,7 @@ class MechanicsWidget extends StatelessWidget {
         ),
         Container(
           width: 380,
-          height: 600,
+          height: 500,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8),

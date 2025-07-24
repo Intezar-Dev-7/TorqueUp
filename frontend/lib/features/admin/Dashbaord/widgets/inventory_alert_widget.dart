@@ -25,9 +25,15 @@ class _InventoryAlertWidgetState extends State<InventoryAlertWidget> {
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [_buildHeader(), _buildTableHeader(), _buildInventoryList()],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildHeader(),
+            _buildTableHeader(),
+            _buildInventoryList(),
+          ],
+        ),
       ),
     );
   }
@@ -130,16 +136,13 @@ class _InventoryAlertWidgetState extends State<InventoryAlertWidget> {
   }
 
   Widget _buildInventoryList() {
-    return Expanded(
-      child: ListView.builder(
-        shrinkWrap: true,
-
-        physics: NeverScrollableScrollPhysics(),
-        itemCount: inventoryItems.length,
-        itemBuilder: (context, index) {
-          return _buildInventoryRow(inventoryItems[index], index);
-        },
-      ),
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: inventoryItems.length,
+      itemBuilder: (context, index) {
+        return _buildInventoryRow(inventoryItems[index], index);
+      },
     );
   }
 

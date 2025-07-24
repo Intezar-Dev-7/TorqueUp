@@ -30,6 +30,8 @@ class _LoginScreenState extends State<LoginScreen> {
     _passwordFocusNode.dispose();
   }
 
+  String status = 'Admin';
+
   String _selectedOption = ''; // initial selected value
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Container(
                 width: 450,
                 height: 500,
-                margin: const EdgeInsets.symmetric(vertical: 10),
+                margin: const EdgeInsets.symmetric(vertical: 5),
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -65,142 +67,165 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Login To Your Account",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Login To Your Account",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                       ),
-                      SizedBox(height: 20),
-                      CustomTextField(
-                        controller: _emailController,
-                        hintText: 'Email',
-                        focusNode: _emailFocusNode,
-                      ),
-                      SizedBox(height: 10),
-                      CustomTextField(
-                        controller: _passwordController,
-                        hintText: 'Password',
-                        focusNode: _passwordFocusNode,
-                      ),
-                      SizedBox(height: 10),
+                    ),
+                    SizedBox(height: 15),
+                    CustomTextField(
+                      controller: _emailController,
+                      hintText: 'Email',
+                      focusNode: _emailFocusNode,
+                    ),
+                    SizedBox(height: 10),
+                    CustomTextField(
+                      controller: _passwordController,
+                      hintText: 'Password',
+                      focusNode: _passwordFocusNode,
+                    ),
+                    SizedBox(height: 10),
+                    // Add a new textfield asking the user to enter his role
+                    SizedBox(
+                      height: 55,
+                      width: 340,
+                      child: DropdownButtonFormField<String>(
+                        elevation: 2,
+                        focusColor: Colors.black,
+                        borderRadius: BorderRadius.circular(18),
 
-                      Row(
-                        children: [
-                          Radio<String>(
-                            value: '',
-                            groupValue: _selectedOption,
-                            onChanged: (String? value) {
-                              setState(() {
-                                _selectedOption = value!;
-                              });
-                            },
+                        value: status,
+                        decoration: const InputDecoration(labelText: 'Role'),
+                        items:
+                            ['Admin', 'Receptionist', 'Customer']
+                                .map(
+                                  (s) => DropdownMenuItem(
+                                    value: s,
+                                    child: Text(s),
+                                  ),
+                                )
+                                .toList(),
+                        onChanged: (val) {
+                          status = val!;
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Radio<String>(
+                          value: '',
+                          groupValue: _selectedOption,
+                          onChanged: (String? value) {
+                            setState(() {
+                              _selectedOption = value!;
+                            });
+                          },
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          "Remember me",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
                           ),
-                          SizedBox(width: 8),
-                          Text(
-                            "Remember me",
+                        ),
+                        SizedBox(width: 112),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ForgotPasswordScreen(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "Forgot Password ?",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(width: 112),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ForgotPasswordScreen(),
-                                ),
-                              );
-                            },
-                            child: Text(
-                              "Forgot Password ?",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    CustomElevatedButton(
+                      text: 'login',
+                      onPressed:
+                          () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ReceptionistMainScreen(),
                             ),
                           ),
-                        ],
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      "Or Login with",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
                       ),
-                      SizedBox(height: 10),
-                      CustomElevatedButton(
-                        text: 'login',
-                        onPressed:
-                            () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ReceptionistMainScreen(),
-                              ),
-                            ),
-                      ),
-                      SizedBox(height: 20),
-                      Text(
-                        "Or Login with",
+                    ),
+                    SizedBox(height: 20),
+                    // Google and Apple Sign In Options
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                      children: [
+                        GestureDetector(
+                          onTap: () {},
+                          child: Image.asset(
+                            'assets/general_icons/google.png',
+                            height: 30,
+                            width: 30,
+                          ),
+                        ),
+
+                        GestureDetector(
+                          onTap: () {},
+                          child: Image.asset(
+                            'assets/general_icons/apple.png',
+                            height: 30,
+                            width: 30,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 30),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SignupScreen(),
+                          ),
+                        );
+                      },
+                      style: TextButton.styleFrom(elevation: 2),
+
+                      child: Text(
+                        "Create Account ",
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 12,
+                          fontSize: 15,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 40),
-                      // Google and Apple Sign In Options
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                        children: [
-                          GestureDetector(
-                            onTap: () {},
-                            child: Image.asset(
-                              'assets/general_icons/google.png',
-                              height: 30,
-                              width: 30,
-                            ),
-                          ),
-
-                          GestureDetector(
-                            onTap: () {},
-                            child: Image.asset(
-                              'assets/general_icons/apple.png',
-                              height: 30,
-                              width: 30,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 50),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SignupScreen(),
-                            ),
-                          );
-                        },
-                        style: TextButton.styleFrom(elevation: 2),
-
-                        child: Text(
-                          "Create Account ",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],

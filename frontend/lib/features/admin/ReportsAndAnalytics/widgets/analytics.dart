@@ -7,6 +7,7 @@ class AnalyticsCard extends StatelessWidget {
   final IconData icon;
 
   const AnalyticsCard({
+    super.key,
     required this.title,
     required this.value,
     required this.icon,
