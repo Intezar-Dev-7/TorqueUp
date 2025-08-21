@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_elevated_button.dart';
 import 'package:frontend/common/widgets/custom_textfield.dart';
-import 'package:frontend/features/auth/screens/login_screen.dart';
+import 'package:frontend/features/auth/screens/signin_screen.dart';
+import 'package:frontend/features/auth/services/authServices.dart';
 import 'package:frontend/features/auth/widgets/other_login_options.dart';
-import 'package:frontend/features/auth/widgets/service_center_form.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -33,8 +33,21 @@ class _SignupScreenState extends State<SignupScreen> {
     _passwordFocusNode.dispose();
   }
 
-  String status = 'Admin';
+  String _selectedRole = 'Admin';
   String _selectedOption = ''; // initial selected value
+
+  AuthService authService = AuthService();
+
+  void signUpUser() {
+    authService.signUpUser(
+      context: context,
+      name: _nameController.text,
+      email: _emailController.text,
+      password: _passwordController.text,
+      role: _selectedRole,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,7 +123,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           focusColor: Colors.black,
                           borderRadius: BorderRadius.circular(18),
 
-                          value: status,
+                          value: _selectedRole,
                           decoration: const InputDecoration(labelText: 'Role'),
                           items:
                               ['Admin', 'Receptionist', 'Customer']
@@ -122,7 +135,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                   )
                                   .toList(),
                           onChanged: (val) {
-                            status = val!;
+                            setState(() {
+                              _selectedRole = val!;
+                            });
                           },
                         ),
                       ),
@@ -152,14 +167,15 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(height: 10),
                       CustomElevatedButton(
                         text: 'Create Account',
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            (MaterialPageRoute(
-                              builder: (context) => ServiceCenterForm(),
-                            )),
-                          );
-                        },
+                        onPressed: signUpUser,
+                        // onPressed: () {
+                        //   Navigator.push(
+                        //     context,
+                        //     (MaterialPageRoute(
+                        //       builder: (context) => ServiceCenterForm(),
+                        //     )),
+                        //   );
+                        // },
                       ),
                       SizedBox(height: 18),
                       Text(
@@ -179,7 +195,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => LoginScreen(),
+                              builder: (context) => SignInScreen(),
                             ),
                           );
                         },

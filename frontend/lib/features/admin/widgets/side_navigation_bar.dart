@@ -124,7 +124,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
               physics:
                   const NeverScrollableScrollPhysics(), // Optional: disable swiping
               children: const [
-                DashBoardScreen(),
+                AdminDashBoardScreen(),
                 BookingsScreen(),
 
                 MechanicsScreen(),

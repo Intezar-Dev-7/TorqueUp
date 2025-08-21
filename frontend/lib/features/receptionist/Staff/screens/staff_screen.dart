@@ -3,7 +3,7 @@ import 'package:frontend/common/widgets/cus_search_bar.dart';
 import 'package:frontend/common/widgets/custom_elevated_button.dart';
 import 'package:frontend/features/receptionist/Bookings/widgets/compact_calendar.dart';
 import 'package:frontend/features/receptionist/Bookings/widgets/custom_calendar_widget.dart';
-import 'package:frontend/features/receptionist/data/dummy_data.dart';
+import 'package:frontend/features/admin/data/dummy_data.dart';
 
 import '../../../../utils/colors.dart';
 

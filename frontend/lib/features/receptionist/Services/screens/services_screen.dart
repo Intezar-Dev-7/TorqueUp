@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/cus_search_bar.dart';
 import 'package:frontend/utils/colors.dart';
 
-import '../../data/dummy_data.dart';
+import '../../../admin/data/dummy_data.dart';
 
 class ServicesScreen extends StatefulWidget {
   const ServicesScreen({super.key});

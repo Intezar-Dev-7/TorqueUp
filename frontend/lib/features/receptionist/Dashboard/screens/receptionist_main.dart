@@ -7,14 +7,16 @@ import '../../Staff/screens/staff_screen.dart';
 import '../../Services/screens/services_screen.dart';
 import 'receptionist_scaffold.dart';
 
-class ReceptionistMainScreen extends StatefulWidget {
-  const ReceptionistMainScreen({super.key});
+class ReceptionistDashboardScreen extends StatefulWidget {
+  const ReceptionistDashboardScreen({super.key});
 
   @override
-  _ReceptionistMainScreenState createState() => _ReceptionistMainScreenState();
+  _ReceptionistDashboardScreenState createState() =>
+      _ReceptionistDashboardScreenState();
 }
 
-class _ReceptionistMainScreenState extends State<ReceptionistMainScreen> {
+class _ReceptionistDashboardScreenState
+    extends State<ReceptionistDashboardScreen> {
   int selectedIndex = 0;
 
   final List<Widget> pages = [
@@ -23,7 +25,7 @@ class _ReceptionistMainScreenState extends State<ReceptionistMainScreen> {
     const CustomerScreen(),
     const ServicesScreen(),
     const MechanicsScreen(),
-    const NotificationScreen(),
+    const ReceptionistSettingsScreen(),
   ];
 
   @override

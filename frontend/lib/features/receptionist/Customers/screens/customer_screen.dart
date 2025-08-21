@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_elevated_button.dart';
 import 'package:frontend/utils/colors.dart';
-import '../../data/dummy_data.dart';
+import '../../../admin/data/dummy_data.dart';
 import '../../../../common/widgets/cus_search_bar.dart';
 import '../widgets/customer_card.dart';
 

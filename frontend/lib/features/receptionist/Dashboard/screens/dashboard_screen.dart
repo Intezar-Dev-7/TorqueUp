@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/dash_info_card.dart';
 import 'package:frontend/features/receptionist/Dashboard/widgets/dashboard_tables.dart';
 import 'package:frontend/utils/colors.dart';
-import '../../data/dummy_data.dart';
+import '../../../admin/data/dummy_data.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});

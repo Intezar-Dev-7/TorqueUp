@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/utils/colors.dart';
 
-import '../../data/dummy_data.dart';
+import '../../../admin/data/dummy_data.dart';
 import '../../model/mechanics_model.dart';
 
 class MechanicsAvailabilityTable extends StatelessWidget {

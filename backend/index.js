@@ -1,15 +1,36 @@
-const express = require("express");
 
+import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import cors from 'cors';
+
+//  Initialization 
 const app = express();
 
-const Port = 3000;
+dotenv.config();
 
-app.get('/', (req, res) => {
-    res.send('Server Started');
-    res.end();
+// Allow requests from anywhere (dev mode)
+app.use(cors());
+// import from other files 
+import authRouter from "./routes/authRouter.js";
+
+// Middleware to parse JSON
+app.use(express.json());
+
+// Middleware
+app.use(authRouter);
+
+const DBURL = process.env.MONGO_URI;
+
+
+// Connections 
+mongoose.connect(DBURL).then(() => {
+    console.log('Connection Successull');
+}).catch((e) => {
+    console.log(e);
 });
 
-app.listen(Port, '0.0.0.0', () => {
+app.listen(process.env.PORT, '0.0.0.0', () => {
     console.log('Connected');
 }
 );

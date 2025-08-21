@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../data/dummy_data.dart';
+import '../../../admin/data/dummy_data.dart';
 import '../../model/inventory_item_model.dart';
 
 class InventoryStatusTable extends StatefulWidget {

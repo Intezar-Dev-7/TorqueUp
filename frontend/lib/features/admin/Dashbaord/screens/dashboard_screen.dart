@@ -6,16 +6,16 @@ import 'package:frontend/features/admin/Dashbaord/widgets/inventory_alert_widget
 import 'package:frontend/features/admin/Dashbaord/widgets/mechanics_availability_widget.dart';
 import 'package:frontend/features/admin/Dashbaord/widgets/revenue_widget.dart';
 import 'package:frontend/features/admin/Dashbaord/widgets/todays_booking_widget.dart';
-import 'package:frontend/features/receptionist/data/dummy_data.dart';
+import 'package:frontend/features/admin/data/dummy_data.dart';
 
-class DashBoardScreen extends StatefulWidget {
-  const DashBoardScreen({super.key});
+class AdminDashBoardScreen extends StatefulWidget {
+  const AdminDashBoardScreen({super.key});
 
   @override
-  _DashBoardScreenState createState() => _DashBoardScreenState();
+  _AdminDashBoardScreenState createState() => _AdminDashBoardScreenState();
 }
 
-class _DashBoardScreenState extends State<DashBoardScreen> {
+class _AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

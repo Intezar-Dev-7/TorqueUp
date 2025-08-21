@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/features/receptionist/data/dummy_data.dart';
+import 'package:frontend/features/admin/data/dummy_data.dart';
 
 class TodaysBookingWidget extends StatefulWidget {
   const TodaysBookingWidget({super.key});

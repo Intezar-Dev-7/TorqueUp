@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_appbar.dart';
-import 'package:frontend/utils/constant.dart';
+import 'package:frontend/utils/constant/constant.dart';
 
 import '../../../../utils/colors.dart';
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../../utils/colors.dart';
-import '../../data/dummy_data.dart';
+import '../../../admin/data/dummy_data.dart';
 
-class NotificationScreen extends StatelessWidget {
-  const NotificationScreen({super.key});
+class ReceptionistSettingsScreen extends StatelessWidget {
+  const ReceptionistSettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -89,8 +89,8 @@ class NotificationScreen extends StatelessWidget {
         itemCount: notification_data.length,
         itemBuilder: (context, index) {
           return Container(
-            margin: EdgeInsets.symmetric(horizontal: 10.0,vertical: 6),
-            padding: EdgeInsets.symmetric(horizontal: 10,vertical: 8),
+            margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6),
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             decoration: BoxDecoration(
               color: AppColors.grey,
               borderRadius: BorderRadius.circular(12),
@@ -134,7 +134,10 @@ class NotificationScreen extends StatelessWidget {
                       SizedBox(width: 8),
                       Text(
                         notification_data[index]['type'],
-                        style: TextStyle(fontSize: 14,fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                       Text(
                         notification_data[index]['desc'],
@@ -143,10 +146,7 @@ class NotificationScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                Text(
-                  notification_data[index]['time'],
-
-                ),
+                Text(notification_data[index]['time']),
               ],
             ),
           );

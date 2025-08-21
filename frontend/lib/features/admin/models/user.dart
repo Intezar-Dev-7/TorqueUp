@@ -29,10 +29,9 @@ class User {
   final String name;
   final String password;
   final String email;
+  final String role;
   final String address;
-  final String type;
   final String token;
-  final List<dynamic> cart;
 
   /// Constructor for creating a new User instance with all required fields
   User({
@@ -40,10 +39,9 @@ class User {
     required this.name,
     required this.password,
     required this.email,
+    required this.role,
     required this.address,
-    required this.type,
     required this.token,
-    required this.cart,
   });
 
   /*Converts the User object to a Map <String, dynamic>
@@ -54,10 +52,9 @@ class User {
       'name': name,
       'password': password,
       'email': email,
+      'role': role,
       'address': address,
-      'type': type,
       'token': token,
-      'cart': cart,
     };
   }
 
@@ -65,16 +62,14 @@ class User {
    This is typically used when parsing data received from APIs or databases*/
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      id: map['_id'] as String, // '_id' is common in MongoDB responses
-      name: map['name'] as String,
-      password: map['password'] as String,
-      email: map['email'] as String,
-      address: map['address'] as String,
-      type: map['type'] as String,
-      token: map['token'] as String,
-      cart: List<Map<String, dynamic>>.from(
-        map['cart']?.map((x) => Map<String, dynamic>.from(x)),
-      ),
+      id: map['_id']?.toString() ?? "",
+      name: map['name']?.toString() ?? "",
+      password: map['password']?.toString() ?? "",
+      email: map['email']?.toString() ?? "",
+      role: map['role']?.toString() ?? "",
+      address: map['address']?.toString() ?? "",
+      // token: map['token']?.toString() ?? "",
+      token: (map['token'] ?? "").toString(),
     );
   }
 
@@ -94,20 +89,18 @@ class User {
     String? name,
     String? password,
     String? email,
+    String? role,
     String? address,
-    String? type,
     String? token,
-    List<dynamic>? cart,
   }) {
     return User(
       id: id ?? this.id,
       name: name ?? this.name,
       password: password ?? this.password,
       email: email ?? this.email,
+      role: role ?? this.role,
       address: address ?? this.address,
-      type: type ?? this.type,
       token: token ?? this.token,
-      cart: cart ?? this.cart,
     );
   }
 }
