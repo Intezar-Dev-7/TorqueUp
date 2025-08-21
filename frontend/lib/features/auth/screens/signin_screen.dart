@@ -174,40 +174,41 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     SizedBox(height: 10),
                     CustomElevatedButton(text: 'login', onPressed: signInUser),
-                    SizedBox(height: 20),
-                    Text(
-                      "Or Login with",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    // Google and Apple Sign In Options
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    // SizedBox(height: 20),
+                    // Text(
+                    //   "Or Login with",
+                    //   style: TextStyle(
+                    //     color: Colors.black,
+                    //     fontSize: 12,
+                    //     fontWeight: FontWeight.bold,
+                    //   ),
+                    // ),
+                    // SizedBox(height: 20),
+                    // // Google and Apple Sign In Options
 
-                      children: [
-                        GestureDetector(
-                          onTap: () {},
-                          child: Image.asset(
-                            'assets/general_icons/google.png',
-                            height: 30,
-                            width: 30,
-                          ),
-                        ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
-                        GestureDetector(
-                          onTap: () {},
-                          child: Image.asset(
-                            'assets/general_icons/apple.png',
-                            height: 30,
-                            width: 30,
-                          ),
-                        ),
-                      ],
-                    ),
+                    //   children: [
+                    //     GestureDetector(
+                    //       onTap: () {},
+                    //       child: Image.asset(
+                    //         'assets/general_icons/google.png',
+                    //         height: 30,
+                    //         width: 30,
+                    //       ),
+                    //     ),
+
+                    //     GestureDetector(
+                    //       onTap: () {},
+                    //       child: Image.asset(
+                    //         'assets/general_icons/apple.png',
+                    //         height: 30,
+                    //         width: 30,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                     SizedBox(height: 30),
                     TextButton(
                       onPressed: () {

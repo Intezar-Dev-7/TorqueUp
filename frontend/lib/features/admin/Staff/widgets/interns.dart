@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/features/admin/Mechanics/screens/employees_profile_screen.dart';
+import 'package:frontend/features/admin/Staff/screens/employees_profile_screen.dart';
 import 'package:frontend/utils/colors.dart';
 
 class InternsWidget extends StatelessWidget {

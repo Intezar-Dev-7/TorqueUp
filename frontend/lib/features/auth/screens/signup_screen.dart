@@ -3,7 +3,6 @@ import 'package:frontend/common/widgets/custom_elevated_button.dart';
 import 'package:frontend/common/widgets/custom_textfield.dart';
 import 'package:frontend/features/auth/screens/signin_screen.dart';
 import 'package:frontend/features/auth/services/authServices.dart';
-import 'package:frontend/features/auth/widgets/other_login_options.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -178,17 +177,17 @@ class _SignupScreenState extends State<SignupScreen> {
                         // },
                       ),
                       SizedBox(height: 18),
-                      Text(
-                        "Or Login with",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 25),
-                      // Google and Apple Sign In Options
-                      OtherLoginOptions(),
+                      // Text(
+                      //   "Or Login with",
+                      //   style: TextStyle(
+                      //     color: Colors.black,
+                      //     fontSize: 12,
+                      //     fontWeight: FontWeight.bold,
+                      //   ),
+                      // ),
+                      // SizedBox(height: 25),
+                      // // Google and Apple Sign In Options
+                      // OtherLoginOptions(),
                       SizedBox(height: 7),
                       TextButton(
                         onPressed: () {

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/features/admin/Mechanics/screens/employees_profile_screen.dart';
+import 'package:frontend/features/admin/Staff/screens/employees_profile_screen.dart';
 import 'package:frontend/utils/colors.dart';
 
-class MechanicsWidget extends StatelessWidget {
-  const MechanicsWidget({super.key, required this.mechanics});
+class OtherEmployeesWidget extends StatelessWidget {
+  const OtherEmployeesWidget({super.key, required this.otherEmployees});
 
-  final List<Map<String, dynamic>> mechanics;
+  final List<Map<String, dynamic>> otherEmployees;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class MechanicsWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Mechanics",
+          "Other Employees",
           style: TextStyle(
             fontSize: 18,
             color: Colors.black,
@@ -37,18 +37,15 @@ class MechanicsWidget extends StatelessWidget {
             ],
           ),
           child: ListView.builder(
-            itemCount: mechanics.length,
+            itemCount: otherEmployees.length,
             itemBuilder: (context, i) {
-              final mechanic = mechanics[i];
+              final otherEmployee = otherEmployees[i];
               return ListTile(
                 leading: CircleAvatar(
-                  backgroundImage: NetworkImage(mechanic['avatar']),
-
-                  radius: 24,
-                  backgroundColor: Colors.grey[200],
+                  backgroundImage: NetworkImage(otherEmployee['avatar']),
                 ),
-                title: Text(mechanic['name']),
-                subtitle: Text(mechanic['role']),
+                title: Text(otherEmployee['name']),
+                subtitle: Text(otherEmployee['role']),
                 trailing: ElevatedButton(
                   onPressed: () {
                     Navigator.push(

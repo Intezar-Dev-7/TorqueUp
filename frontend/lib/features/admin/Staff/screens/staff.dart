@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_appbar.dart';
-import 'package:frontend/features/admin/Mechanics/widgets/interns.dart';
-import 'package:frontend/features/admin/Mechanics/widgets/mechanics.dart';
-import 'package:frontend/features/admin/Mechanics/widgets/other_employees.dart';
+import 'package:frontend/features/admin/Staff/widgets/interns.dart';
+import 'package:frontend/features/admin/Staff/widgets/mechanics.dart';
+import 'package:frontend/features/admin/Staff/widgets/other_employees.dart';
 import 'package:frontend/utils/constant/employees_dummy_data.dart';
 
-class MechanicsScreen extends StatefulWidget {
-  const MechanicsScreen({super.key});
+class StaffScreen extends StatefulWidget {
+  const StaffScreen({super.key});
 
   @override
-  State<MechanicsScreen> createState() => _MechanicsScreenState();
+  State<StaffScreen> createState() => _StaffScreenState();
 }
 
-class _MechanicsScreenState extends State<MechanicsScreen> {
+class _StaffScreenState extends State<StaffScreen> {
   @override
   Widget build(BuildContext context) {
     final mechanics = Employees.mechanicsData;
