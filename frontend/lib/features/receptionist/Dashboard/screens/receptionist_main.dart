@@ -4,7 +4,6 @@ import 'package:frontend/features/receptionist/Bookings/screens/booking_screen.d
 import 'package:frontend/features/receptionist/Customers/screens/customer_screen.dart';
 import 'package:frontend/features/receptionist/Dashboard/screens/dashboard_screen.dart';
 import 'package:frontend/features/receptionist/Settings/screens/receptionist_settings_screen.dart';
-import '../../Staff/screens/receptionist_staff_screen.dart';
 import '../../Services/screens/services_screen.dart';
 import 'receptionist_scaffold.dart';
 

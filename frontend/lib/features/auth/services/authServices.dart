@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:frontend/common/widgets/custom_snack_bar.dart';
 import 'package:frontend/features/admin/models/user.dart';
 import 'package:frontend/features/admin/widgets/side_navigation_bar.dart';
 import 'package:frontend/features/auth/screens/signin_screen.dart';
@@ -65,11 +66,12 @@ class AuthService {
             ),
           );
         }
-
-        ScaffoldMessenger.of(
+        CustomSnackBar.show(
           context,
-        ).showSnackBar(SnackBar(content: Text('Account created successfully')));
-
+          message: "Account created successfully!",
+          backgroundColor: Colors.green,
+          icon: Icons.check_circle,
+        );
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => targetScreen),
@@ -77,21 +79,14 @@ class AuthService {
         );
       } else {
         final error = jsonDecode(res.body);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(error['msg'] ?? 'Sign up failed'),
-            backgroundColor: Colors.red,
-          ),
+        CustomSnackBar.show(
+          context,
+          message: '$error',
+          backgroundColor: Colors.redAccent,
         );
       }
     } catch (e) {
-      String errorMsg = 'An error occurred. Please try again.';
-      if (e is http.ClientException) {
-        errorMsg = 'Network error. Check your internet connection.';
-      }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(errorMsg), backgroundColor: Colors.red),
-      );
+      print('$e');
     }
   }
   // SignIn function for logging in user
@@ -127,9 +122,11 @@ class AuthService {
         Provider.of<UserProvider>(context, listen: false).setUser(res.body);
 
         // Show success
-        ScaffoldMessenger.of(
+        CustomSnackBar.show(
           context,
-        ).showSnackBar(const SnackBar(content: Text("Login Successful")));
+          message: "Login successful!",
+          backgroundColor: Colors.green,
+        );
 
         // // Immediately fetch updated user data
         // getUserData(context: context);
@@ -157,19 +154,14 @@ class AuthService {
         }
       } else {
         final error = jsonDecode(res.body);
-        print("Login Failed: ${res.body}");
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.red,
-            content: Text(error['msg'] ?? 'Login Failed'),
-          ),
+        CustomSnackBar.show(
+          context,
+          message: "Login Failed",
+          backgroundColor: Colors.redAccent,
         );
       }
     } catch (e) {
       print(e);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('$e'), backgroundColor: Colors.red),
-      );
     }
   }
 
@@ -207,7 +199,11 @@ class AuthService {
         userProvider.setUser(userRes.body);
       }
     } catch (e) {
-      print('Error in getUserData: $e');
+      CustomSnackBar.show(
+        context,
+        message: "$e",
+        backgroundColor: Colors.redAccent,
+      );
     }
   }
 }

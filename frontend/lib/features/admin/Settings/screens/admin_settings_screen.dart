@@ -99,7 +99,7 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
                 ),
               ),
 
-              const SizedBox(height: 24),
+              const SizedBox(height: 20),
 
               // ✅ Security (passwords)
               _buildSettingsCard(
@@ -125,15 +125,37 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
                       focusNode: _confirmPasswordFocusNode,
                       hintText: 'Confirm password',
                     ),
+                    SizedBox(height: 10),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        // Save changes handler
+                      },
+                      icon: const Icon(Icons.save, color: Colors.white),
+                      label: const Text(
+                        "Save Password",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 14,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-
+              SizedBox(height: 15),
               // Service Center form , to add business details
               _buildSettingsCard(
                 icon: Icons.business,
                 title: "Service Center Details",
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomTextField(
                       controller: _businessNameController,
@@ -198,26 +220,26 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
                       ),
                     ),
                   ),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      // Save changes handler
-                    },
-                    icon: const Icon(Icons.save, color: Colors.white),
-                    label: const Text(
-                      "Save Changes",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 14,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
+                  // ElevatedButton.icon(
+                  //   onPressed: () {
+                  //     // Save changes handler
+                  //   },
+                  //   icon: const Icon(Icons.save, color: Colors.white),
+                  //   label: const Text(
+                  //     "Save Changes",
+                  //     style: TextStyle(color: Colors.white),
+                  //   ),
+                  //   style: ElevatedButton.styleFrom(
+                  //     backgroundColor: Colors.black,
+                  //     padding: const EdgeInsets.symmetric(
+                  //       horizontal: 24,
+                  //       vertical: 14,
+                  //     ),
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(8),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ],

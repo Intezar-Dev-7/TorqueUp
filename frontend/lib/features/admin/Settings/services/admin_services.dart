@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/common/widgets/custom_snack_bar.dart';
 import 'package:frontend/features/auth/screens/signin_screen.dart';
 import 'package:frontend/utils/constant/api.dart';
 import 'package:http/http.dart' as http;
@@ -21,9 +22,12 @@ class AdminServices {
       );
     } catch (e) {
       print('Logout error: $e');
-      ScaffoldMessenger.of(
+      CustomSnackBar.show(
         context,
-      ).showSnackBar(SnackBar(content: Text('Error: $e')));
+        message: "Logged out successfully!",
+        backgroundColor: Colors.green,
+        icon: Icons.done,
+      );
     }
   }
 }

@@ -13,6 +13,7 @@ dotenv.config();
 app.use(cors());
 // import from other files 
 import authRouter from "./routes/authRouter.js";
+// import adminRouter from './routes/adminRouter.js';
 
 // Middleware to parse JSON
 app.use(express.json());
