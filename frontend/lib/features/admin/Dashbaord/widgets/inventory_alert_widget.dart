@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/features/admin/Inventory/screens/inventory_screen.dart';
 import 'package:frontend/features/admin/data/dummy_data.dart';
 import 'package:frontend/features/receptionist/model/inventory_item_model.dart';
 
@@ -65,10 +66,18 @@ class _InventoryAlertWidgetState extends State<InventoryAlertWidget> {
           ),
           GestureDetector(
             onTap: () {
-              // Handle see all action
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => InventoryScreen()),
+              );
             },
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => InventoryScreen()),
+                );
+              },
               child: Text(
                 "See all",
                 style: TextStyle(

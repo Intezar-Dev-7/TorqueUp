@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/features/admin/Bookings/screens/admin_bookings_screen.dart';
 import 'package:frontend/features/admin/data/dummy_data.dart';
 
 class TodaysBookingWidget extends StatefulWidget {
@@ -52,7 +53,14 @@ class _TodaysBookingWidgetState extends State<TodaysBookingWidget> {
                   ),
                   const Spacer(),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AdminBookingsScreen(),
+                        ),
+                      );
+                    },
                     child: Text(
                       "See All",
                       style: TextStyle(

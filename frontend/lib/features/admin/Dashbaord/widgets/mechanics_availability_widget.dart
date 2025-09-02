@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/features/admin/Staff/screens/staff.dart';
 import 'package:frontend/features/admin/data/dummy_data.dart';
 
 class MechanicsAvailabilityWidget extends StatelessWidget {
@@ -39,7 +40,12 @@ class MechanicsAvailabilityWidget extends StatelessWidget {
                   ),
                   const Spacer(),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => StaffScreen()),
+                      );
+                    },
                     child: Text(
                       "See All",
                       style: TextStyle(

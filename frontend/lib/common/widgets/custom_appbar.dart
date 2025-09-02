@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/features/admin/widgets/notification_screen.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -50,7 +51,12 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        // Handle notification tap
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AdminNotificationScreen(),
+                          ),
+                        );
                       },
                       icon: const Icon(Icons.notifications_none),
                       color: Colors.black,

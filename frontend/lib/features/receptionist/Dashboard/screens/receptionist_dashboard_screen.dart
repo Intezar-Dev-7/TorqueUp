@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/common/widgets/custom_appbar.dart';
 import 'package:frontend/common/widgets/dash_info_card.dart';
-import 'package:frontend/features/receptionist/Dashboard/widgets/dashboard_tables.dart';
+import 'package:frontend/features/receptionist/Dashboard/widgets/inventory_status_alert_table.dart';
+import 'package:frontend/features/receptionist/Dashboard/widgets/mechanics_availability_table.dart';
+import 'package:frontend/features/receptionist/Dashboard/widgets/todays_appointment_table.dart';
 import 'package:frontend/utils/colors.dart';
 import '../../../admin/data/dummy_data.dart';
 
-class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({super.key});
+class ReceptionistDashboardScreen extends StatelessWidget {
+  const ReceptionistDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppbar(title: 'Dashboard', subtitle: ''),
+
       backgroundColor: AppColors.white,
       body: Column(
         children: [
@@ -70,7 +75,36 @@ class DashboardScreen extends StatelessWidget {
               }
             },
           ),
-          Expanded(child: DashboardTables()),
+
+          SizedBox(height: 10),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Expanded(child: MechanicsAvailabilityTable()),
+                        SizedBox(height: 16),
+                        Expanded(child: InventoryStatusTable()),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(child: TodaysAppointmentsTable()),
+                        SizedBox(height: 16),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

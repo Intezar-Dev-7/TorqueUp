@@ -1,19 +1,103 @@
-class BookingData {
-  final DateTime booking_date;
-  final String booking_time;
-  final String vehicle_name;
-  final String owner_name;
-  final String vehicle_number;
-  final String service_type;
-  final String service_status;
+import 'dart:convert';
 
-  BookingData({
-    required this.booking_date,
-    required this.booking_time,
-    required this.vehicle_name,
-    required this.owner_name,
-    required this.vehicle_number,
-    required this.service_type,
-    required this.service_status,
+/*Model class representing a **New Booking** in the system.
+Contains details about the customer, their vehicle, problem description,
+and booking dates. */
+class NewBooking {
+  final String id;
+  final String customerName;
+  final String vehicleNumber;
+  final String problem;
+  String status;
+  final DateTime bookedDate;
+  final DateTime readyDate;
+
+  /// Constructor for creating a NewBooking object.
+  NewBooking({
+    required this.id,
+    required this.customerName,
+    required this.vehicleNumber,
+    required this.problem,
+    required this.status,
+    required this.bookedDate,
+    required this.readyDate,
   });
+
+  /// Converts the object into a **Map** (useful for saving to databases).
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'customerName': customerName,
+      'vehicleNumber': vehicleNumber,
+      'problem': problem,
+      'status': status,
+      'bookedDate': bookedDate.toIso8601String(),
+      'readyDate': readyDate.toIso8601String(),
+    };
+  }
+
+  /// Factory constructor: creates a **NewBooking object** from a Map.
+  // factory NewBooking.fromMap(Map<String, dynamic> map) {
+  //   return NewBooking(
+  //     id: map['id'] as String,
+  //     customerName: map['customerName'] as String,
+  //     vehicleNumber: map['vehicleNumber'] as String,
+  //     problem: map['problem'] as String,
+  //     status: map['status'] as String,
+  //     bookedDate: DateTime.parse(map['bookedDate'] as String),
+  //     readyDate: DateTime.parse(map['readyDate'] as String),
+  //   );
+  // }
+  factory NewBooking.fromMap(Map<String, dynamic> map) {
+    return NewBooking(
+      id: map['id'] ?? '',
+      customerName: map['customerName'] ?? 'Unknown',
+      vehicleNumber: map['vehicleNumber'] ?? 'N/A',
+      problem: map['problem'] ?? 'No description',
+      status: map['status'] ?? 'Pending',
+      bookedDate:
+          map['bookedDate'] != null
+              ? DateTime.parse(map['bookedDate'])
+              : DateTime.now(),
+      readyDate:
+          map['readyDate'] != null
+              ? DateTime.parse(map['readyDate'])
+              : DateTime.now(),
+    );
+  }
+
+  /// Converts the object into a **JSON string**.
+  String toJson() => json.encode(toMap());
+
+  /// Factory constructor: creates a **NewBooking object** from a JSON string.
+  factory NewBooking.fromJson(String source) =>
+      NewBooking.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  // For list of bookings
+  static List<NewBooking> listFromJson(String source) {
+    final data = json.decode(source) as List<dynamic>;
+    return data.map((item) => NewBooking.fromMap(item)).toList();
+  }
+
+  /// Creates a **copy of the object** with optional new values.
+  /// Very useful for updating only certain fields while keeping others same.
+  NewBooking copyWith({
+    String? id,
+    String? customerName,
+    String? vehicleNumber,
+    String? problem,
+    String? status,
+    DateTime? bookedDate,
+    DateTime? readyDate,
+  }) {
+    return NewBooking(
+      id: id ?? this.id,
+      customerName: customerName ?? this.customerName,
+      vehicleNumber: vehicleNumber ?? this.vehicleNumber,
+      problem: problem ?? this.problem,
+      status: status ?? this.status,
+      bookedDate: bookedDate ?? this.bookedDate,
+      readyDate: readyDate ?? this.readyDate,
+    );
+  }
 }

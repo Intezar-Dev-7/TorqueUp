@@ -1,5 +1,3 @@
-import 'package:frontend/features/receptionist/model/booking_model.dart';
-
 import '../../../utils/constant/constant.dart';
 import '../../receptionist/model/appointment_model.dart';
 import '../../receptionist/model/inventory_item_model.dart';
@@ -252,44 +250,44 @@ final List<InventoryItem> inventoryItems = [
     productType: ProductType.oil,
   ),
 ];
-List<BookingData> bookings = [
-  BookingData(
-    booking_date: DateTime.now(),
-    booking_time: '9:00 AM - 10:00 AM',
-    vehicle_name: 'Tata Harrier',
-    owner_name: 'Hemant sahu',
-    vehicle_number: 'MP05MV6802',
-    service_type: 'General Service',
-    service_status: 'Completed',
-  ),
-  BookingData(
-    booking_date: DateTime.now(),
-    booking_time: '10:00 AM - 11:00 AM',
-    vehicle_name: 'Tata Safari',
-    owner_name: 'Rajaram sahu',
-    vehicle_number: 'MP05MV6802',
-    service_type: 'Repairing',
-    service_status: 'Pending',
-  ),
-  BookingData(
-    booking_date: DateTime.now(),
-    booking_time: '9:00 AM - 10:00 AM',
-    vehicle_name: 'Tata Harrier',
-    owner_name: 'Hemant sahu',
-    vehicle_number: 'MP05MV6802',
-    service_type: 'General Service',
-    service_status: 'Completed',
-  ),
-  BookingData(
-    booking_date: DateTime.now(),
-    booking_time: '10:00 AM - 11:00 AM',
-    vehicle_name: 'Tata Safari',
-    owner_name: 'Rajaram sahu',
-    vehicle_number: 'MP05MV6802',
-    service_type: 'Repairing',
-    service_status: 'Pending',
-  ),
-];
+// List<BookingData> bookings = [
+//   BookingData(
+//     booking_date: DateTime.now(),
+//     booking_time: '9:00 AM - 10:00 AM',
+//     vehicle_name: 'Tata Harrier',
+//     owner_name: 'Hemant sahu',
+//     vehicle_number: 'MP05MV6802',
+//     service_type: 'General Service',
+//     service_status: 'Completed',
+//   ),
+//   BookingData(
+//     booking_date: DateTime.now(),
+//     booking_time: '10:00 AM - 11:00 AM',
+//     vehicle_name: 'Tata Safari',
+//     owner_name: 'Rajaram sahu',
+//     vehicle_number: 'MP05MV6802',
+//     service_type: 'Repairing',
+//     service_status: 'Pending',
+//   ),
+//   BookingData(
+//     booking_date: DateTime.now(),
+//     booking_time: '9:00 AM - 10:00 AM',
+//     vehicle_name: 'Tata Harrier',
+//     owner_name: 'Hemant sahu',
+//     vehicle_number: 'MP05MV6802',
+//     service_type: 'General Service',
+//     service_status: 'Completed',
+//   ),
+//   BookingData(
+//     booking_date: DateTime.now(),
+//     booking_time: '10:00 AM - 11:00 AM',
+//     vehicle_name: 'Tata Safari',
+//     owner_name: 'Rajaram sahu',
+//     vehicle_number: 'MP05MV6802',
+//     service_type: 'Repairing',
+//     service_status: 'Pending',
+//   ),
+// ];
 List<Map<String, String>> mechanics = [
   {
     "name": "Jane Cooper",

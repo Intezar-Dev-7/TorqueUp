@@ -17,23 +17,11 @@ class _ReportsAndAnalyticsScreenState extends State<ReportsAndAnalyticsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text('Reports & Analytics'),
-        backgroundColor: Colors.white,
-        elevation: 1,
-      ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Page Title
-            const Text(
-              "Analytics Overview",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 24),
-
             // Summary Cards
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

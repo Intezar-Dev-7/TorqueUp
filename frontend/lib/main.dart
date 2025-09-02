@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/features/admin/widgets/side_navigation_bar.dart';
+import 'package:frontend/features/admin/widgets/admin_side_navigation_bar.dart';
 import 'package:frontend/features/auth/screens/signin_screen.dart';
-import 'package:frontend/features/receptionist/Dashboard/screens/receptionist_main.dart';
+import 'package:frontend/features/auth/services/authServices.dart';
+import 'package:frontend/features/receptionist/widgets/receptionist_side_nav_bar.dart';
 import 'package:frontend/provider/user_Provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // important for async initialization
+
   runApp(
     MultiProvider(
       providers: [ChangeNotifierProvider(create: (context) => UserProvider())],
@@ -23,14 +26,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // final AuthService authService = AuthService();
+  final AuthService authService = AuthService();
 
-  // // @override
   // @override
-  // void initState() {
-  //   super.initState();
-  //   authService.getUserData(context: context);
-  // }
+  @override
+  void initState() {
+    super.initState();
+    authService.getUserData(context: context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +46,6 @@ class _MyAppState extends State<MyApp> {
         textTheme: GoogleFonts.interTextTheme(),
         useMaterial3: true,
       ),
-      // home: SignInScreen(),
       home: _getHomeScreen(userProvider),
     );
   }
@@ -58,7 +60,7 @@ class _MyAppState extends State<MyApp> {
     }
 
     if (userProvider.user.role == 'receptionist') {
-      return const ReceptionistDashboardScreen(); // Receptionist home
+      return const ReceptionistSideNavBar(); // Receptionist home
     }
 
     return const SignInScreen(); // Default fallback

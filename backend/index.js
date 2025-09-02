@@ -12,14 +12,16 @@ dotenv.config();
 // Allow requests from anywhere (dev mode)
 app.use(cors());
 // import from other files 
+
 import authRouter from "./routes/authRouter.js";
-// import adminRouter from './routes/adminRouter.js';
+import receptionistRouter from './routes/receptionistRouter.js';
 
 // Middleware to parse JSON
 app.use(express.json());
 
 // Middleware
 app.use(authRouter);
+app.use(receptionistRouter);
 
 const DBURL = process.env.MONGO_URI;
 

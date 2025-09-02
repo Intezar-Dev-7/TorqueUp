@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_textfield.dart';
+import 'package:frontend/features/admin/Settings/services/admin_services.dart';
 
-class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+class ReceptionistSettingsScreen extends StatefulWidget {
+  const ReceptionistSettingsScreen({super.key});
 
   @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
+  State<ReceptionistSettingsScreen> createState() =>
+      _ReceptionistSettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class _ReceptionistSettingsScreenState
+    extends State<ReceptionistSettingsScreen> {
   final TextEditingController _oldPasswordController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
@@ -20,17 +23,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   bool notificationsEnabled = true;
 
+  final AdminServices _adminServices = AdminServices();
+
   @override
   void dispose() {
-    super.dispose();
+    ///
     _oldPasswordController.dispose();
     _newPasswordController.dispose();
     _confirmPasswordController.dispose();
 
-    // Disposing all the focus nodes
     _oldPasswordFocusNode.dispose();
     _newPasswordFocusNode.dispose();
     _confirmPasswordFocusNode.dispose();
+    super.dispose();
+  }
+
+  void logoutAdmin() {
+    _adminServices.logoutAdmin(context: context);
   }
 
   @override
@@ -41,18 +50,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 800),
           child: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 40),
             children: [
               const Text(
-                "Admin Settings",
+                "Receptionist Settings",
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                "Manage admin-specific settings like security and alerts.",
               ),
 
               const SizedBox(height: 32),
+
+              // ✅ Notifications
               _buildSettingsCard(
                 icon: Icons.email,
                 title: "Notifications",
@@ -64,7 +71,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
 
-              const SizedBox(height: 24),
+              const SizedBox(height: 20),
+
+              // ✅ Security (passwords)
               _buildSettingsCard(
                 icon: Icons.lock,
                 title: "Security",
@@ -76,28 +85,52 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       hintText: 'Enter old password',
                       focusNode: _oldPasswordFocusNode,
                     ),
-                    SizedBox(height: 12),
+                    const SizedBox(height: 12),
                     CustomTextField(
                       controller: _newPasswordController,
                       focusNode: _newPasswordFocusNode,
                       hintText: 'Enter new password',
                     ),
-                    SizedBox(height: 12),
+                    const SizedBox(height: 12),
                     CustomTextField(
                       controller: _confirmPasswordController,
                       focusNode: _confirmPasswordFocusNode,
                       hintText: 'Confirm password',
                     ),
+                    SizedBox(height: 10),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        // Save changes handler
+                      },
+                      icon: const Icon(Icons.save, color: Colors.white),
+                      label: const Text(
+                        "Save Password",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 14,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
 
+              // SizedBox(height: 15),
               const SizedBox(height: 32),
+
+              // ✅ Buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: logoutAdmin,
                     icon: const Icon(Icons.logout, color: Colors.white),
                     label: const Text(
                       "Logout",
@@ -105,24 +138,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.redAccent,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 14,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                  ElevatedButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(Icons.save, color: Colors.white),
-                    label: const Text(
-                      "Save Changes",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 24,
                         vertical: 14,
@@ -141,6 +156,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  // ✅ Fixed helper method
   Widget _buildSettingsCard({
     required IconData icon,
     required String title,
@@ -168,6 +184,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ],
             ),
             const SizedBox(height: 16),
+
+            // 👇 This makes the child show inside the card
+            child,
           ],
         ),
       ),

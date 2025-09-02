@@ -6,8 +6,8 @@ import 'package:easy_sidemenu/easy_sidemenu.dart'
         SideMenuItem,
         SideMenuStyle;
 import 'package:flutter/material.dart';
-import 'package:frontend/features/admin/Bookings/screens/bookings_screen.dart';
-import 'package:frontend/features/admin/Dashbaord/screens/dashboard_screen.dart';
+import 'package:frontend/features/admin/Bookings/screens/admin_bookings_screen.dart';
+import 'package:frontend/features/admin/Dashbaord/screens/admin_dashboard_screen.dart';
 import 'package:frontend/features/admin/Inventory/screens/inventory_screen.dart';
 import 'package:frontend/features/admin/Staff/screens/staff.dart';
 import 'package:frontend/features/admin/ReportsAndAnalytics/screens/reports_and_analytics_screen.dart';
@@ -43,7 +43,6 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
           SideMenu(
             controller: sideMenu,
             style: SideMenuStyle(
-              // showTooltip: false,
               displayMode: SideMenuDisplayMode.auto,
               showHamburger: true,
               hoverColor: Colors.black38,
@@ -89,30 +88,22 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
 
               SideMenuItem(
                 title: 'Staff',
-                onTap: (index, _) {
-                  sideMenu.changePage(index);
-                },
+                onTap: (index, _) => sideMenu.changePage(index),
                 icon: const Icon(Iconsax.people5),
               ),
               SideMenuItem(
                 title: 'Inventory',
-                onTap: (index, _) {
-                  sideMenu.changePage(index);
-                },
+                onTap: (index, _) => sideMenu.changePage(index),
                 icon: const Icon(Iconsax.box_14),
               ),
               SideMenuItem(
                 title: 'Reports & Analytics',
-                onTap: (index, _) {
-                  sideMenu.changePage(index);
-                },
+                onTap: (index, _) => sideMenu.changePage(index),
                 icon: const Icon(Iconsax.bill),
               ),
               SideMenuItem(
                 title: 'Settings',
-                onTap: (index, _) {
-                  sideMenu.changePage(index);
-                },
+                onTap: (index, _) => sideMenu.changePage(index),
                 icon: const Icon(Iconsax.settings),
               ),
             ],
@@ -125,7 +116,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
                   const NeverScrollableScrollPhysics(), // Optional: disable swiping
               children: const [
                 AdminDashBoardScreen(),
-                BookingsScreen(),
+                AdminBookingsScreen(),
                 StaffScreen(),
                 InventoryScreen(),
                 ReportsAndAnalyticsScreen(),

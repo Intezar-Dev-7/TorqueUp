@@ -1,0 +1,83 @@
+import 'package:flutter/material.dart';
+import 'package:frontend/common/widgets/custom_snack_bar.dart';
+import 'package:frontend/features/receptionist/model/booking_model.dart';
+import 'package:frontend/utils/constant/api.dart';
+import 'package:http/http.dart' as http;
+
+class VehicleBookingServices {
+  void newVehicleBooking({
+    required BuildContext context,
+    required customerName,
+    required vehicleNumber,
+    required problem,
+    required status,
+    required bookedDate,
+    required readyDate,
+  }) async {
+    try {
+      NewBooking newBooking = NewBooking(
+        id: '',
+        customerName: customerName,
+        vehicleNumber: vehicleNumber,
+        problem: problem,
+        status: status,
+        bookedDate: bookedDate,
+        readyDate: readyDate,
+      );
+
+      // send a  post requried to backend
+
+      http.Response res = await http.post(
+        Uri.parse('$uri/api/newBooking'),
+        body: newBooking.toJson(),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      print("Response: ${res.statusCode} - ${res.body}");
+
+      // Show success
+      if (res.statusCode == 200) {
+        CustomSnackBar.show(
+          context,
+          message: "Vehicle Booked Successfully!",
+          backgroundColor: Colors.green,
+        );
+      }
+    } catch (e) {
+      // Show success
+      CustomSnackBar.show(
+        context,
+        message: "Something went wrong $e",
+        backgroundColor: Colors.green,
+      );
+      print(e);
+    }
+  }
+
+  Future<List<NewBooking>> fetchAllBookings(BuildContext context) async {
+    try {
+      final res = await http.get(Uri.parse('$uri/api/getBookings'));
+      print('Fetch Response : ${res.statusCode}-${res.body}');
+      if (res.statusCode == 200) {
+        List<NewBooking> bookings = NewBooking.listFromJson(res.body);
+        return bookings;
+      } else {
+        CustomSnackBar.show(
+          context,
+          message: "Failed to load bookings",
+          backgroundColor: Colors.red,
+        );
+        return [];
+      }
+    } catch (e) {
+      CustomSnackBar.show(
+        context,
+        message: "Error: $e",
+        backgroundColor: Colors.red,
+      );
+      print(e);
+      return [];
+    }
+  }
+}
