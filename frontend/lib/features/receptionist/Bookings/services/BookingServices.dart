@@ -16,7 +16,7 @@ class VehicleBookingServices {
   }) async {
     try {
       NewBooking newBooking = NewBooking(
-        id: '',
+        bookingId: '',
         customerName: customerName,
         vehicleNumber: vehicleNumber,
         problem: problem,
@@ -78,6 +78,46 @@ class VehicleBookingServices {
       );
       print(e);
       return [];
+    }
+  }
+
+  Future<void> deleteBooking({
+    required BuildContext context,
+    required String bookingId,
+  }) async {
+    try {
+      print("Success 3");
+      http.Response res = await http.delete(
+        Uri.parse('$uri/api/deleteBooking/$bookingId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      if (res.statusCode == 200) {
+        print("Success 4");
+        print('Status Code:, ${res.statusCode}');
+        print('Body, ${res.body}');
+
+        CustomSnackBar.show(
+          context,
+          message: "Booking deleted successfully",
+          backgroundColor: Colors.lightGreenAccent,
+        );
+      } else {
+        print("Status Code: ${res.statusCode}");
+        print("Body: ${res.body}");
+        CustomSnackBar.show(
+          context,
+          message: "Failed to delete: ${res.body}",
+          backgroundColor: Colors.redAccent,
+        );
+      }
+    } catch (e) {
+      CustomSnackBar.show(
+        context,
+        message: "Error: $e",
+        backgroundColor: Colors.redAccent,
+      );
     }
   }
 }

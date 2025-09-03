@@ -4,7 +4,7 @@ import 'dart:convert';
 Contains details about the customer, their vehicle, problem description,
 and booking dates. */
 class NewBooking {
-  final String id;
+  final String bookingId;
   final String customerName;
   final String vehicleNumber;
   final String problem;
@@ -14,7 +14,7 @@ class NewBooking {
 
   /// Constructor for creating a NewBooking object.
   NewBooking({
-    required this.id,
+    required this.bookingId,
     required this.customerName,
     required this.vehicleNumber,
     required this.problem,
@@ -26,7 +26,7 @@ class NewBooking {
   /// Converts the object into a **Map** (useful for saving to databases).
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
+      'bookingId': bookingId,
       'customerName': customerName,
       'vehicleNumber': vehicleNumber,
       'problem': problem,
@@ -39,7 +39,7 @@ class NewBooking {
   /// Factory constructor: creates a **NewBooking object** from a Map.
   // factory NewBooking.fromMap(Map<String, dynamic> map) {
   //   return NewBooking(
-  //     id: map['id'] as String,
+  //     bookingId: map['bookingId'] as String,
   //     customerName: map['customerName'] as String,
   //     vehicleNumber: map['vehicleNumber'] as String,
   //     problem: map['problem'] as String,
@@ -50,7 +50,7 @@ class NewBooking {
   // }
   factory NewBooking.fromMap(Map<String, dynamic> map) {
     return NewBooking(
-      id: map['id'] ?? '',
+      bookingId: map['_id'] ?? '', //  Use MongoDB's _id here
       customerName: map['customerName'] ?? 'Unknown',
       vehicleNumber: map['vehicleNumber'] ?? 'N/A',
       problem: map['problem'] ?? 'No description',
@@ -82,7 +82,7 @@ class NewBooking {
   /// Creates a **copy of the object** with optional new values.
   /// Very useful for updating only certain fields while keeping others same.
   NewBooking copyWith({
-    String? id,
+    String? bookingId,
     String? customerName,
     String? vehicleNumber,
     String? problem,
@@ -91,7 +91,7 @@ class NewBooking {
     DateTime? readyDate,
   }) {
     return NewBooking(
-      id: id ?? this.id,
+      bookingId: bookingId ?? this.bookingId,
       customerName: customerName ?? this.customerName,
       vehicleNumber: vehicleNumber ?? this.vehicleNumber,
       problem: problem ?? this.problem,

@@ -22,7 +22,6 @@ receptionistRouter.post('/api/newBooking', async (req, res) => {
         });
         await newBooking.save();
 
-        // Send a response (res.send() / res.json() / res.status())
         // 201 Created → New resource created successfully (usually after POST).
         res.status(201).json(newBooking);
 
@@ -46,5 +45,21 @@ receptionistRouter.get('/api/getBookings', async (req, res) => {
 
 });
 
+receptionistRouter.delete('/api/deleteBooking/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const deletedBooking = await NewBooking.findByIdAndDelete(id);
+
+        if (!deletedBooking) {
+            return res.status(404).json({ message: "Booking not found" });
+        }
+        console.log("It reached here ");
+        res.status(200).json({ message: "Booking has been deleted successfully" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error", error });
+    }
+});
 
 export default receptionistRouter;

@@ -5,6 +5,7 @@ import 'package:frontend/features/receptionist/Bookings/services/BookingServices
 import 'package:frontend/features/receptionist/Bookings/widgets/new_booking_widget.dart';
 import 'package:frontend/features/receptionist/model/booking_model.dart';
 import 'package:frontend/utils/colors.dart';
+import 'package:frontend/utils/constant/api.dart';
 import 'package:intl/intl.dart'; // For date formatting
 
 class BookingsScreen extends StatefulWidget {
@@ -70,6 +71,20 @@ class _BookingsScreenState extends State<BookingsScreen> {
         backgroundColor: Colors.red,
       );
     }
+  }
+
+  void deleteVehicleBooking(String bookingId) async {
+    print("Deleting booking with ID: $bookingId");
+    print("Request URL: $uri/api/deleteBooking/$bookingId");
+
+    print("Success 1");
+    await bookingServices.deleteBooking(context: context, bookingId: bookingId);
+    // Remove the deleted booking from the list immediately
+    setState(() {
+      bookings.removeWhere((booking) => booking.bookingId == bookingId);
+    });
+    fetchBookingData();
+    print("Success 2");
   }
 
   @override
@@ -380,7 +395,47 @@ class _BookingsScreenState extends State<BookingsScreen> {
                                       size: 18,
                                       color: Colors.redAccent,
                                     ),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder:
+                                            (context) => AlertDialog(
+                                              title: Text(
+                                                "Confirm Deletion",
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              content: Text(
+                                                'Are you sure you want to delete this booking',
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    deleteVehicleBooking(
+                                                      bookings[index].bookingId,
+                                                    ); // Delete booking
+                                                    Navigator.pop(
+                                                      context,
+                                                    ); // Close dialog
+                                                  },
+                                                  child: Text("Delete"),
+                                                ),
+                                                TextButton(
+                                                  onPressed:
+                                                      () => Navigator.pop(
+                                                        context,
+                                                        true,
+                                                      ),
+                                                  child: Text("Cancel"),
+                                                ),
+                                              ],
+                                            ),
+                                      );
+                                    },
                                   ),
                                 ],
                               ),
