@@ -341,9 +341,11 @@ class _BookingsScreenState extends State<BookingsScreen> {
                               ),
                             ),
 
-                            Expanded(
+                            SizedBox(
+                              width: 8,
+                              height: 5,
                               child: Container(
-                                width: 8,
+                                // width: 8,
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 8,
                                   vertical: 4,

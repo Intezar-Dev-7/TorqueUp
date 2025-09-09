@@ -45,6 +45,8 @@ receptionistRouter.get('/api/getBookings', async (req, res) => {
 
 });
 
+/*Route = a single endpoint (like a single door).
+API = a structured set of routes working together (like the whole building with many doors).*/
 receptionistRouter.delete('/api/deleteBooking/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -59,6 +61,14 @@ receptionistRouter.delete('/api/deleteBooking/:id', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Server error", error });
+    }
+});
+
+receptionistRouter.patch('/api/updateBooking/:id', (req, res) => {
+    try {
+
+    } catch (error) {
+
     }
 });
 
