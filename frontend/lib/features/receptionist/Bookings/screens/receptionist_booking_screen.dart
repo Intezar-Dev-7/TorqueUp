@@ -75,17 +75,12 @@ class _BookingsScreenState extends State<BookingsScreen> {
   }
 
   void deleteVehicleBooking(String bookingId) async {
-    print("Deleting booking with ID: $bookingId");
-    print("Request URL: $uri/api/deleteBooking/$bookingId");
-
-    print("Success 1");
     await bookingServices.deleteBooking(context: context, bookingId: bookingId);
     // Remove the deleted booking from the list immediately
     setState(() {
       bookings.removeWhere((booking) => booking.bookingId == bookingId);
     });
     fetchBookingData();
-    print("Success 2");
   }
 
   @override

@@ -28,15 +28,24 @@ class _ReceptionistInventoryScreenState
     fetchProducts();
   }
 
+  void deleteInventoryProduct(String productId) async {
+    await inventoryServices.deleteProduct(
+      context: context,
+      productId: productId,
+    );
+    setState(() {
+      inventoryList.removeWhere(
+        (inventory) => inventory.productId == productId,
+      );
+    });
+    fetchProducts();
+  }
+
   void fetchProducts() async {
     final fetchedInventory = await inventoryServices.fetchAllProducts(
       context: context,
     );
-    print("Fetched inventory count: ${fetchedInventory.length}");
-    fetchedInventory.forEach((item) {
-      print("Product: ${item.productName}, Qty: ${item.productQuantity}");
-    });
-    print(fetchedInventory.length);
+
     setState(() {
       inventoryList = fetchedInventory;
       isLoading = false;
@@ -156,6 +165,7 @@ class _ReceptionistInventoryScreenState
                               rows:
                                   inventoryList.map((item) {
                                     return _buildRow(
+                                      productId: item.productId,
                                       productName: item.productName,
                                       productQuantity: item.productQuantity,
                                       productPrice: item.productPrice,
@@ -225,6 +235,7 @@ class _ReceptionistInventoryScreenState
   }
 
   DataRow _buildRow({
+    required String productId,
     required String productName,
     required int productQuantity,
     required int productPrice,
@@ -270,7 +281,43 @@ class _ReceptionistInventoryScreenState
               ),
               const SizedBox(width: 8),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder:
+                        (context) => AlertDialog(
+                          title: Text(
+                            "Confirm Deletion",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          content: Text(
+                            'Are you sure you want to delete this product',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                deleteInventoryProduct(
+                                  productId,
+                                ); // Delete booking
+                                Navigator.pop(context); // Close dialog
+                              },
+                              child: Text(
+                                "Delete",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, true),
+                              child: Text(
+                                "Cancel",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ],
+                        ),
+                  );
+                },
                 icon: const Icon(Icons.delete),
                 color: Colors.red,
               ),

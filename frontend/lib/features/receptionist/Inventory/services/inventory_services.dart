@@ -92,4 +92,37 @@ class InventoryServices {
     }
     return [];
   }
+
+  Future<void> deleteProduct({
+    required BuildContext context,
+    required String productId,
+  }) async {
+    try {
+      final response = await http.delete(
+        Uri.parse('$uri/api/deleteProduct/$productId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      if (response.statusCode == 200) {
+        CustomSnackBar.show(
+          context,
+          message: "Booking deleted successfully",
+          backgroundColor: Colors.lightGreenAccent,
+        );
+      } else {
+        CustomSnackBar.show(
+          context,
+          message: "Failed to delete product",
+          backgroundColor: Colors.redAccent,
+        );
+      }
+    } catch (e) {
+      CustomSnackBar.show(
+        context,
+        message: "Error: $e",
+        backgroundColor: Colors.redAccent,
+      );
+    }
+  }
 }

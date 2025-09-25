@@ -36,5 +36,22 @@ productRouter.get('/api/getProducts', async (req, res) => {
 });
 
 
+productRouter.delete('/api/deleteProduct/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const deleteProduct = await NewInventoryBooking.findByIdAndDelete(id);
+        if (!deleteProduct) {
+            return res.status(404).json({ message: "Booking not found" });
+        }
+        res.status(200).json({ message: "Booking has been deleted successfully" });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+
 
 export default productRouter;
