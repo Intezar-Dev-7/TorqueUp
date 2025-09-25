@@ -51,7 +51,7 @@ class AuthService {
 
         String userRole = responseData['role']; // role from backend
         Widget targetScreen;
-        if (responseData == "Admin") {
+        if (userRole == "Admin") {
           targetScreen = SideNavigationBar(); // Admin Dashboard
         } else if (userRole == "Receptionist") {
           targetScreen = ReceptionistDashboardScreen();

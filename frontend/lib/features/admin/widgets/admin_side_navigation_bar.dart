@@ -8,10 +8,10 @@ import 'package:easy_sidemenu/easy_sidemenu.dart'
 import 'package:flutter/material.dart';
 import 'package:frontend/features/admin/Bookings/screens/admin_bookings_screen.dart';
 import 'package:frontend/features/admin/Dashbaord/screens/admin_dashboard_screen.dart';
-import 'package:frontend/features/admin/Inventory/screens/inventory_screen.dart';
 import 'package:frontend/features/admin/Staff/screens/staff.dart';
 import 'package:frontend/features/admin/ReportsAndAnalytics/screens/reports_and_analytics_screen.dart';
 import 'package:frontend/features/admin/Settings/screens/admin_settings_screen.dart';
+import 'package:frontend/features/receptionist/Inventory/screens/receptionist_inventory_screen.dart';
 import 'package:iconsax/iconsax.dart';
 
 class SideNavigationBar extends StatefulWidget {
@@ -118,7 +118,7 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
                 AdminDashBoardScreen(),
                 AdminBookingsScreen(),
                 StaffScreen(),
-                InventoryScreen(),
+                ReceptionistInventoryScreen(),
                 ReportsAndAnalyticsScreen(),
                 AdminSettingsScreen(),
               ],

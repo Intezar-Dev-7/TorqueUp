@@ -136,7 +136,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           focusColor: Colors.black,
                           borderRadius: BorderRadius.circular(18),
 
-                          value: _selectedRole,
+                          initialValue: _selectedRole,
                           decoration: const InputDecoration(labelText: 'Role'),
                           items:
                               ['Admin', 'Receptionist', 'Customer']

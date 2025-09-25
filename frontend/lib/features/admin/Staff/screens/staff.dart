@@ -21,7 +21,12 @@ class _StaffScreenState extends State<StaffScreen> {
     final otherEmployees = Employees.otherEmployees;
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppbar(title: "Staff", subtitle: 'Manage your employees'),
+      appBar: CustomAppbar(
+        title: "Staff",
+        subtitle: 'Manage your employees',
+        onPressed: () {},
+        text: '',
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(

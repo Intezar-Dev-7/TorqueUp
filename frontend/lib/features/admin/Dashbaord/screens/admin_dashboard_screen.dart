@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_appbar.dart';
 import 'package:frontend/common/widgets/dash_info_card.dart';
-
-import 'package:frontend/features/admin/Dashbaord/widgets/inventory_alert_widget.dart';
-import 'package:frontend/features/admin/Dashbaord/widgets/mechanics_availability_widget.dart';
 import 'package:frontend/features/admin/Dashbaord/widgets/revenue_widget.dart';
 import 'package:frontend/features/admin/Dashbaord/widgets/todays_booking_widget.dart';
 import 'package:frontend/features/admin/data/dummy_data.dart';
@@ -20,7 +17,12 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppbar(title: 'Dashboard', subtitle: ''),
+      appBar: CustomAppbar(
+        title: 'Admin Dashboard',
+        subtitle: '',
+        onPressed: () {},
+        text: '',
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -48,7 +50,7 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
                       children: [
                         Expanded(child: RevenueWidget()),
                         SizedBox(height: 16),
-                        Expanded(child: InventoryAlertWidget()),
+                        // Expanded(child: InventoryAlertWidget()),
                       ],
                     ),
                   ),
@@ -59,7 +61,7 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
                       children: [
                         Expanded(child: TodaysBookingWidget()),
                         SizedBox(height: 16),
-                        Expanded(child: MechanicsAvailabilityWidget()),
+                        // Expanded(child: MechanicsAvailabilityWidget()),
                       ],
                     ),
                   ),

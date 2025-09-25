@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/admin/widgets/notification_screen.dart';
+import 'package:frontend/utils/colors.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final String subtitle;
-
-  const CustomAppbar({super.key, required this.title, required this.subtitle});
+  final VoidCallback onPressed; // Corrected
+  final String text;
+  const CustomAppbar({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.onPressed,
+    required this.text,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -120,11 +128,21 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                 const SizedBox(width: 16),
 
                 /// Action button (e.g., Add)
-                IconButton(
-                  icon: const Icon(Icons.add, color: Colors.black),
-                  onPressed: () {
-                    // Add button logic
-                  },
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 1,
+                    minimumSize: const Size(100, 50),
+                    backgroundColor: AppColors.black,
+                    padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  onPressed: onPressed,
+                  child: Text(
+                    text,
+                    style: TextStyle(color: Colors.white, fontSize: 14),
+                  ),
                 ),
               ],
             ),

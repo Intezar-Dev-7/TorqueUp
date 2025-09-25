@@ -84,7 +84,7 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
     return SafeArea(
       child: Center(
         child: Container(
-          height: mediaQuery.size.width * 0.8, //80% of screen width,
+          height: mediaQuery.size.width * 0.7, //80% of screen width,
           width: mediaQuery.size.width * 0.8, //80% of screen width,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
@@ -200,7 +200,7 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
                     child: DropdownButtonFormField<String>(
                       elevation: 1,
                       focusColor: Colors.grey[100],
-                      value: vehicleStatus,
+                      initialValue: vehicleStatus,
                       decoration: const InputDecoration(labelText: 'Status'),
                       items:
                           ['Pending', 'Confirmed', 'Completed']

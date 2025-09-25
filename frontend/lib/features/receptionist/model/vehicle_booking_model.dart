@@ -26,7 +26,7 @@ class NewBooking {
   /// Converts the object into a **Map** (useful for saving to databases).
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'bookingId': bookingId,
+      '_id': bookingId,
       'customerName': customerName,
       'vehicleNumber': vehicleNumber,
       'problem': problem,
@@ -36,21 +36,9 @@ class NewBooking {
     };
   }
 
-  /// Factory constructor: creates a **NewBooking object** from a Map.
-  // factory NewBooking.fromMap(Map<String, dynamic> map) {
-  //   return NewBooking(
-  //     bookingId: map['bookingId'] as String,
-  //     customerName: map['customerName'] as String,
-  //     vehicleNumber: map['vehicleNumber'] as String,
-  //     problem: map['problem'] as String,
-  //     status: map['status'] as String,
-  //     bookedDate: DateTime.parse(map['bookedDate'] as String),
-  //     readyDate: DateTime.parse(map['readyDate'] as String),
-  //   );
-  // }
   factory NewBooking.fromMap(Map<String, dynamic> map) {
     return NewBooking(
-      bookingId: map['_id'] ?? '', //  Use MongoDB's _id here
+      bookingId: map['_id']?.toString() ?? '',
       customerName: map['customerName'] ?? 'Unknown',
       vehicleNumber: map['vehicleNumber'] ?? 'N/A',
       problem: map['problem'] ?? 'No description',

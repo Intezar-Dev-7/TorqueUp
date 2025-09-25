@@ -4,6 +4,7 @@ import 'package:frontend/features/admin/Staff/screens/staff.dart';
 import 'package:frontend/features/receptionist/Bookings/screens/receptionist_booking_screen.dart';
 import 'package:frontend/features/receptionist/Customers/screens/customer_screen.dart';
 import 'package:frontend/features/receptionist/Dashboard/screens/receptionist_dashboard_screen.dart';
+import 'package:frontend/features/receptionist/Inventory/screens/receptionist_inventory_screen.dart';
 import 'package:frontend/features/receptionist/Services/screens/services_screen.dart';
 import 'package:frontend/features/receptionist/Settings/screens/receptionist_settings_screen.dart';
 
@@ -77,6 +78,11 @@ class ReceptionistSideNavBarState extends State<ReceptionistSideNavBar> {
                 icon: const Icon(Icons.people),
               ),
               SideMenuItem(
+                title: 'Inventory',
+                onTap: (index, _) => sideMenu.changePage(index),
+                icon: const Icon(Icons.people),
+              ),
+              SideMenuItem(
                 title: 'Services',
                 onTap: (index, _) => sideMenu.changePage(index),
                 icon: const Icon(Icons.build),
@@ -103,6 +109,7 @@ class ReceptionistSideNavBarState extends State<ReceptionistSideNavBar> {
                 ReceptionistDashboardScreen(),
                 BookingsScreen(),
                 CustomerScreen(),
+                ReceptionistInventoryScreen(),
                 ServicesScreen(),
                 StaffScreen(),
                 ReceptionistSettingsScreen(),

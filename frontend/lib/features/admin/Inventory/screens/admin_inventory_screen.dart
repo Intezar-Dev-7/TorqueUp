@@ -2,23 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_appbar.dart';
 import 'package:frontend/features/admin/Inventory/widgets/inventory_containers.dart';
 
-class InventoryScreen extends StatefulWidget {
-  const InventoryScreen({super.key});
+class AdminInventoryScreen extends StatefulWidget {
+  const AdminInventoryScreen({super.key});
 
   @override
-  State<InventoryScreen> createState() => _InventoryScreenState();
+  State<AdminInventoryScreen> createState() => _AdminInventoryScreenState();
 }
 
-class _InventoryScreenState extends State<InventoryScreen> {
+class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
   String searchQuery = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const CustomAppbar(
+      appBar: CustomAppbar(
         title: 'Inventory',
         subtitle: 'Manage your Inventory',
+        onPressed: () {},
+        text: '',
       ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -58,8 +60,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
                   columnSpacing: 20,
                   columns: const [
                     DataColumn(label: Text('Product')),
-                    DataColumn(label: Text('SKU')),
-                    DataColumn(label: Text('Category')),
+
                     DataColumn(label: Text('Stock')),
                     DataColumn(label: Text('Price')),
                     DataColumn(label: Text('Status')),
@@ -69,8 +70,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
                     _buildRow(
                       productName: 'Wireless Headphones',
                       subtitle: 'Premium Audio Device',
-                      sku: 'WH-001',
-                      category: 'Electronics',
+
                       stock: 45,
                       price: 99.99,
                       status: 'In Stock',
@@ -79,8 +79,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
                     _buildRow(
                       productName: 'Cotton T-Shirt',
                       subtitle: 'Basic Apparel',
-                      sku: 'CT-002',
-                      category: 'Clothing',
+
                       stock: 8,
                       price: 24.99,
                       status: 'Low Stock',
@@ -89,8 +88,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
                     _buildRow(
                       productName: 'Programming Book',
                       subtitle: 'Educational Material',
-                      sku: 'PB-003',
-                      category: 'Books',
+
                       stock: 0,
                       price: 49.99,
                       status: 'Out of Stock',
@@ -109,8 +107,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
   DataRow _buildRow({
     required String productName,
     required String subtitle,
-    required String sku,
-    required String category,
+
     required int stock,
     required double price,
     required String status,
@@ -136,8 +133,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
             ],
           ),
         ),
-        DataCell(Text(sku)),
-        DataCell(Text(category)),
+
         DataCell(Text(stock.toString())),
         DataCell(Text('\$${price.toStringAsFixed(2)}')),
         DataCell(_buildStatusChip(status)),

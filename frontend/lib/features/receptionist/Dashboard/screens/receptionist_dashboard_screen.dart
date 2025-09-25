@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_appbar.dart';
 import 'package:frontend/common/widgets/dash_info_card.dart';
-import 'package:frontend/features/receptionist/Dashboard/widgets/inventory_status_alert_table.dart';
-import 'package:frontend/features/receptionist/Dashboard/widgets/mechanics_availability_table.dart';
 import 'package:frontend/features/receptionist/Dashboard/widgets/todays_appointment_table.dart';
 import 'package:frontend/utils/colors.dart';
 import '../../../admin/data/dummy_data.dart';
@@ -13,7 +11,12 @@ class ReceptionistDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(title: 'Dashboard', subtitle: ''),
+      appBar: CustomAppbar(
+        title: 'Receptionist Dashboard',
+        subtitle: 'Manage Bookings, Inventory, Customers, Staff',
+        onPressed: () {},
+        text: '!',
+      ),
 
       backgroundColor: AppColors.white,
       body: Column(
@@ -85,9 +88,9 @@ class ReceptionistDashboardScreen extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: [
-                        Expanded(child: MechanicsAvailabilityTable()),
+                        // Expanded(child: MechanicsAvailabilityTable()),
                         SizedBox(height: 16),
-                        Expanded(child: InventoryStatusTable()),
+                        // Expanded(child: InventoryStatusTable()),
                       ],
                     ),
                   ),

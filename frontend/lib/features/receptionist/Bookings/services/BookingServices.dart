@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_snack_bar.dart';
-import 'package:frontend/features/receptionist/model/booking_model.dart';
+import 'package:frontend/features/receptionist/model/vehicle_booking_model.dart';
 import 'package:frontend/utils/constant/api.dart';
 import 'package:http/http.dart' as http;
 
@@ -81,6 +83,44 @@ class VehicleBookingServices {
     }
   }
 
+  // Funtion to update booking
+  Future<NewBooking?> updateBookingDetails({
+    required BuildContext context,
+    required String bookingId,
+    required String status,
+  }) async {
+    try {
+      final res = await http.patch(
+        Uri.parse('$uri/api/updateBooking/$bookingId'),
+        headers: {'Content-Type': 'application/json; charset=UTF-8'},
+        body: jsonEncode({"status": status}),
+      );
+
+      if (res.statusCode == 200) {
+        final data = jsonDecode(res.body);
+        print("Full reponse $data");
+        // Return updated booking
+        return NewBooking.fromMap(data);
+      } else {
+        // Failure → show error from server
+        CustomSnackBar.show(
+          context,
+          message: "Failed to update booking: ${res.body}",
+          backgroundColor: Colors.red,
+        );
+      }
+    } catch (e) {
+      // Network/server error
+      CustomSnackBar.show(
+        context,
+        message: "Error: $e",
+        backgroundColor: Colors.red,
+      );
+    }
+    return null;
+  }
+
+  // Function to delete vehicle booking
   Future<void> deleteBooking({
     required BuildContext context,
     required String bookingId,

@@ -1,7 +1,5 @@
 import '../../../utils/constant/constant.dart';
 import '../../receptionist/model/appointment_model.dart';
-import '../../receptionist/model/inventory_item_model.dart';
-import '../../receptionist/model/mechanics_model.dart';
 
 final List<dynamic> top_widget_data = [
   {'icon': GenIcons.money, 'title': 'Today\'s Revenue', 'value': 5320},
@@ -66,41 +64,41 @@ final List<Map<String, String>> customers = const [
     'vehicles': 'CT100, TATA Curvv, Honda Shine 125',
   },
 ];
-final List<Map<String, dynamic>> notification_data = [
-  {
-    'id': '01',
-    'title': 'New Booking',
-    'type': 'Booking',
-    'time': '10:00 AM',
-    'desc': 'New booking for Honda Shine 125',
-    'read': false,
-  },
-  {
-    'id': '02',
-    'title': 'MP05MV6802',
-    'type': 'Invoice',
-    'time': '11:20 AM',
-    'desc': 'General service invoice for Bajaj CT100',
-    'read': true,
-  },
-  {
-    'id': '03',
-    'title': 'MP05MV6802',
-    'type': 'Repairing',
-    'time': '11:50 AM',
-    'desc': 'Honda Shine 125 repairing work',
-    'read': false,
-  },
-  {
-    'id': '04',
-    'title': 'New Booking',
-    'type': 'Booking',
-    'time': '10:00 AM',
-    'desc':
-        'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here,content here making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident',
-    'read': false,
-  },
-];
+// final List<Map<String, dynamic>> notification_data = [
+//   {
+//     'id': '01',
+//     'title': 'New Booking',
+//     'type': 'Booking',
+//     'time': '10:00 AM',
+//     'desc': 'New booking for Honda Shine 125',
+//     'read': false,
+//   },
+//   {
+//     'id': '02',
+//     'title': 'MP05MV6802',
+//     'type': 'Invoice',
+//     'time': '11:20 AM',
+//     'desc': 'General service invoice for Bajaj CT100',
+//     'read': true,
+//   },
+//   {
+//     'id': '03',
+//     'title': 'MP05MV6802',
+//     'type': 'Repairing',
+//     'time': '11:50 AM',
+//     'desc': 'Honda Shine 125 repairing work',
+//     'read': false,
+//   },
+//   {
+//     'id': '04',
+//     'title': 'New Booking',
+//     'type': 'Booking',
+//     'time': '10:00 AM',
+//     'desc':
+//         'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here,content here making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident',
+//     'read': false,
+//   },
+// ];
 
 final List<AppointmentData> appointments = [
   AppointmentData(
@@ -193,63 +191,63 @@ final List<AppointmentData> appointments = [
   ),
 ];
 
-final List<MechanicData> mechanics_availability = [
-  MechanicData(
-    "1",
-    "Mechanic one",
-    "Working",
-    "MP05\nMV6802",
-    "10:30AM - 12:30PM",
-  ),
-  MechanicData("2", "Mechanic one", "Idle", "-------", "----------------"),
-  MechanicData(
-    "3",
-    "Mechanic one",
-    "Working",
-    "MP05\nMV6802",
-    "10:30AM - 12:30PM",
-  ),
-  MechanicData("4", "Mechanic one", "Idle", "-------", "----------------"),
-  MechanicData(
-    "5",
-    "Mechanic one",
-    "Working",
-    "MP05\nMV6802",
-    "10:30AM - 12:30PM",
-  ),
-];
-final List<InventoryItem> inventoryItems = [
-  InventoryItem(
-    serialNo: "01",
-    productName: "Castrol Active",
-    productCode: "20W-40",
-    availableQuantity: 29,
-    addQuantity: 5,
-    productImage: "assets/castrol_oil.png",
-    // You can replace with actual asset
-    productType: ProductType.oil,
-  ),
-  InventoryItem(
-    serialNo: "02",
-    productName: "Apollo Tyre",
-    productCode: "190/70",
-    availableQuantity: 29,
-    addQuantity: 5,
-    productImage: "assets/apollo_tyre.png",
-    // You can replace with actual asset
-    productType: ProductType.tyre,
-  ),
-  InventoryItem(
-    serialNo: "03",
-    productName: "Motul Oil",
-    productCode: "4T 20W-40",
-    availableQuantity: 29,
-    addQuantity: 5,
-    productImage: "assets/motul_oil.png",
-    // You can replace with actual asset
-    productType: ProductType.oil,
-  ),
-];
+// final List<MechanicData> mechanics_availability = [
+//   MechanicData(
+//     "1",
+//     "Mechanic one",
+//     "Working",
+//     "MP05\nMV6802",
+//     "10:30AM - 12:30PM",
+//   ),
+//   MechanicData("2", "Mechanic one", "Idle", "-------", "----------------"),
+//   MechanicData(
+//     "3",
+//     "Mechanic one",
+//     "Working",
+//     "MP05\nMV6802",
+//     "10:30AM - 12:30PM",
+//   ),
+//   MechanicData("4", "Mechanic one", "Idle", "-------", "----------------"),
+//   MechanicData(
+//     "5",
+//     "Mechanic one",
+//     "Working",
+//     "MP05\nMV6802",
+//     "10:30AM - 12:30PM",
+//   ),
+// ];
+// final List<InventoryItem> inventoryItems = [
+//   InventoryItem(
+//     serialNo: "01",
+//     productName: "Castrol Active",
+//     productCode: "20W-40",
+//     availableQuantity: 29,
+//     addQuantity: 5,
+//     productImage: "assets/castrol_oil.png",
+//     // You can replace with actual asset
+//     productType: ProductType.oil,
+//   ),
+//   InventoryItem(
+//     serialNo: "02",
+//     productName: "Apollo Tyre",
+//     productCode: "190/70",
+//     availableQuantity: 29,
+//     addQuantity: 5,
+//     productImage: "assets/apollo_tyre.png",
+//     // You can replace with actual asset
+//     productType: ProductType.tyre,
+//   ),
+//   InventoryItem(
+//     serialNo: "03",
+//     productName: "Motul Oil",
+//     productCode: "4T 20W-40",
+//     availableQuantity: 29,
+//     addQuantity: 5,
+//     productImage: "assets/motul_oil.png",
+//     // You can replace with actual asset
+//     productType: ProductType.oil,
+//   ),
+// ];
 // List<BookingData> bookings = [
 //   BookingData(
 //     booking_date: DateTime.now(),

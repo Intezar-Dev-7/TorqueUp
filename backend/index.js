@@ -15,6 +15,8 @@ app.use(cors());
 
 import authRouter from "./routes/authRouter.js";
 import receptionistRouter from './routes/receptionistRouter.js';
+import productRouter from './routes/productRouter.js';
+
 
 // Middleware to parse JSON
 app.use(express.json());
@@ -22,6 +24,8 @@ app.use(express.json());
 // Middleware
 app.use(authRouter);
 app.use(receptionistRouter);
+app.use(productRouter);
+
 
 const DBURL = process.env.MONGO_URI;
 

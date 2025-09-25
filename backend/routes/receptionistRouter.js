@@ -45,6 +45,29 @@ receptionistRouter.get('/api/getBookings', async (req, res) => {
 
 });
 
+
+
+receptionistRouter.patch('/api/updateBooking/:id', async (req, res) => {
+    try {
+        const { id } = req.params; // MongoDB ObjectId
+        const updates = req.body;
+        const booking = await NewBooking.findByIdAndUpdate(id, updates, { new: true });
+        if (!booking) {
+            return res.status(404).json({ message: 'Booking not found' });
+        }
+
+        // return res.status(400).json({ message: "Invalid booking id" });
+
+        res.json(booking);
+
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error", error });
+    }
+});
+
+
 /*Route = a single endpoint (like a single door).
 API = a structured set of routes working together (like the whole building with many doors).*/
 receptionistRouter.delete('/api/deleteBooking/:id', async (req, res) => {
@@ -64,12 +87,5 @@ receptionistRouter.delete('/api/deleteBooking/:id', async (req, res) => {
     }
 });
 
-receptionistRouter.patch('/api/updateBooking/:id', (req, res) => {
-    try {
-
-    } catch (error) {
-
-    }
-});
 
 export default receptionistRouter;

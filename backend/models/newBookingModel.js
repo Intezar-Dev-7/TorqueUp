@@ -15,7 +15,7 @@ const newVehicleBookingSchema = new mongoose.Schema({
         type: String,
         requried: true,
     },
-    status: {
+    vehicleBookingStatus: {
         type: String,
         required: true,
     },

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_snack_bar.dart';
 import 'package:frontend/features/admin/widgets/notification_screen.dart';
 import 'package:frontend/features/receptionist/Bookings/services/BookingServices.dart';
+import 'package:frontend/features/receptionist/Bookings/widgets/edit_booking_widget.dart';
 import 'package:frontend/features/receptionist/Bookings/widgets/new_booking_widget.dart';
-import 'package:frontend/features/receptionist/model/booking_model.dart';
+import 'package:frontend/features/receptionist/model/vehicle_booking_model.dart';
 import 'package:frontend/utils/colors.dart';
 import 'package:frontend/utils/constant/api.dart';
 import 'package:intl/intl.dart'; // For date formatting
@@ -26,7 +27,7 @@ class _BookingsScreenState extends State<BookingsScreen> {
           ),
           insetPadding: const EdgeInsets.all(20),
           child: SizedBox(
-            width: MediaQuery.of(context).size.width * 0.8,
+            width: MediaQuery.of(context).size.width * 0.7,
             height: MediaQuery.of(context).size.height * 0.8,
             child: const NewBookingWidget(),
           ),
@@ -341,11 +342,9 @@ class _BookingsScreenState extends State<BookingsScreen> {
                               ),
                             ),
 
-                            SizedBox(
-                              width: 8,
-                              height: 5,
+                            Expanded(
                               child: Container(
-                                // width: 8,
+                                width: 8,
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 8,
                                   vertical: 4,
@@ -371,31 +370,29 @@ class _BookingsScreenState extends State<BookingsScreen> {
                                     icon: const Icon(
                                       Icons.edit,
                                       size: 18,
-                                      color: Colors.lightGreenAccent,
+                                      color: Colors.green,
                                     ),
                                     onPressed: () {
-                                      // showDialog(
-                                      //   context: context,
-                                      //   builder:
-                                      //       (context) =>
-                                      //           EditBookingWidget(booking: booking),
-                                      // ).then((updateBooking) {
-                                      //   if (updateBooking != null) {
-                                      //     setState(() {
-                                      //       bookings[index] =
-                                      //           Map<String, dynamic>.from(
-                                      //             updateBooking,
-                                      //           );
-                                      //     });
-                                      //   }
-                                      // });
+                                      showDialog(
+                                        context: context,
+                                        builder:
+                                            (context) => EditBookingWidget(
+                                              booking: booking,
+                                            ),
+                                      ).then((updatedBooking) {
+                                        if (updatedBooking is NewBooking) {
+                                          setState(() {
+                                            bookings[index] = updatedBooking;
+                                          });
+                                        }
+                                      });
                                     },
                                   ),
                                   IconButton(
                                     icon: const Icon(
                                       Icons.delete,
                                       size: 18,
-                                      color: Colors.redAccent,
+                                      color: Colors.red,
                                     ),
                                     onPressed: () {
                                       showDialog(
@@ -424,7 +421,12 @@ class _BookingsScreenState extends State<BookingsScreen> {
                                                       context,
                                                     ); // Close dialog
                                                   },
-                                                  child: Text("Delete"),
+                                                  child: Text(
+                                                    "Delete",
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
                                                 ),
                                                 TextButton(
                                                   onPressed:
@@ -432,7 +434,12 @@ class _BookingsScreenState extends State<BookingsScreen> {
                                                         context,
                                                         true,
                                                       ),
-                                                  child: Text("Cancel"),
+                                                  child: Text(
+                                                    "Cancel",
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
                                                 ),
                                               ],
                                             ),
