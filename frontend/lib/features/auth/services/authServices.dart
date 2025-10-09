@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_snack_bar.dart';
-import 'package:frontend/features/admin/models/user.dart';
-import 'package:frontend/features/admin/widgets/admin_side_navigation_bar.dart';
+import 'package:frontend/features/receptionist/model/user.dart';
+import 'package:frontend/admin_side_navigation_bar.dart';
 import 'package:frontend/features/auth/screens/signin_screen.dart';
 import 'package:frontend/features/receptionist/Dashboard/screens/receptionist_dashboard_screen.dart';
-import 'package:frontend/features/receptionist/widgets/receptionist_side_nav_bar.dart';
+import 'package:frontend/receptionist_side_nav_bar.dart';
 import 'package:frontend/provider/user_Provider.dart';
 import 'package:frontend/utils/constant/api.dart';
 import 'package:http/http.dart' as http;

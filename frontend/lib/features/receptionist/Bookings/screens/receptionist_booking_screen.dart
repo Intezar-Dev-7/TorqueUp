@@ -6,7 +6,6 @@ import 'package:frontend/features/receptionist/Bookings/widgets/edit_booking_wid
 import 'package:frontend/features/receptionist/Bookings/widgets/new_booking_widget.dart';
 import 'package:frontend/features/receptionist/model/vehicle_booking_model.dart';
 import 'package:frontend/utils/colors.dart';
-import 'package:frontend/utils/constant/api.dart';
 import 'package:intl/intl.dart'; // For date formatting
 
 class BookingsScreen extends StatefulWidget {

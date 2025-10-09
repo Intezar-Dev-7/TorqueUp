@@ -3,14 +3,14 @@ import 'package:frontend/features/receptionist/Staff/screens/staff_profile_scree
 import 'package:frontend/features/receptionist/Staff/services/receptionist_staff_services.dart';
 import 'package:frontend/utils/colors.dart';
 
-class OtherEmployeesWidget extends StatefulWidget {
-  const OtherEmployeesWidget({super.key});
+class OtherEmployees extends StatefulWidget {
+  const OtherEmployees({super.key});
 
   @override
-  State<OtherEmployeesWidget> createState() => _OtherEmployeesWidgetState();
+  State<OtherEmployees> createState() => _OtherEmployeesState();
 }
 
-class _OtherEmployeesWidgetState extends State<OtherEmployeesWidget> {
+class _OtherEmployeesState extends State<OtherEmployees> {
   List<Map<String, dynamic>> otherEmployees = [];
   @override
   void initState() {

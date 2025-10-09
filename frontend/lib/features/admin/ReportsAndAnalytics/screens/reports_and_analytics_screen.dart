@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/common/widgets/custom_appbar.dart';
 import 'package:frontend/features/admin/ReportsAndAnalytics/widgets/analytics.dart';
 import 'package:frontend/features/admin/ReportsAndAnalytics/widgets/reports_charts.dart';
 
@@ -16,9 +17,15 @@ class _ReportsAndAnalyticsScreenState extends State<ReportsAndAnalyticsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppbar(
+        title: 'Reports And Anslytics',
+        subtitle: '',
+        onPressed: () {},
+        text: '!',
+      ),
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

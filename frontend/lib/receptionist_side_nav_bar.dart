@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:easy_sidemenu/easy_sidemenu.dart';
-import 'package:frontend/features/admin/Staff/screens/staff.dart';
 import 'package:frontend/features/receptionist/Bookings/screens/receptionist_booking_screen.dart';
 import 'package:frontend/features/receptionist/Customers/screens/customer_screen.dart';
 import 'package:frontend/features/receptionist/Dashboard/screens/receptionist_dashboard_screen.dart';
 import 'package:frontend/features/receptionist/Inventory/screens/receptionist_inventory_screen.dart';
 import 'package:frontend/features/receptionist/Services/screens/services_screen.dart';
 import 'package:frontend/features/receptionist/Settings/screens/receptionist_settings_screen.dart';
+import 'package:frontend/features/receptionist/Staff/screens/receptionist_staff_screen.dart';
 
 class ReceptionistSideNavBar extends StatefulWidget {
   const ReceptionistSideNavBar({super.key});
@@ -111,7 +111,7 @@ class ReceptionistSideNavBarState extends State<ReceptionistSideNavBar> {
                 CustomerScreen(),
                 ReceptionistInventoryScreen(),
                 ServicesScreen(),
-                StaffScreen(),
+                ReceptionistStaffScreen(),
                 ReceptionistSettingsScreen(),
               ],
             ),

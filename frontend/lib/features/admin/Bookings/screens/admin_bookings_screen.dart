@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/features/admin/ReportsAndAnalytics/screens/reports_and_analytics_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AdminBookingsScreen extends StatefulWidget {
@@ -17,7 +16,7 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
 
     // 👇 Add listener so UI rebuilds when switching tabs
     _tabController.addListener(() {
@@ -44,11 +43,7 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen>
         bottom: TabBar(
           controller: _tabController,
           indicatorColor: Colors.black,
-          tabs: const [
-            Tab(text: "Today's"),
-            Tab(text: "Past"),
-            Tab(text: "Analytics"),
-          ],
+          tabs: const [Tab(text: "Today's"), Tab(text: "Past")],
         ),
       ),
       body: Column(
@@ -111,7 +106,6 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen>
               children: [
                 _buildBookingsList(context, "Today's"),
                 _buildBookingsList(context, "past"),
-                _buildAnalytics(),
               ],
             ),
           ),
@@ -172,11 +166,6 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen>
         );
       },
     );
-  }
-
-  /// 📊 Analytics Placeholder
-  Widget _buildAnalytics() {
-    return ReportsAndAnalyticsScreen();
   }
 
   /// 🎨 Status Chip Colors

@@ -6,8 +6,7 @@ notifyListeners()	=> Tells widgets to rebuild with new data
 */
 
 import 'package:flutter/material.dart';
-import 'package:frontend/features/admin/models/user.dart';
-
+import 'package:frontend/features/receptionist/model/user.dart';
 
 // UserProvider is used to manage and share the User object across the app.
 class UserProvider extends ChangeNotifier {

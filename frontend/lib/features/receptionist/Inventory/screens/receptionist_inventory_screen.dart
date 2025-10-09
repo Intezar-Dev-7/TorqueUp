@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_appbar.dart';
 import 'package:frontend/features/receptionist/Inventory/services/inventory_services.dart';
 import 'package:frontend/features/receptionist/Inventory/widgets/add_inventory_form.dart';
+import 'package:frontend/features/receptionist/Inventory/widgets/edit_product_details_form.dart';
 import 'package:frontend/features/receptionist/model/inventory_model.dart';
 
 class ReceptionistInventoryScreen extends StatefulWidget {
@@ -71,6 +72,41 @@ class _ReceptionistInventoryScreenState
     ).then((_) {
       // Refresh data when the form is closed (e.g., after a successful addition)
       // Re-set isLoading to true before fetching to show a loading indicator if needed
+      setState(() {
+        isLoading = true;
+      });
+      fetchProducts();
+    });
+  }
+
+  void _editInventoryProductsForm(
+    BuildContext context, {
+    required String productId,
+    required int productQuantity,
+    required int productPrice,
+    required String productStatus,
+  }) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          insetPadding: const EdgeInsets.all(20),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.7,
+            width: MediaQuery.of(context).size.width * 0.7,
+            child: EditProductDetailsForm(
+              productId: productId,
+              productQuantity: productQuantity,
+              productPrice: productPrice,
+              productStatus: productStatus,
+            ),
+          ),
+        );
+      },
+    ).then((_) {
       setState(() {
         isLoading = true;
       });
@@ -275,10 +311,18 @@ class _ReceptionistInventoryScreenState
           Row(
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed:
+                    () => _editInventoryProductsForm(
+                      context,
+                      productId: productId,
+                      productQuantity: productQuantity,
+                      productPrice: productPrice,
+                      productStatus: productStatus,
+                    ),
                 icon: const Icon(Icons.edit),
                 color: Colors.green,
               ),
+
               const SizedBox(width: 8),
               IconButton(
                 onPressed: () {

@@ -3,15 +3,17 @@ import 'package:frontend/features/receptionist/Staff/screens/staff_profile_scree
 import 'package:frontend/features/receptionist/Staff/services/receptionist_staff_services.dart';
 import 'package:frontend/utils/colors.dart';
 
-class OtherEmployeesWidget extends StatefulWidget {
-  const OtherEmployeesWidget({super.key});
+class Interns extends StatefulWidget {
+  const Interns({super.key});
 
   @override
-  State<OtherEmployeesWidget> createState() => _OtherEmployeesWidgetState();
+  State<Interns> createState() => _InternsState();
 }
 
-class _OtherEmployeesWidgetState extends State<OtherEmployeesWidget> {
-  List<Map<String, dynamic>> otherEmployees = [];
+class _InternsState extends State<Interns> {
+  final receptionistStaffServices = ReceptionistStaffServices();
+  List<Map<String, dynamic>> interns = [];
+
   @override
   void initState() {
     super.initState();
@@ -20,11 +22,11 @@ class _OtherEmployeesWidgetState extends State<OtherEmployeesWidget> {
 
   void loadStaff() async {
     final staffService = ReceptionistStaffServices();
-    otherEmployees = await staffService.getStaffByRole(
+    interns = await staffService.getStaffByRole(
       context: context,
-      staffRole: 'otherEmployee',
+      staffRole: 'Intern',
     );
-    print('Fetched other employees: $otherEmployees');
+    print('Fetched interns: $interns');
     setState(() {});
   }
 
@@ -34,7 +36,7 @@ class _OtherEmployeesWidgetState extends State<OtherEmployeesWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Other Employees",
+          "Interns",
           style: TextStyle(
             fontSize: 18,
             color: Colors.black,
@@ -58,31 +60,27 @@ class _OtherEmployeesWidgetState extends State<OtherEmployeesWidget> {
             ],
           ),
           child: ListView.builder(
-            itemCount: otherEmployees.length,
+            itemCount: interns.length,
             itemBuilder: (context, i) {
-              final otherEmployee = otherEmployees[i];
+              final intern = interns[i];
               return ListTile(
                 leading: CircleAvatar(
                   backgroundImage:
-                      otherEmployee['avatar'] != null &&
-                              otherEmployee['avatar'].isNotEmpty
-                          ? NetworkImage(otherEmployee['avatar'])
+                      intern['avatar'] != null && intern['avatar'].isNotEmpty
+                          ? NetworkImage(intern['avatar'])
                           : AssetImage('assets/general_icons/employee.png')
                               as ImageProvider,
-
                   radius: 24,
                   backgroundColor: Colors.grey[200],
                 ),
-                title: Text(otherEmployee['staffName']),
-                subtitle: Text(otherEmployee['staffRole']),
+                title: Text(intern['staffName']),
+                subtitle: Text(intern['staffRole']),
                 trailing: ElevatedButton(
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder:
-                            (context) =>
-                                StaffProfileScreen(staff: otherEmployee),
+                        builder: (context) => StaffProfileScreen(staff: intern),
                       ),
                     );
                   },

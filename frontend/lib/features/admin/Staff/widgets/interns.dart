@@ -1,11 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/features/admin/Staff/screens/employees_profile_screen.dart';
+import 'package:frontend/features/receptionist/Staff/screens/staff_profile_screen.dart';
+import 'package:frontend/features/receptionist/Staff/services/receptionist_staff_services.dart';
 import 'package:frontend/utils/colors.dart';
 
-class InternsWidget extends StatelessWidget {
-  const InternsWidget({super.key, required this.interns});
+class InternsWidget extends StatefulWidget {
+  const InternsWidget({super.key});
 
-  final List<Map<String, dynamic>> interns;
+  @override
+  State<InternsWidget> createState() => _InternsWidgetState();
+}
+
+class _InternsWidgetState extends State<InternsWidget> {
+  final receptionistStaffServices = ReceptionistStaffServices();
+  List<Map<String, dynamic>> interns = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadStaff();
+  }
+
+  void loadStaff() async {
+    final staffService = ReceptionistStaffServices();
+    interns = await staffService.getStaffByRole(
+      context: context,
+      staffRole: 'Intern',
+    );
+    print('Fetched interns: $interns');
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +65,22 @@ class InternsWidget extends StatelessWidget {
               final intern = interns[i];
               return ListTile(
                 leading: CircleAvatar(
-                  backgroundImage: NetworkImage(intern['avatar']),
+                  backgroundImage:
+                      intern['avatar'] != null && intern['avatar'].isNotEmpty
+                          ? NetworkImage(intern['avatar'])
+                          : AssetImage('assets/general_icons/employee.png')
+                              as ImageProvider,
+                  radius: 24,
+                  backgroundColor: Colors.grey[200],
                 ),
-                title: Text(intern['name']),
-                subtitle: Text(intern['role']),
+                title: Text(intern['staffName']),
+                subtitle: Text(intern['staffRole']),
                 trailing: ElevatedButton(
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => EmployeesProfileScreen(),
+                        builder: (context) => StaffProfileScreen(staff: intern),
                       ),
                     );
                   },

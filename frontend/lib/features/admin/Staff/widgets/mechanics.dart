@@ -1,11 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/features/admin/Staff/screens/employees_profile_screen.dart';
+import 'package:frontend/features/receptionist/Staff/screens/staff_profile_screen.dart';
+import 'package:frontend/features/receptionist/Staff/services/receptionist_staff_services.dart';
 import 'package:frontend/utils/colors.dart';
 
-class MechanicsWidget extends StatelessWidget {
-  const MechanicsWidget({super.key, required this.mechanics});
+class MechanicsWidget extends StatefulWidget {
+  const MechanicsWidget({super.key});
 
-  final List<Map<String, dynamic>> mechanics;
+  @override
+  State<MechanicsWidget> createState() => _MechanicsWidgetState();
+}
+
+class _MechanicsWidgetState extends State<MechanicsWidget> {
+  List<Map<String, dynamic>> mechanics = [];
+  @override
+  void initState() {
+    super.initState();
+    loadStaff();
+  }
+
+  void loadStaff() async {
+    final staffService = ReceptionistStaffServices();
+    mechanics = await staffService.getStaffByRole(
+      context: context,
+      staffRole: 'Mechanic',
+    );
+    print('Fetched mechanics: $mechanics');
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,19 +63,25 @@ class MechanicsWidget extends StatelessWidget {
               final mechanic = mechanics[i];
               return ListTile(
                 leading: CircleAvatar(
-                  backgroundImage: NetworkImage(mechanic['avatar']),
+                  backgroundImage:
+                      mechanic['avatar'] != null &&
+                              mechanic['avatar'].isNotEmpty
+                          ? NetworkImage(mechanic['avatar'])
+                          : AssetImage('assets/general_icons/employee.png')
+                              as ImageProvider,
 
                   radius: 24,
                   backgroundColor: Colors.grey[200],
                 ),
-                title: Text(mechanic['name']),
-                subtitle: Text(mechanic['role']),
+                title: Text(mechanic['staffName']),
+                subtitle: Text(mechanic['staffRole']),
                 trailing: ElevatedButton(
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => EmployeesProfileScreen(),
+                        builder:
+                            (context) => StaffProfileScreen(staff: mechanic),
                       ),
                     );
                   },

@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/features/receptionist/Staff/services/receptionist_staff_services.dart';
+import 'package:frontend/utils/colors.dart';
 
 class EmployeesProfileScreen extends StatefulWidget {
-  const EmployeesProfileScreen({super.key});
+  final Map<String, dynamic> staff;
+  const EmployeesProfileScreen({super.key, required this.staff});
 
   @override
   State<EmployeesProfileScreen> createState() => _EmployeesProfileScreenState();
 }
 
 class _EmployeesProfileScreenState extends State<EmployeesProfileScreen> {
+  final staffService = ReceptionistStaffServices();
   @override
   Widget build(BuildContext context) {
+    final staff = widget.staff;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Employee Profile"),
@@ -28,32 +34,41 @@ class _EmployeesProfileScreenState extends State<EmployeesProfileScreen> {
                 // Profile Header
                 Row(
                   children: [
-                    const CircleAvatar(
+                    CircleAvatar(
                       radius: 50,
-                      backgroundImage: NetworkImage(
-                        'https://i.pravatar.cc/150?img=3',
-                      ),
+                      backgroundImage:
+                          staff['avatar'] != null && staff['avatar'].isNotEmpty
+                              ? NetworkImage(staff['avatar'])
+                              : const AssetImage(
+                                    'assets/general_icons/employee.png',
+                                  )
+                                  as ImageProvider,
                       backgroundColor: Colors.grey,
                     ),
                     const SizedBox(width: 24),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
-                          "John Doe",
-                          style: TextStyle(
+                          staff['staffName'] ?? 'No Name',
+                          style: const TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         Text(
-                          "Senior Mechanic",
-                          style: TextStyle(fontSize: 16, color: Colors.grey),
+                          staff['staffRole'] ?? '',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey,
+                          ),
                         ),
-                        SizedBox(height: 8),
-                        Text("johndoe@example.com"),
-                        Text("+91 9876543210"),
+                        const SizedBox(height: 8),
+                        if (staff['staffContactNumber'] != null)
+                          Text(staff['staffContactNumber']),
+                        if (staff['staffEmail'] != null)
+                          Text(staff['staffEmail']),
                       ],
                     ),
                   ],
@@ -65,51 +80,70 @@ class _EmployeesProfileScreenState extends State<EmployeesProfileScreen> {
                   spacing: 20,
                   runSpacing: 20,
                   children: [
-                    _infoCard("Experience", "5 yrs"),
-                    _infoCard("Leave Balance", "12 Days"),
-                    _infoCard("Attendance", "96%"),
-                    _infoCard("Joined", "Mar 2020"),
+                    _infoCard("Experience", staff['staffExperience'] ?? 'N/A'),
+
+                    _infoCard(
+                      "Joined",
+                      staff['createdAt'] != null
+                          ? staff['createdAt'].substring(0, 10)
+                          : 'N/A',
+                    ),
                   ],
                 ),
                 const SizedBox(height: 32),
 
                 // Skills/Tags
-                const Text(
-                  "Skills",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 12),
-                Wrap(
-                  spacing: 8,
-                  children: const [
-                    Chip(label: Text("Engine Repair")),
-                    Chip(label: Text("Diagnostics")),
-                    Chip(label: Text("Team Management")),
-                    Chip(label: Text("Hydraulics")),
-                  ],
-                ),
-                const SizedBox(height: 32),
+                if (staff['skills'] != null && staff['skills'] is List)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Skills",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Wrap(
+                        spacing: 8,
+                        children: List<Widget>.from(
+                          (staff['skills'] as List).map(
+                            (skill) => Chip(label: Text(skill)),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 32),
+                    ],
+                  ),
 
                 // About Section
-                const Text(
-                  "About",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 12),
-                const Text(
-                  "John is a highly experienced mechanic who specializes in engine diagnostics and repairs. "
-                  "He plays a key role in training interns and maintaining service quality. "
-                  "He is known for his reliability and dedication to his work.",
-                  style: TextStyle(fontSize: 16),
-                ),
-                const SizedBox(height: 32),
+                if (staff['about'] != null)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "About",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        staff['about'],
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(height: 32),
+                    ],
+                  ),
 
                 // Action Buttons
                 Row(
                   children: [
                     ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
+                        backgroundColor: AppColors.black,
                       ),
                       onPressed: () {
                         // Handle edit
@@ -123,14 +157,21 @@ class _EmployeesProfileScreenState extends State<EmployeesProfileScreen> {
                     const SizedBox(width: 16),
                     ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
+                        backgroundColor: AppColors.black,
                       ),
                       onPressed: () {
-                        // Handle deactivate
+                        staffService.deleteEmployee(
+                          context: context,
+                          staffId: staff['_id'],
+                        );
+                        Navigator.pop(context);
                       },
-                      icon: const Icon(Icons.block, color: Colors.white),
+                      icon: const Icon(
+                        Icons.delete_forever_rounded,
+                        color: Colors.white,
+                      ),
                       label: const Text(
-                        "Deactivate",
+                        "Remove Employee",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),

@@ -93,6 +93,49 @@ class InventoryServices {
     return [];
   }
 
+  Future<Inventory?> updateInventoryProduct({
+    required BuildContext context,
+    required String productId,
+    required int productQuantity,
+    required int productPrice,
+    required String productStatus,
+  }) async {
+    try {
+      final response = await http.patch(
+        Uri.parse('$uri/api/updateInventoryProduct/$productId'),
+        headers: {'Content-Type': 'application/json; charset=UTF-8'},
+        body: jsonEncode({
+          "productQuantity": productQuantity,
+          "productPrice": productPrice,
+          "productStatus": productStatus,
+        }),
+      );
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.body);
+        print(responseData);
+        CustomSnackBar.show(
+          context,
+          message: "Product Updated Successfully",
+          backgroundColor: Colors.lightGreenAccent,
+        );
+        return Inventory.fromMap(responseData);
+      } else {
+        CustomSnackBar.show(
+          context,
+          message: "Something went wrong , please try again!",
+          backgroundColor: Colors.redAccent,
+        );
+      }
+    } catch (e) {
+      CustomSnackBar.show(
+        context,
+        message: "$e",
+        backgroundColor: Colors.redAccent,
+      );
+    }
+    return null;
+  }
+
   Future<void> deleteProduct({
     required BuildContext context,
     required String productId,

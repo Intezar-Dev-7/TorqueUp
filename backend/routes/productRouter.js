@@ -36,6 +36,23 @@ productRouter.get('/api/getProducts', async (req, res) => {
 });
 
 
+productRouter.patch('/api/updateInventoryProduct/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updates = req.body;
+        const inventoryProduct = await NewInventoryBooking.findByIdAndUpdate(id, updates, { new: true });
+        if (!inventoryProduct) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+        res.json(inventoryProduct);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error", error });
+    }
+});
+
+
 productRouter.delete('/api/deleteProduct/:id', async (req, res) => {
     try {
         const { id } = req.params;

@@ -1,77 +1,82 @@
 import 'dart:convert';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-
-/// This file defines the `Staff` model class which represents
-/// a single staff member in the system.
-///
-/// Purpose:
-/// - To provide a structured way to store and manage staff data.
-/// - To facilitate converting staff data to/from JSON or Map, which
-///   is essential for API communication and local storage.
-/// - To allow easy copying and modification of staff objects.
 class Staff {
   final String staffId;
   final String staffName;
-
-  /// Role of the staff member (e.g., Receptionist, Mechanic, Intern).
   final String staffRole;
-
-  /// Experience of the staff member (e.g., "5 years").
   final String staffExperience;
+  final String staffContactNumber;
+  final String staffEmail;
+  final String staffAbout;
+  final List<String> skills;
 
-  /// Constructor for creating a Staff object.
   Staff({
     required this.staffId,
     required this.staffName,
     required this.staffRole,
     required this.staffExperience,
+    required this.staffContactNumber,
+    this.staffEmail = '',
+    this.staffAbout = '',
+    this.skills = const [],
   });
 
-  /// Converts the Staff object to a Map.
-  /// Useful for sending data to APIs or storing in databases.
+  /// Convert Staff object to Map for API or storage
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+    return {
       '_id': staffId,
       'staffName': staffName,
       'staffRole': staffRole,
       'staffExperience': staffExperience,
+      'staffContactNumber': staffContactNumber,
+      'staffEmail': staffEmail,
+      'about': staffAbout,
+      'skills': skills,
     };
   }
 
-  /// Factory constructor to create a Staff object from a Map.
-  /// Useful when receiving data from APIs or databases.
+  /// Create Staff object from Map (API response)
   factory Staff.fromMap(Map<String, dynamic> map) {
     return Staff(
       staffId: map['_id'] as String,
       staffName: map['staffName'] as String,
       staffRole: map['staffRole'] as String,
       staffExperience: map['staffExperience'] as String,
+      staffContactNumber: map['staffContactNumber'] as String,
+      staffEmail: map['staffEmail'] ?? '',
+      staffAbout: map['about'] ?? '',
+      skills: List<String>.from(map['skills'] ?? []),
     );
   }
 
-  /// Converts the Staff object to a JSON string.
-  /// Useful for API communication.
+  /// Convert Staff object to JSON string
   String toJson() => json.encode(toMap());
 
-  /// Factory constructor to create a Staff object from a JSON string.
-  /// Useful when parsing JSON responses from APIs.
+  /// Create Staff object from JSON string
   factory Staff.fromJson(String source) =>
       Staff.fromMap(json.decode(source) as Map<String, dynamic>);
 
-  /// Creates a copy of the current Staff object with optional updated fields.
-  /// Useful for immutability and updating specific fields without modifying the original object.
+  /// Copy Staff object with optional updated fields
   Staff copyWith({
     String? staffId,
     String? staffName,
     String? staffRole,
     String? staffExperience,
+    String? staffContactNumber,
+    String? staffEmail,
+    String? staffAbout,
+    List<String>? skills,
   }) {
     return Staff(
       staffId: staffId ?? this.staffId,
       staffName: staffName ?? this.staffName,
       staffRole: staffRole ?? this.staffRole,
       staffExperience: staffExperience ?? this.staffExperience,
+      staffContactNumber: staffContactNumber ?? this.staffContactNumber,
+      staffEmail: staffEmail ?? this.staffEmail,
+      staffAbout: staffAbout ?? this.staffAbout,
+      skills: skills ?? this.skills,
     );
   }
 }

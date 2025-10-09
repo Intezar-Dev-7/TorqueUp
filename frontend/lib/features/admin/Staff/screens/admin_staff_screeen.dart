@@ -3,22 +3,17 @@ import 'package:frontend/common/widgets/custom_appbar.dart';
 import 'package:frontend/features/admin/Staff/widgets/interns.dart';
 import 'package:frontend/features/admin/Staff/widgets/mechanics.dart';
 import 'package:frontend/features/admin/Staff/widgets/other_employees.dart';
-import 'package:frontend/utils/constant/employees_dummy_data.dart';
 
-class StaffScreen extends StatefulWidget {
-  const StaffScreen({super.key});
+class AdminStaffScreen extends StatefulWidget {
+  const AdminStaffScreen({super.key});
 
   @override
-  State<StaffScreen> createState() => _StaffScreenState();
+  State<AdminStaffScreen> createState() => _AdminStaffScreenState();
 }
 
-class _StaffScreenState extends State<StaffScreen> {
+class _AdminStaffScreenState extends State<AdminStaffScreen> {
   @override
   Widget build(BuildContext context) {
-    final mechanics = Employees.mechanicsData;
-    // final mechanics = Employees.mechanicsData;
-    final interns = Employees.internsData;
-    final otherEmployees = Employees.otherEmployees;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppbar(
@@ -32,14 +27,14 @@ class _StaffScreenState extends State<StaffScreen> {
         child: Row(
           children: [
             // mechanics widget
-            MechanicsWidget(mechanics: mechanics),
+            MechanicsWidget(),
 
             SizedBox(width: 20),
             // interns widget
-            InternsWidget(interns: interns),
+            InternsWidget(),
             SizedBox(width: 20),
             // Other employees widget
-            OtherEmployeesWidget(otherEmployees: otherEmployees),
+            OtherEmployeesWidget(),
           ],
         ),
       ),

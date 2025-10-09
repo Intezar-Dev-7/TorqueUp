@@ -7,6 +7,7 @@ import cors from 'cors';
 //  Initialization 
 const app = express();
 
+
 dotenv.config();
 
 // Allow requests from anywhere (dev mode)
