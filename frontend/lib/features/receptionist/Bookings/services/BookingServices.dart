@@ -11,6 +11,7 @@ class VehicleBookingServices {
     required BuildContext context,
     required customerName,
     required vehicleNumber,
+    required customerContactNumber,
     required problem,
     required status,
     required bookedDate,
@@ -21,8 +22,9 @@ class VehicleBookingServices {
         bookingId: '',
         customerName: customerName,
         vehicleNumber: vehicleNumber,
+        customerContactNumber: customerContactNumber,
         problem: problem,
-        status: status,
+        vehicleBookingStatus: status,
         bookedDate: bookedDate,
         readyDate: readyDate,
       );

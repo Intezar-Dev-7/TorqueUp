@@ -13,7 +13,10 @@ class NewBookingWidget extends StatefulWidget {
 class _NewBookingWidgetState extends State<NewBookingWidget> {
   final _formKey = GlobalKey<FormState>();
   final newBooking = VehicleBookingServices();
+
   final TextEditingController customerNameController = TextEditingController();
+  final TextEditingController customerContactNumberController =
+      TextEditingController();
   final TextEditingController vehicleNumberController = TextEditingController();
   final TextEditingController problemController = TextEditingController();
   final TextEditingController statusController = TextEditingController();
@@ -21,19 +24,20 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
   final TextEditingController readyDateController = TextEditingController();
 
   String vehicleStatus = 'Pending';
+  DateTime? bookedDate;
+  DateTime? readyDate;
+
   @override
   void dispose() {
     super.dispose();
     customerNameController.dispose();
+    customerContactNumberController.dispose();
     vehicleNumberController.dispose();
     problemController.dispose();
     statusController.dispose();
     bookedDateController.dispose();
     readyDateController.dispose();
   }
-
-  DateTime? bookedDate;
-  DateTime? readyDate;
 
   Future<void> _pickDate(
     BuildContext context,
@@ -50,7 +54,7 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
       if (!isBookedDate && bookedDate != null && picked.isBefore(bookedDate!)) {
         CustomSnackBar.show(
           context,
-          message: '"Ready date cannot be before booked date!"',
+          message: 'Ready date cannot be before booked date!',
           backgroundColor: Colors.redAccent,
         );
       }
@@ -71,6 +75,7 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
       context: context,
       customerName: customerNameController.text,
       vehicleNumber: vehicleNumberController.text,
+      customerContactNumber: customerContactNumberController.text,
       problem: problemController.text,
       status: vehicleStatus,
       bookedDate: bookedDate,
@@ -84,12 +89,12 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
     return SafeArea(
       child: Center(
         child: Container(
-          height: mediaQuery.size.width * 0.7, //80% of screen width,
-          width: mediaQuery.size.width * 0.8, //80% of screen width,
+          height: mediaQuery.size.width * 0.7,
+          width: mediaQuery.size.width * 0.8,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: Colors.white, // clean white card look
+            color: Colors.white,
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.2),
@@ -126,11 +131,11 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Colors.black),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Colors.black),
                       ),
                     ),
                     validator:
@@ -138,6 +143,36 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
                             val == null || val.isEmpty
                                 ? "Enter customer name"
                                 : null,
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Customer Contact Number
+                  TextFormField(
+                    controller: customerContactNumberController,
+                    keyboardType: TextInputType.phone,
+                    decoration: InputDecoration(
+                      hintText: "Customer Contact Number",
+                      prefixIcon: const Icon(Icons.phone),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(color: Colors.black),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(color: Colors.black),
+                      ),
+                    ),
+                    validator: (val) {
+                      if (val == null || val.isEmpty) {
+                        return "Enter contact number";
+                      } else if (val.length != 10) {
+                        return "Enter valid 10-digit number";
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(height: 20),
 
@@ -152,11 +187,11 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Colors.black),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Colors.black),
                       ),
                     ),
                     validator:
@@ -179,11 +214,11 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Colors.black),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Colors.black),
                       ),
                     ),
                     validator:
@@ -214,7 +249,8 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
                       },
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
+
                   // Booking Date
                   TextFormField(
                     controller: bookedDateController,
@@ -227,11 +263,11 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Colors.black),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Colors.black),
                       ),
                     ),
                     onTap: () => _pickDate(context, bookedDateController, true),
@@ -251,16 +287,16 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
                       hintText: "Ready By",
                       prefixIcon: const Icon(Icons.event_available),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Colors.black),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Colors.black),
                       ),
                     ),
                     onTap: () => _pickDate(context, readyDateController, false),
@@ -272,7 +308,7 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
                   ),
                   const SizedBox(height: 30),
 
-                  // Submit Button
+                  // Submit and Cancel Buttons
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -287,8 +323,9 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
                           ),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              final newBooking = {
+                              final newBookingData = {
                                 "name": customerNameController.text,
+                                "contact": customerContactNumberController.text,
                                 "vehicle": vehicleNumberController.text,
                                 "problem": problemController.text,
                                 "status": vehicleStatus,
@@ -296,11 +333,7 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
                                 "readyDate": readyDateController.text,
                               };
                               addNewBooking();
-
-                              Navigator.pop(
-                                context,
-                                newBooking,
-                              ); // return booking
+                              Navigator.pop(context, newBookingData);
                             }
                           },
                           child: const Text(
@@ -309,7 +342,7 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 16),
+                      const SizedBox(width: 16),
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(

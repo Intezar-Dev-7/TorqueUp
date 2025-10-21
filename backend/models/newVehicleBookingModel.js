@@ -7,6 +7,10 @@ const newVehicleBookingSchema = new mongoose.Schema({
         type: String,
         requried: true,
     },
+    customerContactNumber: {
+        type: String,
+        requried: true,
+    },
     vehicleNumber: {
         type: String,
         requried: true,

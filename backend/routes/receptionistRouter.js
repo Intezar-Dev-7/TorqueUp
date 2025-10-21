@@ -8,17 +8,18 @@ const receptionistRouter = express.Router();
 receptionistRouter.post('/api/newBooking', async (req, res) => {
     try {
         // Read data from the client (req.body)
-        const { customerName, vehicleNumber, problem, status, bookedDate, readyDate } = req.body;
+        const { customerName, vehicleNumber, customerContactNumber, problem, vehicleBookingStatus, bookedDate, readyDate } = req.body;
         // Validate the data
-        if (!customerName || !vehicleNumber || !problem || !status || !bookedDate || !readyDate) {
+        if (!customerName || !vehicleNumber || !customerContactNumber || !problem || !vehicleBookingStatus || !bookedDate || !readyDate) {
             return res.status(400).json({ message: 'All fields are requied' });
         }
         // Save it to your database (MongoDB via Mongoose)
         const newBooking = NewBooking({
             customerName,
             vehicleNumber,
+            customerContactNumber,
             problem,
-            status,
+            vehicleBookingStatus,
             bookedDate,
             readyDate,
         });

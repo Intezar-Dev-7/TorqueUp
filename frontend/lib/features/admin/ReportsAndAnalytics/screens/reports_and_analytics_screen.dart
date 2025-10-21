@@ -21,7 +21,7 @@ class _ReportsAndAnalyticsScreenState extends State<ReportsAndAnalyticsScreen> {
         title: 'Reports And Anslytics',
         subtitle: '',
         onPressed: () {},
-        text: '!',
+        text: 'Refresh',
       ),
       backgroundColor: Colors.white,
       body: Padding(

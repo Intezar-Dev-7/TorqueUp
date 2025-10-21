@@ -23,7 +23,7 @@ class _AddStaffState extends State<AddStaff> {
   final TextEditingController _staffEmailController = TextEditingController();
   final TextEditingController _staffAboutController = TextEditingController();
   final TextEditingController _skillsController = TextEditingController();
-  List<String> _skills = [];
+  final List<String> _skills = [];
 
   String _selectedRole = "Mechanic";
 
@@ -121,7 +121,7 @@ class _AddStaffState extends State<AddStaff> {
 
                   // Staff Role Dropdown
                   DropdownButtonFormField<String>(
-                    value: _selectedRole,
+                    initialValue: _selectedRole,
                     decoration: InputDecoration(
                       labelText: "Staff Role",
                       border: OutlineInputBorder(
@@ -220,8 +220,9 @@ class _AddStaffState extends State<AddStaff> {
                     ),
                     validator: (val) {
                       if (val == null || val.isEmpty) return null; // optional
-                      if (!RegExp(r'\S+@\S+\.\S+').hasMatch(val))
+                      if (!RegExp(r'\S+@\S+\.\S+').hasMatch(val)) {
                         return "Enter valid email";
+                      }
                       return null;
                     },
                   ),

@@ -17,7 +17,7 @@ class _EditBookingWidgetState extends State<EditBookingWidget> {
   String status = 'Pending';
   @override
   void initState() {
-    status = widget.booking.status; // prefill current status
+    status = widget.booking.vehicleBookingStatus; // prefill current status
     super.initState();
   }
 

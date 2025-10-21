@@ -284,8 +284,9 @@ class _BookingsScreenState extends State<BookingsScreen> {
               color: Colors.grey.shade200,
               child: Row(
                 children: const [
-                  Expanded(flex: 2, child: Text('Customer Name')),
-                  Expanded(flex: 2, child: Text('Vehicle No')),
+                  Expanded(flex: 1, child: Text('Customer Name')),
+                  Expanded(flex: 1, child: Text('Vehicle No')),
+                  Expanded(flex: 1, child: Text('Contact Number')),
                   Expanded(flex: 1, child: Text('Booked Date')),
                   Expanded(flex: 1, child: Text('Ready By')),
                   Expanded(flex: 1, child: Text('Status')),
@@ -312,12 +313,16 @@ class _BookingsScreenState extends State<BookingsScreen> {
                         child: Row(
                           children: [
                             Expanded(
-                              flex: 2,
+                              flex: 1,
                               child: Text(booking.customerName),
                             ),
                             Expanded(
-                              flex: 2,
+                              flex: 1,
                               child: Text(booking.vehicleNumber),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Text(booking.customerContactNumber),
                             ),
                             Expanded(
                               flex: 1,
@@ -348,7 +353,7 @@ class _BookingsScreenState extends State<BookingsScreen> {
                                   borderRadius: BorderRadius.circular(4.5),
                                 ),
                                 child: Text(
-                                  booking.status,
+                                  booking.vehicleBookingStatus,
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 12,
@@ -455,16 +460,16 @@ class _BookingsScreenState extends State<BookingsScreen> {
     );
   }
 
-  // Color _getStatusColor(String? status) {
-  //   switch (status) {
-  //     case 'Confirmed':
-  //       return Colors.green;
-  //     case 'Pending':
-  //       return Colors.orange;
-  //     case 'Completed':
-  //       return Colors.blue;
-  //     default:
-  //       return Colors.grey;
-  //   }
-  // }
+  Color _getStatusColor(String? status) {
+    switch (status) {
+      case 'Confirmed':
+        return Colors.green;
+      case 'Pending':
+        return Colors.orange;
+      case 'Completed':
+        return Colors.blue;
+      default:
+        return Colors.grey;
+    }
+  }
 }

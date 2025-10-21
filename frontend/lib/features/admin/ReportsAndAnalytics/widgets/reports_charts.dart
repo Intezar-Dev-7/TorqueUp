@@ -10,7 +10,7 @@ class ReportsChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 400,
+      height: 360,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
