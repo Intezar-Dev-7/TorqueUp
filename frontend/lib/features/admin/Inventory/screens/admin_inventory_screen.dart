@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_appbar.dart';
 

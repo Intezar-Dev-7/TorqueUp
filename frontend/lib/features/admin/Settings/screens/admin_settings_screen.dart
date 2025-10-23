@@ -27,12 +27,9 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
   ///
   final TextEditingController _oldPasswordController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
 
   final FocusNode _oldPasswordFocusNode = FocusNode();
   final FocusNode _newPasswordFocusNode = FocusNode();
-  final FocusNode _confirmPasswordFocusNode = FocusNode();
 
   bool notificationsEnabled = true;
 
@@ -55,16 +52,23 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
     ///
     _oldPasswordController.dispose();
     _newPasswordController.dispose();
-    _confirmPasswordController.dispose();
 
     _oldPasswordFocusNode.dispose();
     _newPasswordFocusNode.dispose();
-    _confirmPasswordFocusNode.dispose();
+
     super.dispose();
   }
 
   void logoutAdmin() {
     _adminServices.logoutAdmin(context: context);
+  }
+
+  Future<void> changePassword() async {
+    _adminServices.changePassword(
+      context: context,
+      oldPassword: _oldPasswordController.text,
+      newPassword: _newPasswordController.text,
+    );
   }
 
   @override
@@ -107,7 +111,7 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
                 // ✅ Security (passwords)
                 _buildSettingsCard(
                   icon: Icons.lock,
-                  title: "Security",
+                  title: "Change Password",
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -123,16 +127,9 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
                         hintText: 'Enter new password',
                       ),
                       const SizedBox(height: 12),
-                      CustomTextField(
-                        controller: _confirmPasswordController,
-                        focusNode: _confirmPasswordFocusNode,
-                        hintText: 'Confirm password',
-                      ),
-                      SizedBox(height: 10),
+
                       ElevatedButton.icon(
-                        onPressed: () {
-                          // Save changes handler
-                        },
+                        onPressed: changePassword,
                         icon: const Icon(Icons.save, color: Colors.white),
                         label: const Text(
                           "Save Password",

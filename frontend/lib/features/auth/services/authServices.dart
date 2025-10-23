@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_snack_bar.dart';
-import 'package:frontend/features/receptionist/model/user.dart';
+import 'package:frontend/features/receptionist/model/user_model.dart';
 import 'package:frontend/admin_side_navigation_bar.dart';
 import 'package:frontend/features/auth/screens/signin_screen.dart';
 import 'package:frontend/features/receptionist/Dashboard/screens/receptionist_dashboard_screen.dart';

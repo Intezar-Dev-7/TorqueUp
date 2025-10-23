@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_snack_bar.dart';
 import 'package:frontend/features/auth/screens/signin_screen.dart';
@@ -21,12 +23,66 @@ class AdminServices {
         (Route<dynamic> route) => false, // remove all previous routes
       );
     } catch (e) {
-      print('Logout error: $e');
       CustomSnackBar.show(
         context,
         message: "Logged out successfully!",
         backgroundColor: Colors.green,
         icon: Icons.done,
+      );
+    }
+  }
+
+  Future<void> changePassword({
+    required BuildContext context,
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
+      print('Token from prefs: $token');
+
+      if (token == null) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('User not logged in')));
+        return;
+      }
+
+      print("Success");
+      final response = await http.patch(
+        Uri.parse('$uri/api/changePassword'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': token,
+        },
+
+        body: jsonEncode({
+          'oldPassword': oldPassword,
+          'newPassword': newPassword,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(data['msg'] ?? 'Password changed successfully!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      } else {
+        final error = jsonDecode(response.body);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(error['msg'] ?? 'Password change failed!'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e'), backgroundColor: Colors.red),
       );
     }
   }
