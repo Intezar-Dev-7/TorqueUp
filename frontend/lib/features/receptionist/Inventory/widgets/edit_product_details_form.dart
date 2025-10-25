@@ -121,7 +121,7 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
 
                   // Status Dropdown
                   DropdownButtonFormField<String>(
-                    initialValue: productStatus,
+                    // initialValue: productStatus,
                     decoration: InputDecoration(
                       labelText: 'Status',
                       border: OutlineInputBorder(

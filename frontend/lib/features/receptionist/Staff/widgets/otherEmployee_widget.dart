@@ -12,6 +12,8 @@ class OtherEmployees extends StatefulWidget {
 
 class _OtherEmployeesState extends State<OtherEmployees> {
   List<Map<String, dynamic>> otherEmployees = [];
+  bool isLoading = true;
+
   @override
   void initState() {
     super.initState();
@@ -19,13 +21,14 @@ class _OtherEmployeesState extends State<OtherEmployees> {
   }
 
   void loadStaff() async {
+    setState(() => isLoading = true);
     final staffService = ReceptionistStaffServices();
     otherEmployees = await staffService.getStaffByRole(
       context: context,
       staffRole: 'otherEmployee',
     );
     print('Fetched other employees: $otherEmployees');
-    setState(() {});
+    setState(() => isLoading = false);
   }
 
   @override
@@ -33,73 +36,163 @@ class _OtherEmployeesState extends State<OtherEmployees> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "Other Employees",
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-          // textAlign: TextAlign.left,
+        Row(
+          children: [
+            Container(
+              width: 4,
+              height: 24,
+              decoration: BoxDecoration(
+                color: AppColors.sky_blue,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Text(
+              "Other Employees",
+              style: TextStyle(
+                fontSize: 20,
+                color: AppColors.text_dark,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
         ),
+        const SizedBox(height: 16),
         Container(
-          width: 380,
           height: 500,
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
+                color: AppColors.black.withOpacity(0.06),
                 spreadRadius: 2,
-                blurRadius: 5,
-                offset: Offset(0, 3),
+                blurRadius: 12,
+                offset: const Offset(0, 4),
               ),
             ],
           ),
-          child: ListView.builder(
+          child: isLoading
+              ? Center(
+            child: CircularProgressIndicator(
+              color: AppColors.sky_blue,
+            ),
+          )
+              : otherEmployees.isEmpty
+              ? Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.people_outline,
+                  size: 64,
+                  color: AppColors.text_grey.withOpacity(0.5),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'No other employees found',
+                  style: TextStyle(
+                    color: AppColors.text_grey,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+          )
+              : ListView.separated(
+            padding: const EdgeInsets.all(12),
             itemCount: otherEmployees.length,
+            separatorBuilder: (context, index) => Divider(
+              height: 1,
+              color: AppColors.border_grey.withOpacity(0.3),
+            ),
             itemBuilder: (context, i) {
               final otherEmployee = otherEmployees[i];
               return ListTile(
-                leading: CircleAvatar(
-                  backgroundImage:
-                      otherEmployee['avatar'] != null &&
-                              otherEmployee['avatar'].isNotEmpty
-                          ? NetworkImage(otherEmployee['avatar'])
-                          : AssetImage('assets/general_icons/employee.png')
-                              as ImageProvider,
-
-                  radius: 24,
-                  backgroundColor: Colors.grey[200],
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
                 ),
-                title: Text(otherEmployee['staffName']),
-                subtitle: Text(otherEmployee['staffRole']),
-                trailing: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder:
-                            (context) =>
-                                StaffProfileScreen(staff: otherEmployee),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                leading: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: AppColors.sky_blue.withOpacity(0.3),
+                      width: 2,
                     ),
-                    backgroundColor: AppColors.black,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
-                    ),
-                    textStyle: const TextStyle(fontSize: 12),
                   ),
-                  child: const Text(
-                    'View',
-                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  child: CircleAvatar(
+                    backgroundImage: otherEmployee['avatar'] != null &&
+                        otherEmployee['avatar'].isNotEmpty
+                        ? NetworkImage(otherEmployee['avatar'])
+                        : const AssetImage(
+                        'assets/general_icons/employee.png')
+                    as ImageProvider,
+                    radius: 24,
+                    backgroundColor: AppColors.sky_blue.withOpacity(0.1),
+                  ),
+                ),
+                title: Text(
+                  otherEmployee['staffName'],
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.text_dark,
+                    fontSize: 15,
+                  ),
+                ),
+                subtitle: Text(
+                  otherEmployee['staffRole'],
+                  style: TextStyle(
+                    color: AppColors.text_grey,
+                    fontSize: 13,
+                  ),
+                ),
+                trailing: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        AppColors.sky_blue,
+                        AppColors.sky_blue_light
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.sky_blue.withOpacity(0.3),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              StaffProfileScreen(staff: otherEmployee),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.transparent,
+                      shadowColor: AppColors.transparent,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 10,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: Text(
+                      'View',
+                      style: TextStyle(
+                        color: AppColors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                 ),
               );

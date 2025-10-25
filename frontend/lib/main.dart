@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/admin_side_navigation_bar.dart';
 import 'package:frontend/features/auth/screens/signin_screen.dart';
 import 'package:frontend/features/auth/services/authServices.dart';
+import 'package:frontend/features/receptionist/Bookings/screens/receptionist_booking_screen.dart';
 import 'package:frontend/receptionist_side_nav_bar.dart';
 import 'package:frontend/provider/user_Provider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -46,7 +47,8 @@ class _MyAppState extends State<MyApp> {
         textTheme: GoogleFonts.interTextTheme(),
         useMaterial3: true,
       ),
-      home: _getHomeScreen(userProvider),
+      home: ReceptionistSideNavBar(),
+      // home: _getHomeScreen(userProvider),
     );
   }
 

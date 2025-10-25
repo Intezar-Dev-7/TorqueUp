@@ -156,7 +156,7 @@ class _AddInventoryFormState extends State<AddInventoryForm> {
 
                   // Status Dropdown
                   DropdownButtonFormField<String>(
-                    initialValue: productStatus,
+                    // initialValue: productStatus,
                     decoration: InputDecoration(
                       labelText: 'Status',
                       border: OutlineInputBorder(
