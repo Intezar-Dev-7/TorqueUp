@@ -47,7 +47,8 @@ class _MyAppState extends State<MyApp> {
         textTheme: GoogleFonts.interTextTheme(),
         useMaterial3: true,
       ),
-      home: ReceptionistSideNavBar(),
+      home: SideNavigationBar(),
+      // home: ReceptionistSideNavBar(),
       // home: _getHomeScreen(userProvider),
     );
   }

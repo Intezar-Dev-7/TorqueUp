@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/receptionist/Inventory/services/inventory_services.dart';
+import 'package:frontend/utils/colors.dart';
 
 class EditProductDetailsForm extends StatefulWidget {
   final String productId;
@@ -26,6 +27,11 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
   late TextEditingController productQuantityController;
   late TextEditingController productPriceController;
 
+  // Responsive breakpoints
+  bool isMobile(double width) => width < 600;
+  bool isTablet(double width) => width >= 600 && width < 900;
+  bool isDesktop(double width) => width >= 900;
+
   @override
   void initState() {
     super.initState();
@@ -47,168 +53,346 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    // Quantity , price and status
-    return SafeArea(
-      child: Center(
-        child: Container(
-          height: mediaQuery.size.height * 0.7,
-          width: mediaQuery.size.width * 0.7,
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 1,
-                blurRadius: 6,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Text(
-                    "Add Inventory",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  const SizedBox(height: 25),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final screenWidth = MediaQuery.of(context).size.width;
+        final isSmallScreen = isMobile(screenWidth);
 
-                  // Quantity
-                  TextFormField(
-                    controller: productQuantityController,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      hintText: "Quantity",
-                      prefixIcon: const Icon(Icons.format_list_numbered),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    validator:
-                        (val) =>
-                            val == null || val.isEmpty
-                                ? "Enter quantity"
-                                : null,
-                  ),
-                  const SizedBox(height: 20),
-
-                  // Price
-                  TextFormField(
-                    controller: productPriceController,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      hintText: "Price",
-                      prefixIcon: const Icon(Icons.attach_money),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    validator:
-                        (val) =>
-                            val == null || val.isEmpty ? "Enter price" : null,
-                  ),
-                  const SizedBox(height: 20),
-
-                  // Status Dropdown
-                  DropdownButtonFormField<String>(
-                    // initialValue: productStatus,
-                    decoration: InputDecoration(
-                      labelText: 'Status',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                    ),
-                    items:
-                        ['In Stock', 'Low Stock', 'Out Of Stock']
-                            .map(
-                              (s) => DropdownMenuItem(value: s, child: Text(s)),
-                            )
-                            .toList(),
-                    onChanged: (val) {
-                      setState(() {
-                        productStatus = val!;
-                      });
-                    },
-                  ),
-
-                  const SizedBox(height: 25),
-                  // Buttons
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black87,
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
+        return Material(
+          type: MaterialType.transparency,
+          child: Container(
+            constraints: BoxConstraints(
+              maxWidth: isSmallScreen ? screenWidth * 0.95 : 600,
+              maxHeight: MediaQuery.of(context).size.height * 0.8,
+            ),
+            padding: EdgeInsets.all(isSmallScreen ? 20 : 32),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: AppColors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.black.withOpacity(0.1),
+                  spreadRadius: 2,
+                  blurRadius: 20,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Header with Icon
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: AppColors.sky_blue.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              if (_formKey.currentState!.validate()) {
-                                final updatedQuantity = int.parse(
-                                  productQuantityController.text,
-                                );
-                                final updatedPrice = int.parse(
-                                  productPriceController.text,
-                                );
-
-                                // Call your update service here
-                                InventoryServices().updateInventoryProduct(
-                                  context: context,
-                                  productId: widget.productId,
-                                  productQuantity: updatedQuantity,
-                                  productPrice: updatedPrice,
-                                  productStatus: productStatus,
-                                );
-
-                                Navigator.pop(
-                                  context,
-                                ); // Close the dialog after save
-                              }
-                            }
-                          },
-                          child: const Text(
-                            "Update",
-                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          child: Icon(
+                            Icons.edit_note_rounded,
+                            color: AppColors.sky_blue,
+                            size: 28,
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.redAccent,
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Text(
+                            "Edit Product",
+                            style: TextStyle(
+                              fontSize: isSmallScreen ? 20 : 24,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.text_dark,
                             ),
                           ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text(
-                            "Cancel",
-                            style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                        IconButton(
+                          onPressed: () => Navigator.pop(context),
+                          icon: Icon(
+                            Icons.close_rounded,
+                            color: AppColors.text_grey,
                           ),
                         ),
+                      ],
+                    ),
+                    SizedBox(height: isSmallScreen ? 20 : 28),
+
+                    // Quantity and Price in Row for larger screens
+                    if (!isSmallScreen)
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _buildTextField(
+                              controller: productQuantityController,
+                              label: "Quantity",
+                              icon: Icons.format_list_numbered_outlined,
+                              keyboardType: TextInputType.number,
+                              validator: (val) =>
+                              val == null || val.isEmpty
+                                  ? "Enter quantity"
+                                  : null,
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: _buildTextField(
+                              controller: productPriceController,
+                              label: "Price",
+                              icon: Icons.attach_money_outlined,
+                              keyboardType: TextInputType.number,
+                              validator: (val) =>
+                              val == null || val.isEmpty
+                                  ? "Enter price"
+                                  : null,
+                            ),
+                          ),
+                        ],
+                      )
+                    else ...[
+                      _buildTextField(
+                        controller: productQuantityController,
+                        label: "Quantity",
+                        icon: Icons.format_list_numbered_outlined,
+                        keyboardType: TextInputType.number,
+                        validator: (val) =>
+                        val == null || val.isEmpty
+                            ? "Enter quantity"
+                            : null,
+                      ),
+                      const SizedBox(height: 16),
+                      _buildTextField(
+                        controller: productPriceController,
+                        label: "Price",
+                        icon: Icons.attach_money_outlined,
+                        keyboardType: TextInputType.number,
+                        validator: (val) =>
+                        val == null || val.isEmpty ? "Enter price" : null,
                       ),
                     ],
-                  ),
-                ],
+                    const SizedBox(height: 16),
+
+                    // Status Dropdown
+                    _buildStatusDropdown(),
+                    SizedBox(height: isSmallScreen ? 24 : 32),
+
+                    // Action Buttons
+                    if (!isSmallScreen)
+                      Row(
+                        children: [
+                          Expanded(child: _buildCancelButton()),
+                          const SizedBox(width: 16),
+                          Expanded(child: _buildUpdateButton()),
+                        ],
+                      )
+                    else ...[
+                      _buildUpdateButton(),
+                      const SizedBox(height: 12),
+                      _buildCancelButton(),
+                    ],
+                  ],
+                ),
               ),
             ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String label,
+    required IconData icon,
+    TextInputType keyboardType = TextInputType.text,
+    String? Function(String?)? validator,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.light_bg,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppColors.border_grey.withOpacity(0.5),
+          width: 1,
+        ),
+      ),
+      child: TextFormField(
+        controller: controller,
+        keyboardType: keyboardType,
+        style: TextStyle(
+          color: AppColors.text_dark,
+          fontSize: 14,
+        ),
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: TextStyle(
+            color: AppColors.text_grey,
+            fontSize: 14,
+          ),
+          prefixIcon: Icon(
+            icon,
+            color: AppColors.sky_blue,
+            size: 20,
+          ),
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 16,
+          ),
+        ),
+        validator: validator,
+      ),
+    );
+  }
+
+  Widget _buildStatusDropdown() {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.light_bg,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppColors.border_grey.withOpacity(0.5),
+          width: 1,
+        ),
+      ),
+      child: DropdownButtonFormField<String>(
+        value: productStatus,
+        elevation: 2,
+        borderRadius: BorderRadius.circular(12),
+        decoration: InputDecoration(
+          labelText: 'Status',
+          labelStyle: TextStyle(
+            color: AppColors.text_grey,
+            fontSize: 14,
+          ),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 16,
+          ),
+          border: InputBorder.none,
+          prefixIcon: Icon(
+            Icons.flag_outlined,
+            color: AppColors.sky_blue,
+            size: 20,
+          ),
+        ),
+        icon: Icon(
+          Icons.keyboard_arrow_down_rounded,
+          color: AppColors.sky_blue,
+        ),
+        items: ['In Stock', 'Low Stock', 'Out Of Stock']
+            .map(
+              (s) => DropdownMenuItem(
+            value: s,
+            child: Text(
+              s,
+              style: TextStyle(
+                color: AppColors.text_dark,
+                fontSize: 14,
+              ),
+            ),
+          ),
+        )
+            .toList(),
+        onChanged: (val) {
+          setState(() {
+            productStatus = val!;
+          });
+        },
+      ),
+    );
+  }
+
+  Widget _buildUpdateButton() {
+    return Container(
+      height: 50,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [AppColors.sky_blue, AppColors.sky_blue_light],
+        ),
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.sky_blue.withOpacity(0.3),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.transparent,
+          shadowColor: AppColors.transparent,
+          padding: const EdgeInsets.symmetric(vertical: 14),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            final updatedQuantity = int.parse(
+              productQuantityController.text,
+            );
+            final updatedPrice = int.parse(
+              productPriceController.text,
+            );
+
+            // Call update service
+            InventoryServices().updateInventoryProduct(
+              context: context,
+              productId: widget.productId,
+              productQuantity: updatedQuantity,
+              productPrice: updatedPrice,
+              productStatus: productStatus,
+            );
+
+            Navigator.pop(context);
+          }
+        },
+        icon: Icon(Icons.update_outlined, color: AppColors.white, size: 20),
+        label: Text(
+          "Update Product",
+          style: TextStyle(
+            color: AppColors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCancelButton() {
+    return Container(
+      height: 50,
+      decoration: BoxDecoration(
+        color: AppColors.light_bg,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppColors.sky_blue.withOpacity(0.3),
+          width: 1.5,
+        ),
+      ),
+      child: TextButton.icon(
+        onPressed: () => Navigator.pop(context),
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        icon: Icon(Icons.close_rounded, color: AppColors.sky_blue, size: 20),
+        label: Text(
+          "Cancel",
+          style: TextStyle(
+            color: AppColors.sky_blue,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
           ),
         ),
       ),
