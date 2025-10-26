@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AdminServices {
   void logoutAdmin({required BuildContext context}) async {
     try {
-      http.Response res = await http.get(Uri.parse('$uri/logout'));
+      http.Response res = await http.get(Uri.parse('$uri/api/adminLogout'));
 
       // Clear stored token/session in SharedPreferences
       SharedPreferences sp = await SharedPreferences.getInstance();
@@ -51,7 +51,7 @@ class AdminServices {
 
       print("Success");
       final response = await http.patch(
-        Uri.parse('$uri/api/changePassword'),
+        Uri.parse('$uri/api/changeAdminPassword'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': token,

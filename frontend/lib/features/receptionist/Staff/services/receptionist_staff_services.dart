@@ -38,7 +38,6 @@ class ReceptionistStaffServices {
 
       if (res.statusCode == 201) {
         final response = jsonDecode(res.body);
-        print("Decoded response: $response");
 
         CustomSnackBar.show(
           context,
@@ -48,7 +47,6 @@ class ReceptionistStaffServices {
         );
       } else {
         final error = jsonDecode(res.body);
-        print("Decoded error: $error");
 
         CustomSnackBar.show(
           context,
@@ -62,7 +60,6 @@ class ReceptionistStaffServices {
         message: '$e',
         backgroundColor: Colors.redAccent,
       );
-      print("error in catch, $e");
     }
   }
 

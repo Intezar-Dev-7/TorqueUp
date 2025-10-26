@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_snack_bar.dart';
-import 'package:frontend/features/receptionist/Bookings/services/BookingServices.dart';
+import 'package:frontend/features/receptionist/Bookings/services/booking_services.dart';
+import 'package:frontend/utils/colors.dart';
 import 'package:intl/intl.dart';
 
 class NewBookingWidget extends StatefulWidget {
@@ -49,14 +50,27 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
       initialDate: DateTime.now(),
       firstDate: DateTime(2023),
       lastDate: DateTime(2100),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: AppColors.sky_blue,
+              onPrimary: AppColors.white,
+              onSurface: AppColors.text_dark,
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
     if (picked != null) {
       if (!isBookedDate && bookedDate != null && picked.isBefore(bookedDate!)) {
         CustomSnackBar.show(
           context,
           message: 'Ready date cannot be before booked date!',
-          backgroundColor: Colors.redAccent,
+          backgroundColor: AppColors.error,
         );
+        return;
       }
 
       setState(() {
@@ -83,24 +97,33 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
     );
   }
 
+  // Responsive breakpoints
+  bool isMobile(double width) => width < 600;
+  bool isTablet(double width) => width >= 600 && width < 900;
+  bool isDesktop(double width) => width >= 900;
+
   @override
   Widget build(BuildContext context) {
-    final MediaQueryData mediaQuery = MediaQuery.of(context);
-    return SafeArea(
-      child: Center(
-        child: Container(
-          height: mediaQuery.size.width * 0.7,
-          width: mediaQuery.size.width * 0.8,
-          padding: const EdgeInsets.all(16),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final screenWidth = MediaQuery.of(context).size.width;
+        final isSmallScreen = isMobile(screenWidth);
+
+        return Container(
+          constraints: BoxConstraints(
+            maxWidth: isSmallScreen ? screenWidth * 0.95 : 700,
+            maxHeight: MediaQuery.of(context).size.height * 0.9,
+          ),
+          padding: EdgeInsets.all(isSmallScreen ? 20 : 32),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            color: AppColors.white,
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 1,
-                blurRadius: 6,
-                offset: const Offset(0, 2),
+                color: AppColors.black.withOpacity(0.1),
+                spreadRadius: 2,
+                blurRadius: 20,
+                offset: const Offset(0, 4),
               ),
             ],
           ),
@@ -109,62 +132,63 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
               key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text(
-                    "New Booking",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
+                  // Header with Icon
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: AppColors.sky_blue.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Icon(
+                          Icons.add_circle_outline,
+                          color: AppColors.sky_blue,
+                          size: 28,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Text(
+                          "New Booking",
+                          style: TextStyle(
+                            fontSize: isSmallScreen ? 20 : 24,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.text_dark,
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: Icon(
+                          Icons.close_rounded,
+                          color: AppColors.text_grey,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 25),
+                  SizedBox(height: isSmallScreen ? 20 : 28),
 
-                  // Customer Name
-                  TextFormField(
+                  // Form Fields
+                  _buildTextField(
                     controller: customerNameController,
-                    decoration: InputDecoration(
-                      hintText: "Customer Name",
-                      prefixIcon: const Icon(Icons.person),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
-                    ),
+                    label: "Customer Name",
+                    icon: Icons.person_outline,
                     validator:
                         (val) =>
                             val == null || val.isEmpty
                                 ? "Enter customer name"
                                 : null,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 16),
 
-                  // Customer Contact Number
-                  TextFormField(
+                  _buildTextField(
                     controller: customerContactNumberController,
+                    label: "Customer Contact Number",
+                    icon: Icons.phone_outlined,
                     keyboardType: TextInputType.phone,
-                    decoration: InputDecoration(
-                      hintText: "Customer Contact Number",
-                      prefixIcon: const Icon(Icons.phone),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
-                    ),
                     validator: (val) {
                       if (val == null || val.isEmpty) {
                         return "Enter contact number";
@@ -174,198 +198,344 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 16),
 
-                  // Vehicle Number
-                  TextFormField(
+                  _buildTextField(
                     controller: vehicleNumberController,
-                    decoration: InputDecoration(
-                      hintText: "Vehicle Number",
-                      prefixIcon: const Icon(Icons.directions_car),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
-                    ),
+                    label: "Vehicle Number",
+                    icon: Icons.directions_car_outlined,
                     validator:
                         (val) =>
                             val == null || val.isEmpty
                                 ? "Enter vehicle number"
                                 : null,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 16),
 
-                  // Problem Description
-                  TextFormField(
+                  _buildTextField(
                     controller: problemController,
-                    maxLines: 2,
-                    decoration: InputDecoration(
-                      hintText: "Problem Description",
-                      prefixIcon: const Icon(Icons.build),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
-                    ),
+                    label: "Problem Description",
+                    icon: Icons.build_outlined,
+                    maxLines: 3,
                     validator:
                         (val) =>
                             val == null || val.isEmpty
                                 ? "Enter problem details"
                                 : null,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 16),
 
-                  // DropDownItems
-                  SizedBox(
-                    width: 200,
+                  // Status Dropdown
+                  Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.light_bg,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: AppColors.border_grey.withOpacity(0.5),
+                        width: 1,
+                      ),
+                    ),
                     child: DropdownButtonFormField<String>(
-                      elevation: 1,
-                      focusColor: Colors.grey[100],
-                      initialValue: vehicleStatus,
-                      decoration: const InputDecoration(labelText: 'Status'),
+                      elevation: 2,
+                      value: vehicleStatus,
+                      borderRadius: BorderRadius.circular(12),
+                      decoration: InputDecoration(
+                        labelText: 'Status',
+                        labelStyle: TextStyle(
+                          color: AppColors.text_grey,
+                          fontSize: 14,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 16,
+                        ),
+                        border: InputBorder.none,
+                        prefixIcon: Icon(
+                          Icons.flag_outlined,
+                          color: AppColors.sky_blue,
+                          size: 20,
+                        ),
+                      ),
+                      icon: Icon(
+                        Icons.keyboard_arrow_down_rounded,
+                        color: AppColors.sky_blue,
+                      ),
                       items:
                           ['Pending', 'Confirmed', 'Completed']
                               .map(
-                                (s) =>
-                                    DropdownMenuItem(value: s, child: Text(s)),
+                                (s) => DropdownMenuItem(
+                                  value: s,
+                                  child: Text(
+                                    s,
+                                    style: TextStyle(
+                                      color: AppColors.text_dark,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
                               )
                               .toList(),
                       onChanged: (val) {
-                        vehicleStatus = val!;
+                        setState(() {
+                          vehicleStatus = val!;
+                        });
                       },
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 16),
 
-                  // Booking Date
-                  TextFormField(
-                    controller: bookedDateController,
-                    readOnly: true,
-                    decoration: InputDecoration(
-                      hintText: "Booking Date",
-                      prefixIcon: const Icon(Icons.calendar_today),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
-                    ),
-                    onTap: () => _pickDate(context, bookedDateController, true),
-                    validator:
-                        (val) =>
-                            val == null || val.isEmpty
-                                ? "Select booking date"
-                                : null,
-                  ),
-                  const SizedBox(height: 20),
-
-                  // Ready Date
-                  TextFormField(
-                    controller: readyDateController,
-                    readOnly: true,
-                    decoration: InputDecoration(
-                      hintText: "Ready By",
-                      prefixIcon: const Icon(Icons.event_available),
-                      border: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.black),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
-                    ),
-                    onTap: () => _pickDate(context, readyDateController, false),
-                    validator:
-                        (val) =>
-                            val == null || val.isEmpty
-                                ? "Select ready date"
-                                : null,
-                  ),
-                  const SizedBox(height: 30),
-
-                  // Submit and Cancel Buttons
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black87,
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              final newBookingData = {
-                                "name": customerNameController.text,
-                                "contact": customerContactNumberController.text,
-                                "vehicle": vehicleNumberController.text,
-                                "problem": problemController.text,
-                                "status": vehicleStatus,
-                                "bookedDate": bookedDateController.text,
-                                "readyDate": readyDateController.text,
-                              };
-                              addNewBooking();
-                              Navigator.pop(context, newBookingData);
-                            }
-                          },
-                          child: const Text(
-                            "Save Booking",
-                            style: TextStyle(color: Colors.white, fontSize: 16),
+                  // Date Fields in Row for larger screens
+                  if (!isSmallScreen)
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildDateField(
+                            controller: bookedDateController,
+                            label: "Booking Date",
+                            icon: Icons.calendar_today_outlined,
+                            onTap:
+                                () => _pickDate(
+                                  context,
+                                  bookedDateController,
+                                  true,
+                                ),
+                            validator:
+                                (val) =>
+                                    val == null || val.isEmpty
+                                        ? "Select booking date"
+                                        : null,
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black87,
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text(
-                            "Cancel",
-                            style: TextStyle(color: Colors.white, fontSize: 16),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: _buildDateField(
+                            controller: readyDateController,
+                            label: "Ready By",
+                            icon: Icons.event_available_outlined,
+                            onTap:
+                                () => _pickDate(
+                                  context,
+                                  readyDateController,
+                                  false,
+                                ),
+                            validator:
+                                (val) =>
+                                    val == null || val.isEmpty
+                                        ? "Select ready date"
+                                        : null,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    )
+                  else ...[
+                    _buildDateField(
+                      controller: bookedDateController,
+                      label: "Booking Date",
+                      icon: Icons.calendar_today_outlined,
+                      onTap:
+                          () => _pickDate(context, bookedDateController, true),
+                      validator:
+                          (val) =>
+                              val == null || val.isEmpty
+                                  ? "Select booking date"
+                                  : null,
+                    ),
+                    const SizedBox(height: 16),
+                    _buildDateField(
+                      controller: readyDateController,
+                      label: "Ready By",
+                      icon: Icons.event_available_outlined,
+                      onTap:
+                          () => _pickDate(context, readyDateController, false),
+                      validator:
+                          (val) =>
+                              val == null || val.isEmpty
+                                  ? "Select ready date"
+                                  : null,
+                    ),
+                  ],
+
+                  SizedBox(height: isSmallScreen ? 24 : 32),
+
+                  // Action Buttons
+                  if (!isSmallScreen)
+                    Row(
+                      children: [
+                        Expanded(child: _buildCancelButton(context)),
+                        const SizedBox(width: 16),
+                        Expanded(child: _buildSaveButton(context)),
+                      ],
+                    )
+                  else ...[
+                    _buildSaveButton(context),
+                    const SizedBox(height: 12),
+                    _buildCancelButton(context),
+                  ],
                 ],
               ),
             ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String label,
+    required IconData icon,
+    TextInputType keyboardType = TextInputType.text,
+    int maxLines = 1,
+    String? Function(String?)? validator,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.light_bg,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppColors.border_grey.withOpacity(0.5),
+          width: 1,
+        ),
+      ),
+      child: TextFormField(
+        controller: controller,
+        keyboardType: keyboardType,
+        maxLines: maxLines,
+        style: TextStyle(color: AppColors.text_dark, fontSize: 14),
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14),
+          prefixIcon: Icon(icon, color: AppColors.sky_blue, size: 20),
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 16,
+          ),
+        ),
+        validator: validator,
+      ),
+    );
+  }
+
+  Widget _buildDateField({
+    required TextEditingController controller,
+    required String label,
+    required IconData icon,
+    required VoidCallback onTap,
+    String? Function(String?)? validator,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.light_bg,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppColors.border_grey.withOpacity(0.5),
+          width: 1,
+        ),
+      ),
+      child: TextFormField(
+        controller: controller,
+        readOnly: true,
+        style: TextStyle(color: AppColors.text_dark, fontSize: 14),
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14),
+          prefixIcon: Icon(icon, color: AppColors.sky_blue, size: 20),
+          suffixIcon: Icon(Icons.arrow_drop_down, color: AppColors.sky_blue),
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 16,
+          ),
+        ),
+        onTap: onTap,
+        validator: validator,
+      ),
+    );
+  }
+
+  Widget _buildSaveButton(BuildContext context) {
+    return Container(
+      height: 50,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [AppColors.sky_blue, AppColors.sky_blue_light],
+        ),
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.sky_blue.withOpacity(0.3),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.transparent,
+          shadowColor: AppColors.transparent,
+          padding: const EdgeInsets.symmetric(vertical: 14),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            final newBookingData = {
+              "name": customerNameController.text,
+              "contact": customerContactNumberController.text,
+              "vehicle": vehicleNumberController.text,
+              "problem": problemController.text,
+              "status": vehicleStatus,
+              "bookedDate": bookedDateController.text,
+              "readyDate": readyDateController.text,
+            };
+            addNewBooking();
+            Navigator.pop(context, newBookingData);
+          }
+        },
+        icon: Icon(Icons.save_outlined, color: AppColors.white, size: 20),
+        label: Text(
+          "Save Booking",
+          style: TextStyle(
+            color: AppColors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCancelButton(BuildContext context) {
+    return Container(
+      height: 50,
+      decoration: BoxDecoration(
+        color: AppColors.light_bg,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppColors.sky_blue.withOpacity(0.3),
+          width: 1.5,
+        ),
+      ),
+      child: TextButton.icon(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        icon: Icon(Icons.close_rounded, color: AppColors.sky_blue, size: 20),
+        label: Text(
+          "Cancel",
+          style: TextStyle(
+            color: AppColors.sky_blue,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
           ),
         ),
       ),

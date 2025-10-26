@@ -22,6 +22,12 @@ import productRouter from './routes/productRouter.js';
 // Middleware to parse JSON
 app.use(express.json());
 
+
+// For JSON payloads
+app.use(express.json({ limit: '50mb' }));
+// For URL-encoded payloads
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
 // Middleware
 app.use(authRouter);
 app.use(receptionistRouter);

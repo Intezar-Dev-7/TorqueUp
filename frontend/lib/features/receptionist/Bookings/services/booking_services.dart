@@ -38,7 +38,6 @@ class VehicleBookingServices {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
-      print("Response: ${res.statusCode} - ${res.body}");
 
       // Show success
       if (res.statusCode == 200) {
@@ -55,14 +54,13 @@ class VehicleBookingServices {
         message: "Something went wrong $e",
         backgroundColor: Colors.green,
       );
-      print(e);
     }
   }
 
   Future<List<NewBooking>> fetchAllBookings(BuildContext context) async {
     try {
       final res = await http.get(Uri.parse('$uri/api/getBookings'));
-      print('Fetch Response : ${res.statusCode}-${res.body}');
+
       if (res.statusCode == 200) {
         List<NewBooking> bookings = NewBooking.listFromJson(res.body);
         return bookings;
@@ -80,7 +78,7 @@ class VehicleBookingServices {
         message: "Error: $e",
         backgroundColor: Colors.red,
       );
-      print(e);
+
       return [];
     }
   }
@@ -100,7 +98,7 @@ class VehicleBookingServices {
 
       if (res.statusCode == 200) {
         final data = jsonDecode(res.body);
-        print("Full reponse $data");
+
         // Return updated booking
         return NewBooking.fromMap(data);
       } else {
@@ -128,7 +126,6 @@ class VehicleBookingServices {
     required String bookingId,
   }) async {
     try {
-      print("Success 3");
       http.Response res = await http.delete(
         Uri.parse('$uri/api/deleteBooking/$bookingId'),
         headers: <String, String>{
@@ -136,18 +133,12 @@ class VehicleBookingServices {
         },
       );
       if (res.statusCode == 200) {
-        print("Success 4");
-        print('Status Code:, ${res.statusCode}');
-        print('Body, ${res.body}');
-
         CustomSnackBar.show(
           context,
           message: "Booking deleted successfully",
           backgroundColor: Colors.lightGreenAccent,
         );
       } else {
-        print("Status Code: ${res.statusCode}");
-        print("Body: ${res.body}");
         CustomSnackBar.show(
           context,
           message: "Failed to delete: ${res.body}",

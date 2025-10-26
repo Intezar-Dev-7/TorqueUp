@@ -1,70 +1,64 @@
-# ⚙️ TorqueUp – Car & Bike Service Center Management System (SaaS)
 
-**TorqueUp** is an all-in-one SaaS platform that simplifies and streamlines operations for car and bike service centers. From customer bookings and vehicle tracking to job management, inventory, invoicing, and real-time notifications — TorqueUp empowers workshops with digital tools to improve efficiency, reduce errors, and provide an exceptional customer experience.
 
-> 🚫 **Note:** This project is a **proprietary SaaS solution** and is **not open source**. Unauthorized usage, forking, or distribution is strictly prohibited.
 
----
+⚙️ TorqueUp – Car & Bike Service Center Management System (SaaS)
 
-## 🚀 Key Highlights
+TorqueUp is an all-in-one SaaS platform that simplifies and streamlines operations for car and bike service centers. From customer bookings and vehicle tracking to job management, inventory, invoicing, and real-time notifications — TorqueUp empowers workshops with digital tools to improve efficiency, reduce errors, and provide an exceptional customer experience.
 
-- 📅 Real-time bookings & mechanic scheduling  
-- 🔧 Job tracking from diagnostics to delivery  
-- 🧰 Integrated inventory and stock alerts  
-- 🧾 Smart invoicing with tax & discount support  
-- 🔔 Customer notifications via SMS, email, and push  
-- 📊 Business insights with detailed reports  
-## 🧩 Core Features
+🚫 Note: This project is a proprietary SaaS solution and is not open source. Unauthorized usage, forking, or distribution is strictly prohibited.
 
-### ✅ User Management
-- Roles: Admin, Mechanic, Receptionist, Customer
-- Secure login, registration, and role-based permissions
+🚀 Key Highlights
 
-### ✅ Customer & Vehicle Tracking
-- Store detailed customer and vehicle information
-- Link multiple vehicles per customer
-- View full service history per vehicle
+📅 Real-time bookings
+🧰 Integrated inventory and stock alerts
+👩‍🔧 Employee management and tracking
+📊 Business insights with detailed reports
 
-### ✅ Booking & Job Scheduling
-- Bookings via online, walk-in, or phone
-- Real-time calendar with mechanic assignment
-- Job priority handling and status updates
+🧩  Core Features
+✅ User Management
+Roles: Admin, Receptionist, Mechanic
+Secure login, registration, and role-based permissions
 
-### ✅ Service Management
-- Custom service packages and diagnostics
-- Job status flow: Scheduled → In Progress → Completed
-- Mechanic notes and digital checklists
+✅ Booking
 
-### ✅ Inventory Management
-- Track parts and supplies
-- Auto-link parts to service jobs
-- Low stock alerts and reorder triggers
+Bookings via online, walk-in, or phone
+Real-time calendar with mechanic assignment
+Job priority handling and status updates
 
-### ✅ Billing & Invoicing
-- Auto-generate GST/VAT-compliant invoices
-- Payment status tracking: Paid, Unpaid, Partial
-- Export and print invoices (PDF)
+✅ Service Management
 
-### ✅ Notifications & Alerts
-- Channels: SMS, Email, Push (mobile)
-- Automated alerts: Bookings, job status, payment reminders
+Custom service packages and diagnostics
+Job status flow: Scheduled → In Progress → Completed
+Mechanic notes and digital checklists
 
-### ✅ Analytics & Reports
-- Revenue reports (daily/monthly/custom)
-- Service volume, mechanic performance, inventory trends
-- Customer engagement metrics
+✅ Inventory Management
 
----
-## 📌 Project Status
-🚧 **TorqueUp is currently under development.**  
+Track parts and supplies
+Auto-link parts to service jobs
+Low stock alerts and reorder triggers
 
-## 🛑 License
+✅ Employee Management
 
-This project is released under a **Proprietary License**.  
-You may **not copy, distribute, use, or modify** any part of this codebase.
+Add, update, and delete employee records
+Assign roles and permissions dynamically
+Track attendance, assigned jobs, and performance
+Secure data management with real-time sync
 
----
+✅ Analytics & Reports
 
-## 🙌 Acknowledgements
+Revenue reports (daily/monthly/custom)
+Service volume, mechanic performance, and inventory trends
+
+Customer engagement metrics
+
+📌 Project Status
+🚧 TorqueUp is currently under active development.
+
+🛑 License
+
+This project is released under a Proprietary License.
+You may not copy, distribute, use, or modify any part of this codebase.
+
+🙌 Acknowledgements
 
 Built with dedication to transform the vehicle service experience — for businesses and customers alike.

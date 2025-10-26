@@ -5,7 +5,7 @@ import { NotFoundError, UnauthenticatedError } from '../errors/index.js';
 import auth from '../middlewares/auth';
 const adminRouter = expess.Router();
 
-adminRouter.get('/logout', (req, res) => {
+adminRouter.get('/adminLogout', (req, res) => {
 
     if (req.session) {
         req.session.destroy(function (err) {
@@ -22,7 +22,7 @@ adminRouter.get('/logout', (req, res) => {
 });
 
 
-adminRouter.patch('/api/changePassword', auth, async (req, res) => {
+adminRouter.patch('/api/changeAdminPassword', auth, async (req, res) => {
     const { oldPassword, newPassword } = req.body;
     const userId = req.user.userId;
 

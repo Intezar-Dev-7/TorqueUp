@@ -4,7 +4,8 @@ import 'package:frontend/common/widgets/custom_elevated_button.dart';
 import 'package:frontend/common/widgets/custom_textfield.dart';
 import 'package:frontend/features/auth/screens/signup_screen.dart';
 import 'package:frontend/features/auth/screens/forgot_password_screen.dart';
-import 'package:frontend/features/auth/services/authServices.dart';
+import 'package:frontend/features/auth/services/auth_services.dart';
+import 'package:frontend/utils/colors.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -36,8 +37,8 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   String _selectedRole = 'Admin';
-
-  String _selectedOption = ''; // initial selected value
+  String _selectedOption = '';
+  bool _rememberMe = false;
 
   void signInUser() {
     authService.signInUser(
@@ -48,225 +49,356 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
+  // Responsive breakpoints
+  bool isMobile(double width) => width < 600;
+  bool isTablet(double width) => width >= 600 && width < 900;
+  bool isDesktop(double width) => width >= 900;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Form(
-        key: _formkey,
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Center(
-                  child: Image.asset(
-                    'assets/appLogo/TorqueUpLogo.png',
-                    height: 160,
-                    width: 350,
-                  ),
-                ),
-                Container(
-                  width: 450,
-                  height: 500,
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 10,
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 2.5,
-                        offset: const Offset(
-                          0,
-                          5,
-                        ), // changes position of shadow
-                      ),
-                    ],
+      backgroundColor: const Color(0xFFF5F8FA),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return Form(
+            key: _formkey,
+            child: SafeArea(
+              child: Center(
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: isMobile(constraints.maxWidth) ? 20 : 40,
+                    vertical: 20,
                   ),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        "Login To Your Account",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 15),
-                      CustomTextField(
-                        controller: _emailController,
-                        hintText: 'Email',
-                        focusNode: _emailFocusNode,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Email is required";
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(height: 10),
-                      CustomTextField(
-                        obscureText: true,
-                        controller: _passwordController,
-                        hintText: 'Password',
-                        focusNode: _passwordFocusNode,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Password is required";
-                          }
-                          if (value.length < 6) {
-                            return "Password must be at least 6 characters";
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(height: 10),
-                      // Add a new textfield asking the user to enter his role
+                      // Logo
+                      _buildLogo(constraints.maxWidth),
                       SizedBox(
-                        height: 55,
-                        width: 340,
-                        child: DropdownButtonFormField<String>(
-                          elevation: 2,
-                          focusColor: Colors.black,
-                          borderRadius: BorderRadius.circular(18),
-
-                          initialValue: _selectedRole,
-                          decoration: const InputDecoration(labelText: 'Role'),
-                          items:
-                              ['Admin', 'Receptionist', 'Customer']
-                                  .map(
-                                    (s) => DropdownMenuItem(
-                                      value: s,
-                                      child: Text(s),
-                                    ),
-                                  )
-                                  .toList(),
-                          onChanged: (val) {
-                            _selectedRole = val!;
-                          },
-                        ),
+                        height: isMobile(constraints.maxWidth) ? 30 : 40,
                       ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Radio<String>(
-                            value: '',
-                            groupValue: _selectedOption,
-                            onChanged: (String? value) {
-                              setState(() {
-                                _selectedOption = value!;
-                              });
-                            },
-                          ),
-                          SizedBox(width: 8),
-                          Text(
-                            "Remember me",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(width: 112),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ForgotPasswordScreen(),
-                                ),
-                              );
-                            },
-                            child: Text(
-                              "Forgot Password ?",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      CustomElevatedButton(
-                        text: 'login',
-                        onPressed: () {
-                          if (_formkey.currentState!.validate()) {
-                            signInUser();
-                          }
-                        },
-                      ),
-                      // SizedBox(height: 20),
-                      // Text(
-                      //   "Or Login with",
-                      //   style: TextStyle(
-                      //     color: Colors.black,
-                      //     fontSize: 12,
-                      //     fontWeight: FontWeight.bold,
-                      //   ),
-                      // ),
-                      // SizedBox(height: 20),
-                      // // Google and Apple Sign In Options
-
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                      //   children: [
-                      //     GestureDetector(
-                      //       onTap: () {},
-                      //       child: Image.asset(
-                      //         'assets/general_icons/google.png',
-                      //         height: 30,
-                      //         width: 30,
-                      //       ),
-                      //     ),
-
-                      //     GestureDetector(
-                      //       onTap: () {},
-                      //       child: Image.asset(
-                      //         'assets/general_icons/apple.png',
-                      //         height: 30,
-                      //         width: 30,
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
-                      SizedBox(height: 30),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                              builder: (context) => SignupScreen(),
-                            ),
-                          );
-                        },
-                        style: TextButton.styleFrom(elevation: 2),
-
-                        child: Text(
-                          "Create Account ",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
+                      // Login Form Card
+                      _buildLoginCard(constraints.maxWidth),
                     ],
                   ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildLogo(double screenWidth) {
+    double logoHeight;
+    double logoWidth;
+
+    if (isMobile(screenWidth)) {
+      logoHeight = 120;
+      logoWidth = 280;
+    } else if (isTablet(screenWidth)) {
+      logoHeight = 140;
+      logoWidth = 320;
+    } else {
+      logoHeight = 160;
+      logoWidth = 350;
+    }
+
+    return Image.asset(
+      'assets/appLogo/TorqueUpLogo.png',
+      height: logoHeight,
+      width: logoWidth,
+    );
+  }
+
+  Widget _buildLoginCard(double screenWidth) {
+    double cardWidth;
+    double cardPadding;
+
+    if (isMobile(screenWidth)) {
+      cardWidth = double.infinity;
+      cardPadding = 20;
+    } else if (isTablet(screenWidth)) {
+      cardWidth = 500;
+      cardPadding = 30;
+    } else {
+      cardWidth = 480;
+      cardPadding = 35;
+    }
+
+    return Container(
+      width: cardWidth,
+      constraints: BoxConstraints(maxWidth: 550),
+      padding: EdgeInsets.all(cardPadding),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 20,
+            color: Colors.black.withOpacity(0.08),
+            spreadRadius: 2,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Title with icon
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: AppColors.sky_blue.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  Icons.lock_outline_rounded,
+                  color: AppColors.sky_blue,
+                  size: 24,
+                ),
+              ),
+              const SizedBox(width: 12),
+              const Text(
+                "Login To Your Account",
+                style: TextStyle(
+                  color: Color(0xFF2C3E50),
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: isMobile(screenWidth) ? 24 : 28),
+
+          // Email Field
+          CustomTextField(
+            controller: _emailController,
+            hintText: 'Email',
+            focusNode: _emailFocusNode,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Email is required";
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 16),
+
+          // Password Field
+          CustomTextField(
+            obscureText: true,
+            controller: _passwordController,
+            hintText: 'Password',
+            focusNode: _passwordFocusNode,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Password is required";
+              }
+              if (value.length < 6) {
+                return "Password must be at least 6 characters";
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 16),
+
+          // Role Dropdown
+          Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFFF8FAFB),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.grey.withOpacity(0.2), width: 1),
+            ),
+            child: DropdownButtonFormField<String>(
+              dropdownColor: Colors.white,
+              elevation: 2,
+              value: _selectedRole,
+              borderRadius: BorderRadius.circular(12),
+              decoration: InputDecoration(
+                labelText: 'Role',
+                labelStyle: TextStyle(color: Colors.grey[600], fontSize: 14),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
+                border: InputBorder.none,
+                prefixIcon: Icon(
+                  Icons.person_outline_rounded,
+                  color: AppColors.sky_blue,
+                  size: 20,
+                ),
+              ),
+              icon: Icon(
+                Icons.keyboard_arrow_down_rounded,
+                color: AppColors.sky_blue,
+              ),
+              items:
+                  ['Admin', 'Receptionist', 'Customer']
+                      .map(
+                        (s) => DropdownMenuItem(
+                          value: s,
+                          child: Text(
+                            s,
+                            style: const TextStyle(
+                              color: Color(0xFF2C3E50),
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
+              onChanged: (val) {
+                setState(() {
+                  _selectedRole = val!;
+                });
+              },
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // Remember Me & Forgot Password
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  SizedBox(
+                    height: 24,
+                    width: 24,
+                    child: Checkbox(
+                      value: _rememberMe,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _rememberMe = value ?? false;
+                        });
+                      },
+                      activeColor: AppColors.sky_blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  const Text(
+                    "Remember me",
+                    style: TextStyle(
+                      color: Color(0xFF2C3E50),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ForgotPasswordScreen(),
+                    ),
+                  );
+                },
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                ),
+                child: Text(
+                  "Forgot Password ?",
+                  style: TextStyle(
+                    color: AppColors.sky_blue,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: isMobile(screenWidth) ? 24 : 28),
+
+          // Login Button
+          Container(
+            width: double.infinity,
+            height: 50,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [AppColors.sky_blue, Color(0xFF29B6F6)],
+              ),
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.sky_blue.withOpacity(0.3),
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
                 ),
               ],
             ),
+            child: ElevatedButton(
+              onPressed: () {
+                if (_formkey.currentState!.validate()) {
+                  signInUser();
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                shadowColor: Colors.transparent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: const Text(
+                'Login',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0.5,
+                ),
+              ),
+            ),
           ),
-        ),
+          SizedBox(height: isMobile(screenWidth) ? 20 : 24),
+
+          // Create Account Button
+          Container(
+            width: double.infinity,
+            height: 50,
+            decoration: BoxDecoration(
+              color: const Color(0xFFF8FAFB),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: AppColors.sky_blue.withOpacity(0.3),
+                width: 1.5,
+              ),
+            ),
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(builder: (context) => SignupScreen()),
+                );
+              },
+              style: TextButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: Text(
+                "Create Account",
+                style: TextStyle(
+                  color: AppColors.sky_blue,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0.5,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

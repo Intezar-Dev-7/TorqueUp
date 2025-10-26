@@ -166,4 +166,44 @@ receptionistRouter.delete('/api/deleteEmployee/:id', async (req, res) => {
     }
 });
 
+
+
+
+receptionistRouter.get('/api/receptionistLogout', (req, res) => {
+
+    if (req.session) {
+        req.session.destroy(function (err) {
+            if (err) {
+                return next(err);
+            } else {
+                return res.redirect('/');
+            }
+        });
+    } else {
+        // No session to destroy, still redirect
+        res.redirect('/');
+    }
+});
+
+
+receptionistRouterRouter.patch('/api/changeReceptionistPassword', auth, async (req, res) => {
+    const { oldPassword, newPassword } = req.body;
+    const userId = req.user.userId;
+
+    const user = await User.findById(userId);
+    if (!user) {
+        throw new NotFoundError("User not found");
+    }
+
+    const isPasswordCorrect = await user.comparePassword(oldPassword);
+    if (!isPasswordCorrect) {
+        throw new UnauthenticatedError('Invalid Credentials');
+    }
+    user.password = newPassword;
+    await user.save();
+
+    res.status(StatusCodes.OK).json({ msg: 'Password changed successfully' });
+});
+
+
 export default receptionistRouter;

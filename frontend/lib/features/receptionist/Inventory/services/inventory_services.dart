@@ -37,11 +37,8 @@ class InventoryServices {
               'application/json; charset=UTF-8', // Inform backend we're sending JSON
         },
       );
-      print("Response: ${res.statusCode} - ${res.body}");
 
       if (res.statusCode == 201) {
-        final responseData = jsonDecode(res.body);
-        print(responseData);
         CustomSnackBar.show(
           context,
           message: "Product added successfully!",
@@ -49,8 +46,6 @@ class InventoryServices {
           icon: Icons.check_circle,
         );
       } else {
-        final error = jsonDecode(res.body);
-        print(error);
         CustomSnackBar.show(
           context,
           message: 'Something went wrong ',
@@ -71,10 +66,10 @@ class InventoryServices {
   }) async {
     try {
       final response = await http.get(Uri.parse('$uri/api/getProducts'));
-      print("Raw API response: ${response.body}");
+
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(response.body);
-        print("Decoded response: $response.body");
+
         return data.map((item) => Inventory.fromMap(item)).toList();
       } else {
         CustomSnackBar.show(
@@ -112,7 +107,7 @@ class InventoryServices {
       );
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
-        print(responseData);
+
         CustomSnackBar.show(
           context,
           message: "Product Updated Successfully",
