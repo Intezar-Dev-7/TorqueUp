@@ -17,6 +17,7 @@ app.use(cors());
 import authRouter from "./routes/authRouter.js";
 import receptionistRouter from './routes/receptionistRouter.js';
 import productRouter from './routes/productRouter.js';
+import adminRouter from './routes/adminRouter.js';
 
 
 // Middleware to parse JSON
@@ -32,7 +33,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(authRouter);
 app.use(receptionistRouter);
 app.use(productRouter);
-
+app.use(adminRouter)
 
 const DBURL = process.env.MONGO_URI;
 
