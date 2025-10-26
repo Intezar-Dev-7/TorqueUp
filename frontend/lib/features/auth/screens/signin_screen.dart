@@ -37,7 +37,7 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   String _selectedRole = 'Admin';
-  String _selectedOption = '';
+  final String _selectedOption = '';
   bool _rememberMe = false;
 
   void signInUser() {
@@ -218,7 +218,7 @@ class _SignInScreenState extends State<SignInScreen> {
             child: DropdownButtonFormField<String>(
               dropdownColor: Colors.white,
               elevation: 2,
-              value: _selectedRole,
+              initialValue: _selectedRole,
               borderRadius: BorderRadius.circular(12),
               decoration: InputDecoration(
                 labelText: 'Role',

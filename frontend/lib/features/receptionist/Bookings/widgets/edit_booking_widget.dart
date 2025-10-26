@@ -68,7 +68,7 @@ class _EditBookingWidgetState extends State<EditBookingWidget> {
               ),
               child: DropdownButtonFormField<String>(
                 elevation: 2,
-                value: status,
+                initialValue: status,
                 borderRadius: BorderRadius.circular(12),
                 decoration: InputDecoration(
                   labelText: 'Status',

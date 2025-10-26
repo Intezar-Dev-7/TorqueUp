@@ -237,7 +237,7 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
                     ),
                     child: DropdownButtonFormField<String>(
                       elevation: 2,
-                      value: vehicleStatus,
+                      initialValue: vehicleStatus,
                       borderRadius: BorderRadius.circular(12),
                       decoration: InputDecoration(
                         labelText: 'Status',

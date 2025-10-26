@@ -232,7 +232,7 @@ class _SignupScreenState extends State<SignupScreen> {
             child: DropdownButtonFormField<String>(
               dropdownColor: AppColors.white,
               elevation: 2,
-              value: _selectedRole,
+              initialValue: _selectedRole,
               borderRadius: BorderRadius.circular(12),
               decoration: InputDecoration(
                 labelText: 'Role',

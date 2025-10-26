@@ -132,10 +132,11 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
                               label: "Quantity",
                               icon: Icons.format_list_numbered_outlined,
                               keyboardType: TextInputType.number,
-                              validator: (val) =>
-                              val == null || val.isEmpty
-                                  ? "Enter quantity"
-                                  : null,
+                              validator:
+                                  (val) =>
+                                      val == null || val.isEmpty
+                                          ? "Enter quantity"
+                                          : null,
                             ),
                           ),
                           const SizedBox(width: 16),
@@ -145,10 +146,11 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
                               label: "Price",
                               icon: Icons.attach_money_outlined,
                               keyboardType: TextInputType.number,
-                              validator: (val) =>
-                              val == null || val.isEmpty
-                                  ? "Enter price"
-                                  : null,
+                              validator:
+                                  (val) =>
+                                      val == null || val.isEmpty
+                                          ? "Enter price"
+                                          : null,
                             ),
                           ),
                         ],
@@ -159,10 +161,11 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
                         label: "Quantity",
                         icon: Icons.format_list_numbered_outlined,
                         keyboardType: TextInputType.number,
-                        validator: (val) =>
-                        val == null || val.isEmpty
-                            ? "Enter quantity"
-                            : null,
+                        validator:
+                            (val) =>
+                                val == null || val.isEmpty
+                                    ? "Enter quantity"
+                                    : null,
                       ),
                       const SizedBox(height: 16),
                       _buildTextField(
@@ -170,8 +173,11 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
                         label: "Price",
                         icon: Icons.attach_money_outlined,
                         keyboardType: TextInputType.number,
-                        validator: (val) =>
-                        val == null || val.isEmpty ? "Enter price" : null,
+                        validator:
+                            (val) =>
+                                val == null || val.isEmpty
+                                    ? "Enter price"
+                                    : null,
                       ),
                     ],
                     const SizedBox(height: 16),
@@ -223,21 +229,11 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
       child: TextFormField(
         controller: controller,
         keyboardType: keyboardType,
-        style: TextStyle(
-          color: AppColors.text_dark,
-          fontSize: 14,
-        ),
+        style: TextStyle(color: AppColors.text_dark, fontSize: 14),
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: TextStyle(
-            color: AppColors.text_grey,
-            fontSize: 14,
-          ),
-          prefixIcon: Icon(
-            icon,
-            color: AppColors.sky_blue,
-            size: 20,
-          ),
+          labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14),
+          prefixIcon: Icon(icon, color: AppColors.sky_blue, size: 20),
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 16,
@@ -260,15 +256,12 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
         ),
       ),
       child: DropdownButtonFormField<String>(
-        value: productStatus,
+        initialValue: productStatus,
         elevation: 2,
         borderRadius: BorderRadius.circular(12),
         decoration: InputDecoration(
           labelText: 'Status',
-          labelStyle: TextStyle(
-            color: AppColors.text_grey,
-            fontSize: 14,
-          ),
+          labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14),
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 16,
             vertical: 16,
@@ -284,20 +277,21 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
           Icons.keyboard_arrow_down_rounded,
           color: AppColors.sky_blue,
         ),
-        items: ['In Stock', 'Low Stock', 'Out Of Stock']
-            .map(
-              (s) => DropdownMenuItem(
-            value: s,
-            child: Text(
-              s,
-              style: TextStyle(
-                color: AppColors.text_dark,
-                fontSize: 14,
-              ),
-            ),
-          ),
-        )
-            .toList(),
+        items:
+            ['In Stock', 'Low Stock', 'Out Of Stock']
+                .map(
+                  (s) => DropdownMenuItem(
+                    value: s,
+                    child: Text(
+                      s,
+                      style: TextStyle(
+                        color: AppColors.text_dark,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
         onChanged: (val) {
           setState(() {
             productStatus = val!;
@@ -334,12 +328,8 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
         ),
         onPressed: () {
           if (_formKey.currentState!.validate()) {
-            final updatedQuantity = int.parse(
-              productQuantityController.text,
-            );
-            final updatedPrice = int.parse(
-              productPriceController.text,
-            );
+            final updatedQuantity = int.parse(productQuantityController.text);
+            final updatedPrice = int.parse(productPriceController.text);
 
             // Call update service
             InventoryServices().updateInventoryProduct(

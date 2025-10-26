@@ -11,12 +11,12 @@ class AddStaff extends StatefulWidget {
 
 class _AddStaffState extends State<AddStaff> {
   final ReceptionistStaffServices _receptionistStaffServices =
-  ReceptionistStaffServices();
+      ReceptionistStaffServices();
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _staffNameController = TextEditingController();
   final TextEditingController _staffExperienceController =
-  TextEditingController();
+      TextEditingController();
   final TextEditingController _staffContactController = TextEditingController();
   final TextEditingController _specificRoleController = TextEditingController();
   final TextEditingController _staffEmailController = TextEditingController();
@@ -62,9 +62,9 @@ class _AddStaffState extends State<AddStaff> {
   void _saveStaff() {
     if (_formKey.currentState!.validate()) {
       final roleToSend =
-      _selectedRole == "Other Employee"
-          ? _specificRoleController.text
-          : _selectedRole;
+          _selectedRole == "Other Employee"
+              ? _specificRoleController.text
+              : _selectedRole;
 
       _receptionistStaffServices.addStaff(
         context: context,
@@ -158,8 +158,11 @@ class _AddStaffState extends State<AddStaff> {
                       controller: _staffNameController,
                       label: "Staff Name",
                       icon: Icons.person_outline,
-                      validator: (val) =>
-                      val == null || val.isEmpty ? "Enter staff name" : null,
+                      validator:
+                          (val) =>
+                              val == null || val.isEmpty
+                                  ? "Enter staff name"
+                                  : null,
                     ),
                     const SizedBox(height: 16),
 
@@ -189,10 +192,11 @@ class _AddStaffState extends State<AddStaff> {
                       controller: _staffExperienceController,
                       label: "Experience (e.g. 5 years)",
                       icon: Icons.work_history_outlined,
-                      validator: (val) =>
-                      val == null || val.isEmpty
-                          ? "Enter experience"
-                          : null,
+                      validator:
+                          (val) =>
+                              val == null || val.isEmpty
+                                  ? "Enter experience"
+                                  : null,
                     ),
                     const SizedBox(height: 16),
 
@@ -288,21 +292,11 @@ class _AddStaffState extends State<AddStaff> {
         controller: controller,
         keyboardType: keyboardType,
         maxLines: maxLines,
-        style: TextStyle(
-          color: AppColors.text_dark,
-          fontSize: 14,
-        ),
+        style: TextStyle(color: AppColors.text_dark, fontSize: 14),
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: TextStyle(
-            color: AppColors.text_grey,
-            fontSize: 14,
-          ),
-          prefixIcon: Icon(
-            icon,
-            color: AppColors.sky_blue,
-            size: 20,
-          ),
+          labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14),
+          prefixIcon: Icon(icon, color: AppColors.sky_blue, size: 20),
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 16,
@@ -325,15 +319,12 @@ class _AddStaffState extends State<AddStaff> {
         ),
       ),
       child: DropdownButtonFormField<String>(
-        value: _selectedRole,
+        initialValue: _selectedRole,
         elevation: 2,
         borderRadius: BorderRadius.circular(12),
         decoration: InputDecoration(
           labelText: 'Staff Role',
-          labelStyle: TextStyle(
-            color: AppColors.text_grey,
-            fontSize: 14,
-          ),
+          labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14),
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 16,
             vertical: 16,
@@ -349,20 +340,21 @@ class _AddStaffState extends State<AddStaff> {
           Icons.keyboard_arrow_down_rounded,
           color: AppColors.sky_blue,
         ),
-        items: ["Mechanic", "Intern", "Other Employee"]
-            .map(
-              (role) => DropdownMenuItem(
-            value: role,
-            child: Text(
-              role,
-              style: TextStyle(
-                color: AppColors.text_dark,
-                fontSize: 14,
-              ),
-            ),
-          ),
-        )
-            .toList(),
+        items:
+            ["Mechanic", "Intern", "Other Employee"]
+                .map(
+                  (role) => DropdownMenuItem(
+                    value: role,
+                    child: Text(
+                      role,
+                      style: TextStyle(
+                        color: AppColors.text_dark,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
         onChanged: (value) {
           setState(() {
             _selectedRole = value!;
@@ -419,10 +411,7 @@ class _AddStaffState extends State<AddStaff> {
                   ),
                   child: TextFormField(
                     controller: _skillsController,
-                    style: TextStyle(
-                      color: AppColors.text_dark,
-                      fontSize: 14,
-                    ),
+                    style: TextStyle(color: AppColors.text_dark, fontSize: 14),
                     decoration: InputDecoration(
                       hintText: "Add Skill",
                       hintStyle: TextStyle(
@@ -481,45 +470,46 @@ class _AddStaffState extends State<AddStaff> {
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: _skills
-                  .map(
-                    (skill) => Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.sky_blue.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: AppColors.sky_blue.withOpacity(0.3),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        skill,
-                        style: TextStyle(
-                          color: AppColors.sky_blue,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
+              children:
+                  _skills
+                      .map(
+                        (skill) => Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 8,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.sky_blue.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: AppColors.sky_blue.withOpacity(0.3),
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                skill,
+                                style: TextStyle(
+                                  color: AppColors.sky_blue,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              InkWell(
+                                onTap: () => _removeSkill(skill),
+                                child: Icon(
+                                  Icons.close_rounded,
+                                  size: 16,
+                                  color: AppColors.sky_blue,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                      InkWell(
-                        onTap: () => _removeSkill(skill),
-                        child: Icon(
-                          Icons.close_rounded,
-                          size: 16,
-                          color: AppColors.sky_blue,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-                  .toList(),
+                      )
+                      .toList(),
             ),
           ],
         ],

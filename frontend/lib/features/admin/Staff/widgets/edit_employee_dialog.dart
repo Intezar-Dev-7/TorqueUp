@@ -29,10 +29,18 @@ class _EditEmployeeDialogState extends State<EditEmployeeDialog> {
   @override
   void initState() {
     super.initState();
-    nameController = TextEditingController(text: widget.staff['staffName'] ?? '');
-    emailController = TextEditingController(text: widget.staff['staffEmail'] ?? '');
-    phoneController = TextEditingController(text: widget.staff['staffContactNumber'] ?? '');
-    experienceController = TextEditingController(text: widget.staff['staffExperience'] ?? '');
+    nameController = TextEditingController(
+      text: widget.staff['staffName'] ?? '',
+    );
+    emailController = TextEditingController(
+      text: widget.staff['staffEmail'] ?? '',
+    );
+    phoneController = TextEditingController(
+      text: widget.staff['staffContactNumber'] ?? '',
+    );
+    experienceController = TextEditingController(
+      text: widget.staff['staffExperience'] ?? '',
+    );
     aboutController = TextEditingController(text: widget.staff['about'] ?? '');
     selectedRole = widget.staff['staffRole'] ?? 'otherEmployee';
   }
@@ -51,8 +59,7 @@ class _EditEmployeeDialogState extends State<EditEmployeeDialog> {
     if (_formKey.currentState!.validate()) {
       setState(() => isSaving = true);
 
-      try{
-
+      try {
         // TODO: Call your update API
         // await staffService.updateEmployee(
         //   context: context,
@@ -103,9 +110,7 @@ class _EditEmployeeDialogState extends State<EditEmployeeDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Container(
         constraints: const BoxConstraints(maxWidth: 600, maxHeight: 700),
         child: Column(
@@ -198,10 +203,7 @@ class _EditEmployeeDialogState extends State<EditEmployeeDialog> {
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            AppColors.admin_primary,
-            AppColors.admin_primary_light,
-          ],
+          colors: [AppColors.admin_primary, AppColors.admin_primary_light],
         ),
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
@@ -216,11 +218,7 @@ class _EditEmployeeDialogState extends State<EditEmployeeDialog> {
               color: AppColors.white.withOpacity(0.2),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(
-              Icons.edit_outlined,
-              color: AppColors.white,
-              size: 24,
-            ),
+            child: Icon(Icons.edit_outlined, color: AppColors.white, size: 24),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -298,10 +296,7 @@ class _EditEmployeeDialogState extends State<EditEmployeeDialog> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                color: AppColors.admin_primary,
-                width: 2,
-              ),
+              borderSide: BorderSide(color: AppColors.admin_primary, width: 2),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
@@ -335,12 +330,10 @@ class _EditEmployeeDialogState extends State<EditEmployeeDialog> {
           decoration: BoxDecoration(
             color: AppColors.light_bg,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: AppColors.border_grey.withOpacity(0.3),
-            ),
+            border: Border.all(color: AppColors.border_grey.withOpacity(0.3)),
           ),
           child: DropdownButtonFormField<String>(
-            value: selectedRole,
+            initialValue: selectedRole,
             icon: Icon(Icons.arrow_drop_down, color: AppColors.admin_primary),
             decoration: InputDecoration(
               border: InputBorder.none,
@@ -350,16 +343,16 @@ class _EditEmployeeDialogState extends State<EditEmployeeDialog> {
               ),
             ),
             dropdownColor: AppColors.white,
-            style: TextStyle(
-              color: AppColors.text_dark,
-              fontSize: 15,
-            ),
-            items: roles.map((String role) {
-              return DropdownMenuItem<String>(
-                value: role,
-                child: Text(role == 'otherEmployee' ? 'Other Employee' : role),
-              );
-            }).toList(),
+            style: TextStyle(color: AppColors.text_dark, fontSize: 15),
+            items:
+                roles.map((String role) {
+                  return DropdownMenuItem<String>(
+                    value: role,
+                    child: Text(
+                      role == 'otherEmployee' ? 'Other Employee' : role,
+                    ),
+                  );
+                }).toList(),
             onChanged: (String? newValue) {
               if (newValue != null) {
                 setState(() => selectedRole = newValue);
@@ -432,23 +425,24 @@ class _EditEmployeeDialogState extends State<EditEmployeeDialog> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: isSaving
-                    ? SizedBox(
-                  height: 20,
-                  width: 20,
-                  child: CircularProgressIndicator(
-                    color: AppColors.white,
-                    strokeWidth: 2,
-                  ),
-                )
-                    : Text(
-                  'Save Changes',
-                  style: TextStyle(
-                    color: AppColors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                child:
+                    isSaving
+                        ? SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            color: AppColors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
+                        : Text(
+                          'Save Changes',
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
               ),
             ),
           ),

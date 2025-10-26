@@ -91,7 +91,7 @@ class _ReceptionistSettingsScreenState
                       ),
                     ),
                     value: notificationsEnabled,
-                    activeColor: AppColors.sky_blue,
+                    activeThumbColor: AppColors.sky_blue,
                     onChanged:
                         (value) => setState(() => notificationsEnabled = value),
                   ),

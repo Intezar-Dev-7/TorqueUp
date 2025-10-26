@@ -270,7 +270,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
         _buildStatCard(
           'In Progress',
           inProgressCount.toString(),
-          '${pendingCount} waiting',
+          '$pendingCount waiting',
           Icons.sync_outlined,
           AppColors.status_in_progress,
           cardWidth,
@@ -447,7 +447,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
 
   Widget _buildMobileBookingsList() {
     if (isLoading) {
-      return Container(
+      return SizedBox(
         height: 300,
         child: Center(
           child: CircularProgressIndicator(color: AppColors.admin_primary),
@@ -456,7 +456,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
     }
 
     if (bookings.isEmpty) {
-      return Container(
+      return SizedBox(
         height: 300,
         child: Center(
           child: Column(
@@ -551,7 +551,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
 
   Widget _buildBookingsTable(double screenWidth) {
     if (isLoading) {
-      return Container(
+      return SizedBox(
         height: 300,
         child: Center(
           child: CircularProgressIndicator(color: AppColors.admin_primary),
@@ -560,7 +560,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
     }
 
     if (bookings.isEmpty) {
-      return Container(
+      return SizedBox(
         height: 300,
         child: Center(
           child: Column(
@@ -586,7 +586,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
       constraints: BoxConstraints(minWidth: screenWidth - 40),
       child: DataTable(
         columnSpacing: 10,
-        headingRowColor: MaterialStateProperty.all(
+        headingRowColor: WidgetStateProperty.all(
           AppColors.admin_primary.withOpacity(0.08),
         ),
         headingTextStyle: TextStyle(

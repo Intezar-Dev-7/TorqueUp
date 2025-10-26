@@ -18,7 +18,7 @@ class _AddInventoryFormState extends State<AddInventoryForm> {
 
   final TextEditingController productNameController = TextEditingController();
   final TextEditingController productQuantityController =
-  TextEditingController();
+      TextEditingController();
   final TextEditingController productPriceController = TextEditingController();
 
   String productStatus = 'In Stock';
@@ -143,10 +143,11 @@ class _AddInventoryFormState extends State<AddInventoryForm> {
                       controller: productNameController,
                       label: "Product Name",
                       icon: Icons.inventory_2_outlined,
-                      validator: (val) =>
-                      val == null || val.isEmpty
-                          ? "Enter product name"
-                          : null,
+                      validator:
+                          (val) =>
+                              val == null || val.isEmpty
+                                  ? "Enter product name"
+                                  : null,
                     ),
                     const SizedBox(height: 16),
 
@@ -160,10 +161,11 @@ class _AddInventoryFormState extends State<AddInventoryForm> {
                               label: "Quantity",
                               icon: Icons.format_list_numbered_outlined,
                               keyboardType: TextInputType.number,
-                              validator: (val) =>
-                              val == null || val.isEmpty
-                                  ? "Enter quantity"
-                                  : null,
+                              validator:
+                                  (val) =>
+                                      val == null || val.isEmpty
+                                          ? "Enter quantity"
+                                          : null,
                             ),
                           ),
                           const SizedBox(width: 16),
@@ -173,10 +175,11 @@ class _AddInventoryFormState extends State<AddInventoryForm> {
                               label: "Price",
                               icon: Icons.attach_money_outlined,
                               keyboardType: TextInputType.number,
-                              validator: (val) =>
-                              val == null || val.isEmpty
-                                  ? "Enter price"
-                                  : null,
+                              validator:
+                                  (val) =>
+                                      val == null || val.isEmpty
+                                          ? "Enter price"
+                                          : null,
                             ),
                           ),
                         ],
@@ -187,10 +190,11 @@ class _AddInventoryFormState extends State<AddInventoryForm> {
                         label: "Quantity",
                         icon: Icons.format_list_numbered_outlined,
                         keyboardType: TextInputType.number,
-                        validator: (val) =>
-                        val == null || val.isEmpty
-                            ? "Enter quantity"
-                            : null,
+                        validator:
+                            (val) =>
+                                val == null || val.isEmpty
+                                    ? "Enter quantity"
+                                    : null,
                       ),
                       const SizedBox(height: 16),
                       _buildTextField(
@@ -198,8 +202,11 @@ class _AddInventoryFormState extends State<AddInventoryForm> {
                         label: "Price",
                         icon: Icons.attach_money_outlined,
                         keyboardType: TextInputType.number,
-                        validator: (val) =>
-                        val == null || val.isEmpty ? "Enter price" : null,
+                        validator:
+                            (val) =>
+                                val == null || val.isEmpty
+                                    ? "Enter price"
+                                    : null,
                       ),
                     ],
                     const SizedBox(height: 16),
@@ -255,21 +262,11 @@ class _AddInventoryFormState extends State<AddInventoryForm> {
       child: TextFormField(
         controller: controller,
         keyboardType: keyboardType,
-        style: TextStyle(
-          color: AppColors.text_dark,
-          fontSize: 14,
-        ),
+        style: TextStyle(color: AppColors.text_dark, fontSize: 14),
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: TextStyle(
-            color: AppColors.text_grey,
-            fontSize: 14,
-          ),
-          prefixIcon: Icon(
-            icon,
-            color: AppColors.sky_blue,
-            size: 20,
-          ),
+          labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14),
+          prefixIcon: Icon(icon, color: AppColors.sky_blue, size: 20),
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 16,
@@ -292,16 +289,13 @@ class _AddInventoryFormState extends State<AddInventoryForm> {
         ),
       ),
       child: DropdownButtonFormField<String>(
-        value: productStatus,
+        initialValue: productStatus,
         dropdownColor: AppColors.white,
         elevation: 2,
         borderRadius: BorderRadius.circular(12),
         decoration: InputDecoration(
           labelText: 'Status',
-          labelStyle: TextStyle(
-            color: AppColors.text_grey,
-            fontSize: 14,
-          ),
+          labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14),
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 16,
             vertical: 16,
@@ -317,20 +311,21 @@ class _AddInventoryFormState extends State<AddInventoryForm> {
           Icons.keyboard_arrow_down_rounded,
           color: AppColors.sky_blue,
         ),
-        items: ['In Stock', 'Low Stock', 'Out Of Stock']
-            .map(
-              (s) => DropdownMenuItem(
-            value: s,
-            child: Text(
-              s,
-              style: TextStyle(
-                color: AppColors.text_dark,
-                fontSize: 14,
-              ),
-            ),
-          ),
-        )
-            .toList(),
+        items:
+            ['In Stock', 'Low Stock', 'Out Of Stock']
+                .map(
+                  (s) => DropdownMenuItem(
+                    value: s,
+                    child: Text(
+                      s,
+                      style: TextStyle(
+                        color: AppColors.text_dark,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
         onChanged: (val) {
           setState(() {
             productStatus = val!;
@@ -356,11 +351,7 @@ class _AddInventoryFormState extends State<AddInventoryForm> {
         children: [
           Row(
             children: [
-              Icon(
-                Icons.image_outlined,
-                color: AppColors.sky_blue,
-                size: 20,
-              ),
+              Icon(Icons.image_outlined, color: AppColors.sky_blue, size: 20),
               const SizedBox(width: 8),
               Text(
                 'Product Image',
@@ -384,69 +375,70 @@ class _AddInventoryFormState extends State<AddInventoryForm> {
                 style: BorderStyle.solid,
               ),
             ),
-            child: selectedImageBytes != null
-                ? Column(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.memory(
-                    selectedImageBytes!,
-                    height: 200,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  selectedImageName ?? 'Image selected',
-                  style: TextStyle(
-                    color: AppColors.text_grey,
-                    fontSize: 13,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                TextButton.icon(
-                  onPressed: pickImage,
-                  icon: Icon(Icons.refresh, color: AppColors.sky_blue),
-                  label: Text(
-                    'Change Image',
-                    style: TextStyle(color: AppColors.sky_blue),
-                  ),
-                ),
-              ],
-            )
-                : InkWell(
-              onTap: pickImage,
-              child: Padding(
-                padding: const EdgeInsets.all(32),
-                child: Column(
-                  children: [
-                    Icon(
-                      Icons.cloud_upload_outlined,
-                      size: 48,
-                      color: AppColors.sky_blue,
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      'Click to upload product image',
-                      style: TextStyle(
-                        color: AppColors.text_dark,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
+            child:
+                selectedImageBytes != null
+                    ? Column(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.memory(
+                            selectedImageBytes!,
+                            height: 200,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          selectedImageName ?? 'Image selected',
+                          style: TextStyle(
+                            color: AppColors.text_grey,
+                            fontSize: 13,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        TextButton.icon(
+                          onPressed: pickImage,
+                          icon: Icon(Icons.refresh, color: AppColors.sky_blue),
+                          label: Text(
+                            'Change Image',
+                            style: TextStyle(color: AppColors.sky_blue),
+                          ),
+                        ),
+                      ],
+                    )
+                    : InkWell(
+                      onTap: pickImage,
+                      child: Padding(
+                        padding: const EdgeInsets.all(32),
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.cloud_upload_outlined,
+                              size: 48,
+                              color: AppColors.sky_blue,
+                            ),
+                            const SizedBox(height: 12),
+                            Text(
+                              'Click to upload product image',
+                              style: TextStyle(
+                                color: AppColors.text_dark,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              'PNG, JPG up to 10MB',
+                              style: TextStyle(
+                                color: AppColors.text_grey,
+                                fontSize: 13,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'PNG, JPG up to 10MB',
-                      style: TextStyle(
-                        color: AppColors.text_grey,
-                        fontSize: 13,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
           ),
         ],
       ),

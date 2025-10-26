@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/common/widgets/custom_elevated_button.dart';
 import 'package:frontend/common/widgets/custom_textfield.dart';
 import 'package:frontend/features/auth/screens/signin_screen.dart';
 
@@ -98,9 +97,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
     return Container(
       width: cardWidth,
-      constraints: BoxConstraints(
-        maxWidth: 550,
-      ),
+      constraints: BoxConstraints(maxWidth: 550),
       padding: EdgeInsets.all(cardPadding),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -226,9 +223,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  CupertinoPageRoute(
-                    builder: (context) => SignInScreen(),
-                  ),
+                  CupertinoPageRoute(builder: (context) => SignInScreen()),
                 );
               },
               style: TextButton.styleFrom(

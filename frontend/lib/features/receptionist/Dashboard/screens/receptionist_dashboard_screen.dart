@@ -475,7 +475,7 @@ class _ReceptionistDashboardScreenState
                 columnSpacing: isMobile(width) ? 40 : 70,
                 dataRowMaxHeight: 64,
                 headingRowHeight: 56,
-                headingRowColor: MaterialStateProperty.all(
+                headingRowColor: WidgetStateProperty.all(
                   AppColors.sky_blue.withOpacity(0.08),
                 ),
                 decoration: BoxDecoration(
