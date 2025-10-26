@@ -1,6 +1,7 @@
 import express from 'express';
 import NewBooking from '../models/newVehicleBookingModel.js';
 import NewStaff from '../models/staffModel.js';
+import User from '../models/userModel.js';
 
 
 const receptionistRouter = express.Router();

@@ -1,8 +1,8 @@
 
-import User from '../models/userModel';
-import { StatusCodes } from 'http-status-codes';
+import User from '../models/userModel.js';
+import StatusCodes from 'http-status-codes';
 import { NotFoundError, UnauthenticatedError } from '../errors/index.js';
-import auth from '../middlewares/auth';
+import auth from '../middlewares/auth.js';
 const adminRouter = expess.Router();
 
 adminRouter.get('/adminLogout', (req, res) => {
