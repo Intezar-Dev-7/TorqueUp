@@ -1,1 +1,1 @@
-String uri = "http://192.168.1.35:3000";
+String uri = "https://tourqueup-production.up.railway.app";

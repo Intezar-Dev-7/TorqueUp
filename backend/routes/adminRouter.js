@@ -1,11 +1,10 @@
 
 import User from '../models/userModel.js';
-import StatusCodes from 'http-status-codes';
-import { NotFoundError, UnauthenticatedError } from '../errors/index.js';
 import auth from '../middlewares/auth.js';
-const adminRouter = expess.Router();
+import express from 'express';
+const adminRouter = express.Router();
 
-adminRouter.get('/adminLogout', (req, res) => {
+adminRouter.get('/api/adminLogout', (req, res) => {
 
     if (req.session) {
         req.session.destroy(function (err) {
@@ -23,24 +22,29 @@ adminRouter.get('/adminLogout', (req, res) => {
 
 
 adminRouter.patch('/api/changeAdminPassword', auth, async (req, res) => {
-    const { oldPassword, newPassword } = req.body;
-    const userId = req.user.userId;
+    try {
+        const { oldPassword, newPassword } = req.body;
+        const userId = req.user.userId;
 
-    const user = await User.findById(userId);
-    if (!user) {
-        throw new NotFoundError("User not found");
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+
+        const isPasswordCorrect = await user.comparePassword(oldPassword);
+        if (!isPasswordCorrect) {
+            return res.status(401).json({ msg: 'Invalid credentials' });
+        }
+
+        user.password = newPassword;
+        await user.save();
+
+        res.status(200).json({ msg: 'Password changed successfully' });
+    } catch (error) {
+        console.error('Error changing password:', error);
+        res.status(500).json({ msg: 'Internal server error' });
     }
-
-    const isPasswordCorrect = await user.comparePassword(oldPassword);
-    if (!isPasswordCorrect) {
-        throw new UnauthenticatedError('Invalid Credentials');
-    }
-    user.password = newPassword;
-    await user.save();
-
-    res.status(StatusCodes.OK).json({ msg: 'Password changed successfully' });
 });
-
 
 
 
