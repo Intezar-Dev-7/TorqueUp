@@ -1,1 +1,1 @@
-String uri = "https://tourqueup-production.up.railway.app";
+String uri = "https://torqueup-backend.onrender.com";
