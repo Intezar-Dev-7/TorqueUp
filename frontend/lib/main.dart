@@ -57,7 +57,7 @@ class _MyAppState extends State<MyApp> {
     }
 
     if (userProvider.user.role == 'admin') {
-      return const SideNavigationBar(); // Admin home
+      return const AdminSideNavigationBar(); // Admin home
     }
 
     if (userProvider.user.role == 'receptionist') {

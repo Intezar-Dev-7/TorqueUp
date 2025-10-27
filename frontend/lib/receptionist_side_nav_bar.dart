@@ -95,10 +95,7 @@ class ReceptionistSideNavBarState extends State<ReceptionistSideNavBar> {
               SideMenuItem(
                 title: 'Dashboard',
                 onTap: (index, _) => sideMenu.changePage(index),
-                icon: Icon(
-                  Icons.dashboard_outlined,
-                  color: AppColors.sky_blue,
-                ),
+                icon: Icon(Icons.dashboard_outlined, color: AppColors.sky_blue),
               ),
               SideMenuItem(
                 title: 'Bookings',
@@ -119,18 +116,12 @@ class ReceptionistSideNavBarState extends State<ReceptionistSideNavBar> {
               SideMenuItem(
                 title: 'Staff',
                 onTap: (index, _) => sideMenu.changePage(index),
-                icon: Icon(
-                  Icons.groups_outlined,
-                  color: AppColors.sky_blue,
-                ),
+                icon: Icon(Icons.groups_outlined, color: AppColors.sky_blue),
               ),
               SideMenuItem(
                 title: 'Settings',
                 onTap: (index, _) => sideMenu.changePage(index),
-                icon: Icon(
-                  Icons.settings_outlined,
-                  color: AppColors.sky_blue,
-                ),
+                icon: Icon(Icons.settings_outlined, color: AppColors.sky_blue),
               ),
             ],
             footer: Padding(

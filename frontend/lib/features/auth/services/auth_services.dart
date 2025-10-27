@@ -1,11 +1,9 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_snack_bar.dart';
 import 'package:frontend/features/receptionist/model/user_model.dart';
 import 'package:frontend/admin_side_navigation_bar.dart';
 import 'package:frontend/features/auth/screens/signin_screen.dart';
-import 'package:frontend/features/receptionist/Dashboard/screens/receptionist_dashboard_screen.dart';
 import 'package:frontend/receptionist_side_nav_bar.dart';
 import 'package:frontend/provider/user_provider.dart';
 import 'package:frontend/utils/constant/api.dart';
@@ -52,9 +50,9 @@ class AuthService {
         String userRole = responseData['role']; // role from backend
         Widget targetScreen;
         if (userRole == "Admin") {
-          targetScreen = SideNavigationBar(); // Admin Dashboard
+          targetScreen = AdminSideNavigationBar(); // Admin Dashboard
         } else if (userRole == "Receptionist") {
-          targetScreen = ReceptionistDashboardScreen();
+          targetScreen = ReceptionistSideNavBar();
         } else {
           // If some unexpected role comes, show an error screen
           targetScreen = Scaffold(
@@ -135,7 +133,9 @@ class AuthService {
         if (roleFromBackend.toLowerCase() == 'admin') {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const SideNavigationBar()),
+            MaterialPageRoute(
+              builder: (context) => const AdminSideNavigationBar(),
+            ),
           );
         } else if (roleFromBackend.toLowerCase() == 'receptionist') {
           Navigator.pushReplacement(

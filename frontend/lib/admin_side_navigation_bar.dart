@@ -1,10 +1,10 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart'
     show
-    SideMenu,
-    SideMenuController,
-    SideMenuDisplayMode,
-    SideMenuItem,
-    SideMenuStyle;
+        SideMenu,
+        SideMenuController,
+        SideMenuDisplayMode,
+        SideMenuItem,
+        SideMenuStyle;
 import 'package:flutter/material.dart';
 import 'package:frontend/features/admin/Bookings/screens/admin_bookings_screen.dart';
 import 'package:frontend/features/admin/Dashbaord/screens/admin_dashboard_screen.dart';
@@ -15,14 +15,14 @@ import 'package:frontend/features/admin/Settings/screens/admin_settings_screen.d
 import 'package:frontend/utils/colors.dart';
 import 'package:iconsax/iconsax.dart';
 
-class SideNavigationBar extends StatefulWidget {
-  const SideNavigationBar({super.key});
+class AdminSideNavigationBar extends StatefulWidget {
+  const AdminSideNavigationBar({super.key});
 
   @override
-  State<SideNavigationBar> createState() => _SideNavigationBarState();
+  State<AdminSideNavigationBar> createState() => _AdminSideNavigationBarState();
 }
 
-class _SideNavigationBarState extends State<SideNavigationBar> {
+class _AdminSideNavigationBarState extends State<AdminSideNavigationBar> {
   PageController pageController = PageController();
   SideMenuController sideMenu = SideMenuController();
 
@@ -123,42 +123,27 @@ class _SideNavigationBarState extends State<SideNavigationBar> {
                 onTap: (index, _) {
                   sideMenu.changePage(index);
                 },
-                icon: Icon(
-                  Iconsax.calendar,
-                  color: AppColors.admin_primary,
-                ),
+                icon: Icon(Iconsax.calendar, color: AppColors.admin_primary),
               ),
               SideMenuItem(
                 title: 'Staff',
                 onTap: (index, _) => sideMenu.changePage(index),
-                icon: Icon(
-                  Iconsax.people,
-                  color: AppColors.admin_primary,
-                ),
+                icon: Icon(Iconsax.people, color: AppColors.admin_primary),
               ),
               SideMenuItem(
                 title: 'Inventory',
                 onTap: (index, _) => sideMenu.changePage(index),
-                icon: Icon(
-                  Iconsax.box,
-                  color: AppColors.admin_primary,
-                ),
+                icon: Icon(Iconsax.box, color: AppColors.admin_primary),
               ),
               SideMenuItem(
                 title: 'Reports & Analytics',
                 onTap: (index, _) => sideMenu.changePage(index),
-                icon: Icon(
-                  Iconsax.chart,
-                  color: AppColors.admin_primary,
-                ),
+                icon: Icon(Iconsax.chart, color: AppColors.admin_primary),
               ),
               SideMenuItem(
                 title: 'Settings',
                 onTap: (index, _) => sideMenu.changePage(index),
-                icon: Icon(
-                  Iconsax.settings,
-                  color: AppColors.admin_primary,
-                ),
+                icon: Icon(Iconsax.settings, color: AppColors.admin_primary),
               ),
             ],
             footer: Padding(

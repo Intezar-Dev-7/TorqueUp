@@ -11,7 +11,11 @@ const app = express();
 dotenv.config();
 
 // Allow requests from anywhere (dev mode)
-app.use(cors());
+app.use(cors({
+    origin: ["https://tourqueup.netlify.app/"],  // ✅ your frontend domain
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+}));
 // import from other files 
 
 import authRouter from "./routes/authRouter.js";
