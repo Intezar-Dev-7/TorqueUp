@@ -16,13 +16,13 @@ app.use(
     })
 );
 
-dotenv.config();
-// // ✅ Add this right below it to handle preflight OPTIONS requests
-// app.options("*", cors());
-// ;
+// ✅ Add this right below it to handle preflight OPTIONS requests
+app.options("*", cors());
+;
 
 // import from other files 
 
+dotenv.config();
 import authRouter from "./routes/authRouter.js";
 import receptionistRouter from './routes/receptionistRouter.js';
 import productRouter from './routes/productRouter.js';
