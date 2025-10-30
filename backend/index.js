@@ -7,20 +7,19 @@ import cors from 'cors';
 //  Initialization 
 const app = express();
 
-
-dotenv.config();
-
-// Allow requests from anywhere (dev mode)
+//
 app.use(
     cors({
-        origin: [
-            "https://tourqueup.netlify.app", // ✅ correct domain
-            "http://localhost:3000"          // optional, for local dev
-        ],
+        origin: ["https://tourqueup.netlify.app"], // ✅ your actual frontend domain
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
         credentials: true,
     })
 );
+
+dotenv.config();
+// // ✅ Add this right below it to handle preflight OPTIONS requests
+// app.options("*", cors());
+// ;
 
 // import from other files 
 
