@@ -1,10 +1,11 @@
 
+// import listEndpoints from 'express-list-endpoints';
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
-//  Initialization 
+//  Initialization
 const app = express();
 
 //
@@ -16,17 +17,20 @@ app.use(
     })
 );
 
-// ✅ Add this right below it to handle preflight OPTIONS requests
-app.options("*", cors());
-;
+// // ✅ Add this right below it to handle preflight OPTIONS requests
+// app.options("*", cors());
 
-// import from other files 
+// After (valid route pattern with named wildcard)
+app.options("/*splat", cors());
+// import from other files
 
 dotenv.config();
 import authRouter from "./routes/authRouter.js";
 import receptionistRouter from './routes/receptionistRouter.js';
 import productRouter from './routes/productRouter.js';
 import adminRouter from './routes/adminRouter.js';
+
+
 
 
 // Middleware to parse JSON
@@ -42,12 +46,13 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(authRouter);
 app.use(receptionistRouter);
 app.use(productRouter);
-app.use(adminRouter)
+app.use(adminRouter);
 
+// console.log(listEndpoints(app));
 const DBURL = process.env.MONGO_URI;
 
 
-// Connections 
+// Connections
 mongoose.connect(DBURL).then(() => {
     console.log('Connection Successull');
 }).catch((e) => {
@@ -58,3 +63,4 @@ app.listen(process.env.PORT, '0.0.0.0', () => {
     console.log('Connected');
 }
 );
+

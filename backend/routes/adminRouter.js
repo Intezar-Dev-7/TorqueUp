@@ -4,7 +4,7 @@ import auth from '../middlewares/auth.js';
 import express from 'express';
 const adminRouter = express.Router();
 
-adminRouter.get('/api/adminLogout', (req, res) => {
+adminRouter.get('/api/adminLogout', (req, res, next) => {
 
     if (req.session) {
         req.session.destroy(function (err) {
@@ -24,7 +24,7 @@ adminRouter.get('/api/adminLogout', (req, res) => {
 adminRouter.patch('/api/changeAdminPassword', auth, async (req, res) => {
     try {
         const { oldPassword, newPassword } = req.body;
-        const userId = req.user.userId;
+        const userId = req.user.userId || req.user.id;
 
         const user = await User.findById(userId);
         if (!user) {

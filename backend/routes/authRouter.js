@@ -1,12 +1,12 @@
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import expess from 'express';
+import express from 'express';
 
 import User from '../models/userModel.js';
 import auth from '../middlewares/auth.js';
 
 
-const authRouter = expess.Router();
+const authRouter = express.Router();
 // Api Routes 
 
 //  Signup routes 

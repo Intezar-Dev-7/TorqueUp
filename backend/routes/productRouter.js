@@ -9,7 +9,7 @@ productRouter.post('/api/addNewProduct', async (req, res) => {
         // read data from the client (req.body) 
         const { productName, productQuantity, productPrice, productStatus, productImageBase64 } = req.body;
 
-        const addProduct = NewInventoryBooking({
+        const addProduct = new NewInventoryBooking({
             productName, productQuantity, productPrice, productStatus, productImageBase64,
         });
 

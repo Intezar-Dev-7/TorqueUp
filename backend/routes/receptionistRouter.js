@@ -16,7 +16,7 @@ receptionistRouter.post('/api/newBooking', async (req, res) => {
             return res.status(400).json({ message: 'All fields are requied' });
         }
         // Save it to your database (MongoDB via Mongoose)
-        const newBooking = NewBooking({
+        const newBooking = new NewBooking({
             customerName,
             vehicleNumber,
             customerContactNumber,
@@ -107,7 +107,7 @@ receptionistRouter.post('/api/addStaff', async (req, res) => {
             return res.status(400).json({ message: 'staffName, staffRole, staffExperience and staffContactNumber are required' });
         }
 
-        const newStaff = NewStaff({
+        const newStaff = new NewStaff({
             staffName,
             staffRole,
             staffExperience,
@@ -171,7 +171,7 @@ receptionistRouter.delete('/api/deleteEmployee/:id', async (req, res) => {
 
 
 
-receptionistRouter.get('/api/receptionistLogout', (req, res) => {
+receptionistRouter.get('/api/receptionistLogout', (req, res, next) => {
 
     if (req.session) {
         req.session.destroy(function (err) {
@@ -191,7 +191,7 @@ receptionistRouter.get('/api/receptionistLogout', (req, res) => {
 receptionistRouter.patch('/api/changeReceptionistPassword', auth, async (req, res) => {
     try {
         const { oldPassword, newPassword } = req.body;
-        const userId = req.user.userId;
+        const userId = req.user.userId || req.user.id;
 
         const user = await User.findById(userId);
         if (!user) {
