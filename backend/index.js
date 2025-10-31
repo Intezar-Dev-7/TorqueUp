@@ -12,7 +12,7 @@ const app = express();
 //
 app.use(
     cors({
-        origin: "https://tourqueup.netlify.app", // ✅ your actual frontend domain
+        origin: "https://torqueupp.netlify.app", // ✅ your actual frontend domain
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
         allowedHeaders: ['Content-Type', 'Authorization'], // <-- allow Authorization header
         credentials: true,
