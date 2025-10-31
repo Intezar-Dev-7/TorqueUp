@@ -1,64 +1,130 @@
+# ⚙️ TorqueUp – Car & Bike Service Center Management System
 
+**TorqueUp** is a powerful **SaaS platform** built to simplify and digitize daily operations for **car and bike service centers**.  
+From customer bookings and vehicle tracking to inventory, employees, and analytics — TorqueUp empowers workshops to **run smarter, faster, and more efficiently**.
 
+> 🛠️ Built for efficiency. Designed for growth.
 
-⚙️ TorqueUp – Car & Bike Service Center Management System (SaaS)
+---
 
-TorqueUp is an all-in-one SaaS platform that simplifies and streamlines operations for car and bike service centers. From customer bookings and vehicle tracking to job management, inventory, invoicing, and real-time notifications — TorqueUp empowers workshops with digital tools to improve efficiency, reduce errors, and provide an exceptional customer experience.
+## 🚀 Overview
 
-🚫 Note: This project is a proprietary SaaS solution and is not open source. Unauthorized usage, forking, or distribution is strictly prohibited.
+TorqueUp enables service centers to manage everything from bookings to inventory in one place — ensuring a **paperless, transparent, and seamless service experience** for both workshops and customers.
 
-🚀 Key Highlights
+---
 
-📅 Real-time bookings
-🧰 Integrated inventory and stock alerts
-👩‍🔧 Employee management and tracking
-📊 Business insights with detailed reports
+## ✨ Key Highlights
 
-🧩  Core Features
-✅ User Management
-Roles: Admin, Receptionist, Mechanic
-Secure login, registration, and role-based permissions
+- 📅 **Real-time bookings & scheduling**
+- 🧰 **Integrated inventory management** with stock alerts
+- 👩‍🔧 **Employee management & performance tracking**
+- 📊 **Detailed business insights & analytics**
+- 🔐 **Secure authentication & role-based access**
 
-✅ Booking
+---
 
-Bookings via online, walk-in, or phone
-Real-time calendar with mechanic assignment
-Job priority handling and status updates
+## 🧩 Core Modules & Features
 
-✅ Service Management
+### 👤 User Management
 
-Custom service packages and diagnostics
-Job status flow: Scheduled → In Progress → Completed
-Mechanic notes and digital checklists
+- Secure registration & login system  
+- **Role-based access** for:
+  - Admin  
+  - Receptionist  
+  - Mechanic  
+- **Change password** functionality  
+- JWT-based authentication & protected APIs  
 
-✅ Inventory Management
+---
 
-Track parts and supplies
-Auto-link parts to service jobs
-Low stock alerts and reorder triggers
+### 📅 Booking Management
 
-✅ Employee Management
+Handle customer bookings and service requests with full CRUD capabilities.
 
-Add, update, and delete employee records
-Assign roles and permissions dynamically
-Track attendance, assigned jobs, and performance
-Secure data management with real-time sync
+**Features:**
+- ➕ Add new bookings (customer, vehicle, service)
+- 🔄 Update bookings (status, service type, assigned mechanic)
+- 📋 Fetch all or single bookings with filters
+- ❌ Delete bookings when canceled or completed
+- 🔁 Real-time job flow: *Scheduled → In Progress → Completed*
 
-✅ Analytics & Reports
+---
 
-Revenue reports (daily/monthly/custom)
-Service volume, mechanic performance, and inventory trends
+### 🧰 Service Management
 
-Customer engagement metrics
+Define, manage, and monitor vehicle service packages & diagnostics.
 
-📌 Project Status
-🚧 TorqueUp is currently under active development.
+**Features:**
+- Create and customize service packages  
+- Add mechanic notes & digital checklists  
+- Automated service tracking and updates  
+- Status-driven workflow for each job  
 
-🛑 License
+---
 
-This project is released under a Proprietary License.
-You may not copy, distribute, use, or modify any part of this codebase.
+### 🏷️ Inventory Management
 
-🙌 Acknowledgements
+Manage all workshop parts, tools, and supplies seamlessly.
 
-Built with dedication to transform the vehicle service experience — for businesses and customers alike.
+**Features:**
+- ➕ Add new parts or materials  
+- 🔄 Update inventory details & quantities  
+- 📋 Fetch inventory list (search & filter)  
+- ❌ Delete obsolete or unused items  
+- ⚠️ Low stock alerts & auto reorder triggers  
+- 🔗 Link parts directly to service jobs  
+
+---
+
+### 👩‍🔧 Employee Management
+
+Centralized staff management with role-based CRUD operations.
+
+**Features:**
+- ➕ Add new employees  
+- 🔄 Update employee roles or info  
+- 📋 Fetch employee lists (filter by role)  
+- ❌ Delete employee records  
+- 🧩 Assign roles dynamically (Admin, Mechanic, Receptionist)
+
+---
+
+### 📈 Analytics & Reports
+
+Comprehensive insights to monitor performance and revenue.
+
+**Metrics include:**
+- 💰 Revenue reports (daily, monthly, or custom range)
+- 🔧 Mechanic performance tracking
+- 🚗 Service volume analytics
+- 🧾 Inventory consumption trends
+- 💬 Customer engagement metrics
+
+---
+
+## 🧠 Tech Stack
+
+| Layer | Technologies |
+|-------|---------------|
+| **Frontend** | Flutter |
+| **Backend** | Node.js, Express.js |
+| **Database** | MongoDB |
+| **Auth & Security** | JWT, bcrypt |
+| **Deployment** | Netlify (Frontend) • Render (Backend) |
+
+---
+
+## 🛑 License
+
+This project is released under a **Proprietary License**.  
+You **may not** copy, distribute, modify, or reuse any part of this codebase without explicit written permission.
+
+---
+
+## 🙌 Acknowledgements
+
+> Built with dedication to transform the vehicle service experience — for businesses and customers alike.  
+**TorqueUp** helps workshops embrace the future of automotive service management.
+
+---
+
