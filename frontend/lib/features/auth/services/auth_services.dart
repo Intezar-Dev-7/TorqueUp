@@ -169,7 +169,6 @@ class AuthService {
       String? token = prefs.getString('x-auth-token');
 
       if (token!.isEmpty) {
-        print('No token found, skipping user fetch');
         return;
       }
 
