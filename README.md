@@ -120,11 +120,3 @@ This project is released under a **Proprietary License**.
 You **may not** copy, distribute, modify, or reuse any part of this codebase without explicit written permission.
 
 ---
-
-## 🙌 Acknowledgements
-
-> Built with dedication to transform the vehicle service experience — for businesses and customers alike.  
-**TorqueUp** helps workshops embrace the future of automotive service management.
-
----
-
