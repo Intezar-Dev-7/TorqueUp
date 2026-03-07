@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/admin/Staff/widgets/edit_employee_dialog.dart';
-import 'package:frontend/features/receptionist/Staff/services/receptionist_staff_services.dart';
+import 'package:frontend/features/receptionist/data/provider/receptionist_staff_provider.dart';
 import 'package:frontend/utils/colors.dart';
+import 'package:provider/provider.dart';
 
 class EmployeesProfileScreen extends StatefulWidget {
   final Map<String, dynamic> staff;
@@ -12,17 +13,23 @@ class EmployeesProfileScreen extends StatefulWidget {
 }
 
 class _EmployeesProfileScreenState extends State<EmployeesProfileScreen> {
-  final staffService = ReceptionistStaffServices();
+  late Map<String, dynamic> currentStaff;
 
-  // Responsive breakpoints
   bool isMobile(double width) => width < 600;
   bool isTablet(double width) => width >= 600 && width < 1024;
   bool isDesktop(double width) => width >= 1024;
 
   @override
+  void initState() {
+    super.initState();
+    // Copy the staff object to local state so we can update the UI immediately
+    currentStaff = Map<String, dynamic>.from(widget.staff);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final staff = widget.staff;
     final screenWidth = MediaQuery.of(context).size.width;
+    final provider = Provider.of<ReceptionistStaffProvider>(context);
 
     return Scaffold(
       backgroundColor: AppColors.admin_bg,
@@ -35,15 +42,16 @@ class _EmployeesProfileScreenState extends State<EmployeesProfileScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildProfileHeader(staff, screenWidth),
+                _buildProfileHeader(currentStaff, screenWidth),
                 const SizedBox(height: 32),
-                _buildInfoCards(staff, screenWidth),
+                _buildInfoCards(currentStaff, screenWidth),
                 const SizedBox(height: 32),
-                if (staff['skills'] != null && staff['skills'] is List)
-                  _buildSkillsSection(staff),
-                if (staff['about'] != null) _buildAboutSection(staff),
+                if (currentStaff['skills'] != null && (currentStaff['skills'] as List).isNotEmpty)
+                  _buildSkillsSection(currentStaff),
+                if (currentStaff['about'] != null && currentStaff['about'].toString().isNotEmpty)
+                  _buildAboutSection(currentStaff),
                 const SizedBox(height: 32),
-                _buildActionButtons(staff, screenWidth),
+                _buildActionButtons(currentStaff, screenWidth, provider),
               ],
             ),
           ),
@@ -124,8 +132,7 @@ class _EmployeesProfileScreenState extends State<EmployeesProfileScreen> {
         radius: 60,
         backgroundImage: staff['avatar'] != null && staff['avatar'].isNotEmpty
             ? NetworkImage(staff['avatar'])
-            : const AssetImage('assets/general_icons/employee.png')
-        as ImageProvider,
+            : const AssetImage('assets/general_icons/employee.png') as ImageProvider,
         backgroundColor: AppColors.admin_primary.withOpacity(0.1),
       ),
     );
@@ -164,15 +171,9 @@ class _EmployeesProfileScreenState extends State<EmployeesProfileScreen> {
         ),
         const SizedBox(height: 16),
         if (staff['staffContactNumber'] != null)
-          _buildContactRow(
-            Icons.phone_outlined,
-            staff['staffContactNumber'],
-          ),
+          _buildContactRow(Icons.phone_outlined, staff['staffContactNumber']),
         if (staff['staffEmail'] != null)
-          _buildContactRow(
-            Icons.email_outlined,
-            staff['staffEmail'],
-          ),
+          _buildContactRow(Icons.email_outlined, staff['staffEmail']),
       ],
     );
   }
@@ -188,20 +189,10 @@ class _EmployeesProfileScreenState extends State<EmployeesProfileScreen> {
               color: AppColors.admin_primary.withOpacity(0.1),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(
-              icon,
-              size: 18,
-              color: AppColors.admin_primary,
-            ),
+            child: Icon(icon, size: 18, color: AppColors.admin_primary),
           ),
           const SizedBox(width: 12),
-          Text(
-            text,
-            style: TextStyle(
-              fontSize: 15,
-              color: AppColors.text_dark,
-            ),
-          ),
+          Text(text, style: TextStyle(fontSize: 15, color: AppColors.text_dark)),
         ],
       ),
     );
@@ -221,9 +212,7 @@ class _EmployeesProfileScreenState extends State<EmployeesProfileScreen> {
         ),
         _buildInfoCard(
           "Joined",
-          staff['createdAt'] != null
-              ? staff['createdAt'].substring(0, 10)
-              : 'N/A',
+          staff['createdAt'] != null ? staff['createdAt'].substring(0, 10) : 'N/A',
           Icons.calendar_today_outlined,
           AppColors.status_completed,
           screenWidth,
@@ -239,27 +228,14 @@ class _EmployeesProfileScreenState extends State<EmployeesProfileScreen> {
     );
   }
 
-  Widget _buildInfoCard(
-      String title,
-      String value,
-      IconData icon,
-      Color color,
-      double screenWidth,
-      ) {
+  Widget _buildInfoCard(String title, String value, IconData icon, Color color, double screenWidth) {
     return Container(
-      width: isMobile(screenWidth)
-          ? (screenWidth - 48) / 2
-          : isTablet(screenWidth)
-          ? 220
-          : 250,
+      width: isMobile(screenWidth) ? (screenWidth - 48) / 2 : isTablet(screenWidth) ? 220 : 250,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: color.withOpacity(0.2),
-          width: 2,
-        ),
+        border: Border.all(color: color.withOpacity(0.2), width: 2),
         boxShadow: [
           BoxShadow(
             color: AppColors.black.withOpacity(0.06),
@@ -289,13 +265,7 @@ class _EmployeesProfileScreenState extends State<EmployeesProfileScreen> {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 4),
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 14,
-              color: AppColors.text_grey,
-            ),
-          ),
+          Text(title, style: TextStyle(fontSize: 14, color: AppColors.text_grey)),
         ],
       ),
     );
@@ -326,11 +296,7 @@ class _EmployeesProfileScreenState extends State<EmployeesProfileScreen> {
                   color: AppColors.admin_primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(
-                  Icons.star_outline,
-                  color: AppColors.admin_primary,
-                  size: 22,
-                ),
+                child: Icon(Icons.star_outline, color: AppColors.admin_primary, size: 22),
               ),
               const SizedBox(width: 12),
               Text(
@@ -350,10 +316,7 @@ class _EmployeesProfileScreenState extends State<EmployeesProfileScreen> {
             children: List<Widget>.from(
               (staff['skills'] as List).map(
                     (skill) => Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
                     color: AppColors.admin_primary.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(20),
@@ -404,11 +367,7 @@ class _EmployeesProfileScreenState extends State<EmployeesProfileScreen> {
                   color: AppColors.admin_primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(
-                  Icons.info_outline,
-                  color: AppColors.admin_primary,
-                  size: 22,
-                ),
+                child: Icon(Icons.info_outline, color: AppColors.admin_primary, size: 22),
               ),
               const SizedBox(width: 12),
               Text(
@@ -424,18 +383,14 @@ class _EmployeesProfileScreenState extends State<EmployeesProfileScreen> {
           const SizedBox(height: 16),
           Text(
             staff['about'],
-            style: TextStyle(
-              fontSize: 15,
-              color: AppColors.text_dark,
-              height: 1.6,
-            ),
+            style: TextStyle(fontSize: 15, color: AppColors.text_dark, height: 1.6),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildActionButtons(Map<String, dynamic> staff, double screenWidth) {
+  Widget _buildActionButtons(Map<String, dynamic> staff, double screenWidth, ReceptionistStaffProvider provider) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -454,14 +409,14 @@ class _EmployeesProfileScreenState extends State<EmployeesProfileScreen> {
         children: [
           _buildEditButton(staff),
           const SizedBox(height: 12),
-          _buildDeleteButton(staff),
+          _buildDeleteButton(staff, provider),
         ],
       )
           : Row(
         children: [
           Expanded(child: _buildEditButton(staff)),
           const SizedBox(width: 16),
-          Expanded(child: _buildDeleteButton(staff)),
+          Expanded(child: _buildDeleteButton(staff, provider)),
         ],
       ),
     );
@@ -472,10 +427,7 @@ class _EmployeesProfileScreenState extends State<EmployeesProfileScreen> {
       height: 50,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            AppColors.admin_primary,
-            AppColors.admin_primary_light,
-          ],
+          colors: [AppColors.admin_primary, AppColors.admin_primary_light],
         ),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
@@ -490,35 +442,26 @@ class _EmployeesProfileScreenState extends State<EmployeesProfileScreen> {
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
         onPressed: () async {
           final updatedStaff = await showDialog<Map<String, dynamic>>(
             context: context,
-            builder: (context) => EditEmployeeDialog(staff: staff),
+            builder: (context) => EditEmployeeDialog(staff: currentStaff),
           );
           if (updatedStaff != null) {
             setState(() {
-              widget.staff.addAll(updatedStaff);
+              currentStaff.addAll(updatedStaff);
             });
           }
         },
         icon: Icon(Icons.edit_outlined, color: AppColors.white),
-        label: Text(
-          "Edit Profile",
-          style: TextStyle(
-            color: AppColors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        label: Text("Edit Profile", style: TextStyle(color: AppColors.white, fontSize: 16, fontWeight: FontWeight.w600)),
       ),
     );
   }
 
-  Widget _buildDeleteButton(Map<String, dynamic> staff) {
+  Widget _buildDeleteButton(Map<String, dynamic> staff, ReceptionistStaffProvider provider) {
     return Container(
       height: 50,
       decoration: BoxDecoration(
@@ -536,98 +479,47 @@ class _EmployeesProfileScreenState extends State<EmployeesProfileScreen> {
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
-        onPressed: () {
-          _showDeleteConfirmation(staff);
-        },
-        icon: Icon(Icons.delete_outline, color: AppColors.white),
-        label: Text(
-          "Remove Employee",
-          style: TextStyle(
-            color: AppColors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        onPressed: provider.isLoading ? null : () => _showDeleteConfirmation(staff, provider),
+        icon: provider.isLoading ? const SizedBox() : Icon(Icons.delete_outline, color: AppColors.white),
+        label: provider.isLoading
+            ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+            : Text("Remove Employee", style: TextStyle(color: AppColors.white, fontSize: 16, fontWeight: FontWeight.w600)),
       ),
     );
   }
 
-  void _showDeleteConfirmation(Map<String, dynamic> staff) {
+  void _showDeleteConfirmation(Map<String, dynamic> staff, ReceptionistStaffProvider provider) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Row(
           children: [
             Container(
               padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: AppColors.error.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Icon(
-                Icons.warning_amber_rounded,
-                color: AppColors.error,
-              ),
+              decoration: BoxDecoration(color: AppColors.error.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
+              child: Icon(Icons.warning_amber_rounded, color: AppColors.error),
             ),
             const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                "Confirm Deletion",
-                style: TextStyle(
-                  color: AppColors.text_dark,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
+            Expanded(child: Text("Confirm Deletion", style: TextStyle(color: AppColors.text_dark, fontSize: 18, fontWeight: FontWeight.w600))),
           ],
         ),
-        content: Text(
-          'Are you sure you want to remove ${staff['staffName']}? This action cannot be undone.',
-          style: TextStyle(
-            color: AppColors.text_dark,
-            fontSize: 14,
-          ),
-        ),
+        content: Text('Are you sure you want to remove ${staff['staffName']}? This action cannot be undone.', style: TextStyle(color: AppColors.text_dark, fontSize: 14)),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(
-              "Cancel",
-              style: TextStyle(
-                color: AppColors.text_grey,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
+          TextButton(onPressed: () => Navigator.pop(context), child: Text("Cancel", style: TextStyle(color: AppColors.text_grey, fontWeight: FontWeight.w600))),
           Container(
-            decoration: BoxDecoration(
-              color: AppColors.error,
-              borderRadius: BorderRadius.circular(8),
-            ),
+            decoration: BoxDecoration(color: AppColors.error, borderRadius: BorderRadius.circular(8)),
             child: TextButton(
-              onPressed: () {
-                staffService.deleteEmployee(
-                  context: context,
-                  staffId: staff['_id'],
-                );
+              onPressed: () async {
                 Navigator.pop(context); // Close dialog
-                Navigator.pop(context); // Go back to staff list
+                bool success = await provider.deleteStaff(context, staff['_id']);
+                if (success && mounted) {
+                  Navigator.pop(context); // Go back to staff list
+                }
               },
-              child: Text(
-                "Delete",
-                style: TextStyle(
-                  color: AppColors.white,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              child: Text("Delete", style: TextStyle(color: AppColors.white, fontWeight: FontWeight.w600)),
             ),
           ),
         ],

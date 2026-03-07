@@ -1,19 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/admin_side_navigation_bar.dart';
+import 'package:frontend/features/admin/data/provider/admin_setting_provider.dart';
+import 'package:frontend/features/admin/data/provider/analytics_provider.dart';
+import 'package:frontend/features/auth/data/provider/auth_provider.dart';
 import 'package:frontend/features/auth/screens/signin_screen.dart';
-import 'package:frontend/features/auth/services/auth_services.dart';
+import 'package:frontend/features/receptionist/data/provider/booking_provider.dart';
+import 'package:frontend/features/receptionist/data/provider/inventory_provider.dart';
+import 'package:frontend/features/receptionist/data/provider/receptionist_settings_provider.dart';
+import 'package:frontend/features/receptionist/data/provider/receptionist_staff_provider.dart';
 import 'package:frontend/receptionist_side_nav_bar.dart';
 import 'package:frontend/provider/user_provider.dart';
+import 'package:frontend/service_locator.dart';
 import 'package:frontend/splashScreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  setupLocator(); // Initialize GetIt
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => UserProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (context) => UserProvider()),
+        // ADD YOUR NEW PROVIDER HERE
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
+
+        ChangeNotifierProvider(create: (context) => BookingProvider()),
+
+        ChangeNotifierProvider(create: (context) => AdminSettingsProvider()),
+
+        ChangeNotifierProvider(create: (context) => InventoryProvider()),
+
+        ChangeNotifierProvider(create: (context) => ReceptionistSettingsProvider()),
+
+        ChangeNotifierProvider(create: (context) => ReceptionistStaffProvider()),
+
+        ChangeNotifierProvider(create: (context) => AnalyticsProvider()),
+      ],
       child: const MyApp(),
     ),
   );
@@ -26,9 +49,6 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-// -------------------------------------------------------
-//  THIS WRAPPER HANDLES SPLASH + AUTH + ROLE-ROUTING
-// -------------------------------------------------------
 class SplashWrapper extends StatefulWidget {
   final UserProvider userProvider;
   const SplashWrapper({super.key, required this.userProvider});
@@ -43,8 +63,6 @@ class _SplashWrapperState extends State<SplashWrapper> {
   @override
   void initState() {
     super.initState();
-
-    // Keep the splash visible while user data loads
     Future.delayed(const Duration(seconds: 2), () {
       if (mounted) {
         setState(() => showSplash = false);
@@ -60,7 +78,6 @@ class _SplashWrapperState extends State<SplashWrapper> {
       return const SplashScreen();
     }
 
-    // AFTER splash → route based on login + role
     return _getHomeScreen(userProvider);
   }
 
@@ -68,31 +85,24 @@ class _SplashWrapperState extends State<SplashWrapper> {
     if (userProvider.user.token.isEmpty) {
       return const SignInScreen();
     }
-
-    if (userProvider.user.role == 'admin') {
+    if (userProvider.user.role.toLowerCase() == 'admin') {
       return const AdminSideNavigationBar();
     }
-
-    if (userProvider.user.role == 'receptionist') {
+    if (userProvider.user.role.toLowerCase() == 'receptionist') {
       return const ReceptionistSideNavBar();
     }
-
     return const SignInScreen();
   }
 }
 
-// -------------------------------------------------------
-//                 MAIN APP WIDGET
-// -------------------------------------------------------
 class _MyAppState extends State<MyApp> {
-  final AuthService authService = AuthService();
-
   @override
   void initState() {
     super.initState();
-    authService.getUserData(
-      context: context,
-    ); // load user before splash finishes
+    // Safely call the provider after the first frame builds
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<AuthProvider>(context, listen: false).getUserData(context: context);
+    });
   }
 
   @override
@@ -107,7 +117,6 @@ class _MyAppState extends State<MyApp> {
         textTheme: GoogleFonts.interTextTheme(),
         useMaterial3: true,
       ),
-      // IMPORTANT!!
       home: SplashWrapper(userProvider: userProvider),
     );
   }

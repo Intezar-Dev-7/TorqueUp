@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_textfield.dart';
+import 'package:frontend/features/auth/data/provider/auth_provider.dart';
 import 'package:frontend/features/auth/screens/signup_screen.dart';
 import 'package:frontend/features/auth/screens/forgot_password_screen.dart';
-import 'package:frontend/features/auth/services/auth_services.dart';
 import 'package:frontend/utils/colors.dart';
+import 'package:provider/provider.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -22,8 +23,6 @@ class _SignInScreenState extends State<SignInScreen> {
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
 
-  AuthService authService = AuthService();
-
   @override
   void dispose() {
     super.dispose();
@@ -39,15 +38,6 @@ class _SignInScreenState extends State<SignInScreen> {
   final String _selectedOption = '';
   bool _rememberMe = false;
 
-  void signInUser() {
-    authService.signInUser(
-      context: context,
-      email: _emailController.text,
-      password: _passwordController.text,
-      role: _selectedRole,
-    );
-  }
-
   // Responsive breakpoints
   bool isMobile(double width) => width < 600;
   bool isTablet(double width) => width >= 600 && width < 900;
@@ -55,6 +45,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       backgroundColor: const Color(0xFFF5F8FA),
       body: LayoutBuilder(
@@ -78,7 +69,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         height: isMobile(constraints.maxWidth) ? 30 : 40,
                       ),
                       // Login Form Card
-                      _buildLoginCard(constraints.maxWidth),
+                      _buildLoginCard(constraints.maxWidth,authProvider),
                     ],
                   ),
                 ),
@@ -112,7 +103,7 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  Widget _buildLoginCard(double screenWidth) {
+  Widget _buildLoginCard(double screenWidth, AuthProvider authProvider) {
     double cardWidth;
     double cardPadding;
 
@@ -320,12 +311,13 @@ class _SignInScreenState extends State<SignInScreen> {
           SizedBox(height: isMobile(screenWidth) ? 24 : 28),
 
           // Login Button
+          // Login Button
           Container(
             width: double.infinity,
             height: 50,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [AppColors.sky_blue, Color(0xFF29B6F6)],
+                colors: [AppColors.sky_blue, const Color(0xFF29B6F6)],
               ),
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
@@ -337,19 +329,34 @@ class _SignInScreenState extends State<SignInScreen> {
               ],
             ),
             child: ElevatedButton(
-              onPressed: () {
+              // Disable button if loading
+              onPressed: authProvider.isLoading ? null : () {
                 if (_formkey.currentState!.validate()) {
-                  signInUser();
+                  // Call provider instead of service
+                  authProvider.signInUser(
+                    context: context,
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                    role: _selectedRole,
+                  );
                 }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.transparent,
                 shadowColor: Colors.transparent,
+                disabledBackgroundColor: Colors.transparent, // Keep gradient when disabled
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: const Text(
+              // Show loading spinner or text based on state
+              child: authProvider.isLoading
+                  ? const SizedBox(
+                  height: 24,
+                  width: 24,
+                  child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5)
+              )
+                  : const Text(
                 'Login',
                 style: TextStyle(
                   color: Colors.white,

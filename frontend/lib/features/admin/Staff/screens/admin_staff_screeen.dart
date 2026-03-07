@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:frontend/features/admin/Staff/widgets/interns.dart';
 import 'package:frontend/features/admin/Staff/widgets/mechanics.dart';
 import 'package:frontend/features/admin/Staff/widgets/other_employees.dart';
+import 'package:frontend/features/receptionist/data/provider/receptionist_staff_provider.dart';
 import 'package:frontend/utils/colors.dart';
+import 'package:provider/provider.dart';
+
 
 class AdminStaffScreen extends StatefulWidget {
   const AdminStaffScreen({super.key});
@@ -16,6 +19,15 @@ class _AdminStaffScreenState extends State<AdminStaffScreen> {
   bool isMobile(double width) => width < 600;
   bool isTablet(double width) => width >= 600 && width < 1024;
   bool isDesktop(double width) => width >= 1024;
+
+  @override
+  void initState() {
+    super.initState();
+    // Load all staff from the top level
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<ReceptionistStaffProvider>(context, listen: false).loadAllStaff();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -139,26 +151,24 @@ class _AdminStaffScreenState extends State<AdminStaffScreen> {
 
   Widget _buildResponsiveLayout(double screenWidth) {
     if (isMobile(screenWidth)) {
-      // Single column for mobile
       return Column(
-        children: [
-          const MechanicsWidget(),
-          const SizedBox(height: 20),
-          const InternsWidget(),
-          const SizedBox(height: 20),
-          const OtherEmployeesWidget(),
+        children: const [
+          MechanicsWidget(),
+          SizedBox(height: 20),
+          InternsWidget(),
+          SizedBox(height: 20),
+          OtherEmployeesWidget(),
         ],
       );
     } else if (isTablet(screenWidth)) {
-      // Two columns for tablet
       return Column(
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Expanded(child: MechanicsWidget()),
-              const SizedBox(width: 20),
-              const Expanded(child: InternsWidget()),
+            children: const [
+              Expanded(child: MechanicsWidget()),
+              SizedBox(width: 20),
+              Expanded(child: InternsWidget()),
             ],
           ),
           const SizedBox(height: 20),
@@ -166,15 +176,14 @@ class _AdminStaffScreenState extends State<AdminStaffScreen> {
         ],
       );
     } else {
-      // Three columns for desktop
       return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Expanded(child: MechanicsWidget()),
-          const SizedBox(width: 20),
-          const Expanded(child: InternsWidget()),
-          const SizedBox(width: 20),
-          const Expanded(child: OtherEmployeesWidget()),
+        children: const [
+          Expanded(child: MechanicsWidget()),
+          SizedBox(width: 20),
+          Expanded(child: InternsWidget()),
+          SizedBox(width: 20),
+          Expanded(child: OtherEmployeesWidget()),
         ],
       );
     }
