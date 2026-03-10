@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/features/receptionist/Inventory/services/inventory_services.dart';
-import 'package:frontend/features/receptionist/model/inventory_model.dart';
+import 'package:frontend/features/receptionist/data/provider/booking_provider.dart';
+import 'package:frontend/features/receptionist/data/provider/inventory_provider.dart';
 import 'package:frontend/utils/colors.dart';
 import 'package:intl/intl.dart';
-import 'package:frontend/features/receptionist/Bookings/services/booking_services.dart';
-import 'package:frontend/features/receptionist/model/vehicle_booking_model.dart';
+import 'package:provider/provider.dart';
 
 class ReceptionistDashboardScreen extends StatefulWidget {
   const ReceptionistDashboardScreen({super.key});
@@ -16,34 +15,14 @@ class ReceptionistDashboardScreen extends StatefulWidget {
 
 class _ReceptionistDashboardScreenState
     extends State<ReceptionistDashboardScreen> {
-  VehicleBookingServices bookingServices = VehicleBookingServices();
-  final InventoryServices inventoryServices = InventoryServices();
-  List<Inventory> inventoryList = [];
-  List<NewBooking> bookings = [];
-  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _loadBookings();
-    fetchProducts();
-  }
-
-  void fetchProducts() async {
-    final fetchedInventory = await inventoryServices.fetchAllProducts(
-      context: context,
-    );
-
-    setState(() {
-      inventoryList = fetchedInventory;
-      isLoading = false;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<BookingProvider>(context, listen: false).loadAllBookings(context: context);
+      Provider.of<InventoryProvider>(context, listen: false).loadAllProducts(context: context);
     });
-  }
-
-  Future<void> _loadBookings() async {
-    setState(() => isLoading = true);
-    bookings = await bookingServices.fetchAllBookings(context);
-    setState(() => isLoading = false);
   }
 
   // Responsive breakpoints
@@ -53,17 +32,21 @@ class _ReceptionistDashboardScreenState
 
   @override
   Widget build(BuildContext context) {
+    // We listen to the providers at the top of the tree so the whole screen updates
+    final bookingProvider = Provider.of<BookingProvider>(context);
+    final inventoryProvider = Provider.of<InventoryProvider>(context);
+
     return Scaffold(
       backgroundColor: const Color(0xFFF5F8FA),
       appBar: _buildResponsiveAppBar(context),
       body: LayoutBuilder(
         builder: (context, constraints) {
           if (isMobile(constraints.maxWidth)) {
-            return _buildMobileLayout();
+            return _buildMobileLayout(bookingProvider, inventoryProvider);
           } else if (isTablet(constraints.maxWidth)) {
-            return _buildTabletLayout();
+            return _buildTabletLayout(bookingProvider, inventoryProvider);
           } else {
-            return _buildDesktopLayout();
+            return _buildDesktopLayout(bookingProvider, inventoryProvider);
           }
         },
       ),
@@ -153,41 +136,41 @@ class _ReceptionistDashboardScreenState
   }
 
   // Mobile Layout (< 600px)
-  Widget _buildMobileLayout() {
+  Widget _buildMobileLayout(BookingProvider bookingProvider, InventoryProvider inventoryProvider) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildStatsGridMobile(),
+          _buildStatsGridMobile(bookingProvider),
           const SizedBox(height: 24),
-          _buildActiveBookingsSection(),
+          _buildActiveBookingsSection(bookingProvider),
           const SizedBox(height: 24),
-          _buildInventorySection(),
+          _buildInventorySection(inventoryProvider),
         ],
       ),
     );
   }
 
   // Tablet Layout (600px - 1024px)
-  Widget _buildTabletLayout() {
+  Widget _buildTabletLayout(BookingProvider bookingProvider, InventoryProvider inventoryProvider) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildStatsGridTablet(),
+          _buildStatsGridTablet(bookingProvider),
           const SizedBox(height: 28),
-          _buildActiveBookingsSection(),
+          _buildActiveBookingsSection(bookingProvider),
           const SizedBox(height: 24),
-          _buildInventorySection(),
+          _buildInventorySection(inventoryProvider),
         ],
       ),
     );
   }
 
   // Desktop Layout (>= 1024px)
-  Widget _buildDesktopLayout() {
+  Widget _buildDesktopLayout(BookingProvider bookingProvider, InventoryProvider inventoryProvider) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Row(
@@ -199,129 +182,82 @@ class _ReceptionistDashboardScreenState
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildStatsGridDesktop(),
+                  _buildStatsGridDesktop(bookingProvider),
                   const SizedBox(height: 28),
-                  _buildActiveBookingsSection(),
+                  _buildActiveBookingsSection(bookingProvider),
                 ],
               ),
             ),
           ),
           const SizedBox(width: 20),
-          Expanded(flex: 1, child: _buildInventoryPanel()),
+          Expanded(flex: 1, child: _buildInventoryPanel(inventoryProvider)),
         ],
       ),
     );
   }
 
   // Stats Grid for Mobile
-  Widget _buildStatsGridMobile() {
+  Widget _buildStatsGridMobile(BookingProvider provider) {
+    final bookings = provider.bookings;
+    final total = bookings.length;
+    final inProgress = bookings.where((b) => b.vehicleBookingStatus == 'In Progress').length;
+    final completed = bookings.where((b) => b.vehicleBookingStatus == 'Completed').length;
+    final pending = bookings.where((b) => b.vehicleBookingStatus == 'Pending').length;
+
     return Column(
       children: [
-        _buildStatCard(
-          'Total Bookings',
-          '248',
-          '+12% from last month',
-          Icons.calendar_today_rounded,
-        ),
+        _buildStatCard('Total Bookings', total.toString(), 'All time', Icons.calendar_today_rounded),
         const SizedBox(height: 12),
-        _buildStatCard(
-          'Vehicles in Service',
-          '34',
-          '8 ready today',
-          Icons.directions_car_rounded,
-        ),
+        _buildStatCard('Vehicles in Service', inProgress.toString(), 'Currently working', Icons.directions_car_rounded),
         const SizedBox(height: 12),
-        _buildStatCard(
-          'Completed Jobs',
-          '189',
-          '+8% this week',
-          Icons.check_circle_rounded,
-        ),
+        _buildStatCard('Completed Jobs', completed.toString(), 'Finished', Icons.check_circle_rounded),
         const SizedBox(height: 12),
-        _buildStatCard(
-          'Pending Approvals',
-          '15',
-          '5 urgent',
-          Icons.assignment_rounded,
-        ),
+        _buildStatCard('Pending Approvals', pending.toString(), '$pending waiting', Icons.assignment_rounded),
       ],
     );
   }
 
   // Stats Grid for Tablet
-  Widget _buildStatsGridTablet() {
+  Widget _buildStatsGridTablet(BookingProvider provider) {
+    final bookings = provider.bookings;
+    final total = bookings.length;
+    final inProgress = bookings.where((b) => b.vehicleBookingStatus == 'In Progress').length;
+    final completed = bookings.where((b) => b.vehicleBookingStatus == 'Completed').length;
+    final pending = bookings.where((b) => b.vehicleBookingStatus == 'Pending').length;
+
     return Wrap(
       spacing: 16,
       runSpacing: 16,
       children: [
-        _buildStatCard(
-          'Total Bookings',
-          '248',
-          '+12% from last month',
-          Icons.calendar_today_rounded,
-        ),
-        _buildStatCard(
-          'Vehicles in Service',
-          '34',
-          '8 ready today',
-          Icons.directions_car_rounded,
-        ),
-        _buildStatCard(
-          'Completed Jobs',
-          '189',
-          '+8% this week',
-          Icons.check_circle_rounded,
-        ),
-        _buildStatCard(
-          'Pending Approvals',
-          '15',
-          '5 urgent',
-          Icons.assignment_rounded,
-        ),
+        _buildStatCard('Total Bookings', total.toString(), 'All time', Icons.calendar_today_rounded),
+        _buildStatCard('Vehicles in Service', inProgress.toString(), 'Currently working', Icons.directions_car_rounded),
+        _buildStatCard('Completed Jobs', completed.toString(), 'Finished', Icons.check_circle_rounded),
+        _buildStatCard('Pending Approvals', pending.toString(), '$pending waiting', Icons.assignment_rounded),
       ],
     );
   }
 
   // Stats Grid for Desktop
-  Widget _buildStatsGridDesktop() {
+  Widget _buildStatsGridDesktop(BookingProvider provider) {
+    final bookings = provider.bookings;
+    final total = bookings.length;
+    final inProgress = bookings.where((b) => b.vehicleBookingStatus == 'In Progress').length;
+    final completed = bookings.where((b) => b.vehicleBookingStatus == 'Completed').length;
+    final pending = bookings.where((b) => b.vehicleBookingStatus == 'Pending').length;
+
     return Wrap(
       spacing: 16,
       runSpacing: 16,
       children: [
-        _buildStatCard(
-          'Total Bookings',
-          '248',
-          '+12% from last month',
-          Icons.calendar_today_rounded,
-        ),
-        _buildStatCard(
-          'Vehicles in Service',
-          '34',
-          '8 ready today',
-          Icons.directions_car_rounded,
-        ),
-        _buildStatCard(
-          'Completed Jobs',
-          '189',
-          '+8% this week',
-          Icons.check_circle_rounded,
-        ),
-        _buildStatCard(
-          'Pending Approvals',
-          '15',
-          '5 urgent',
-          Icons.assignment_rounded,
-        ),
+        _buildStatCard('Total Bookings', total.toString(), 'All time', Icons.calendar_today_rounded),
+        _buildStatCard('Vehicles in Service', inProgress.toString(), 'Currently working', Icons.directions_car_rounded),
+        _buildStatCard('Completed Jobs', completed.toString(), 'Finished', Icons.check_circle_rounded),
+        _buildStatCard('Pending Approvals', pending.toString(), '$pending waiting', Icons.assignment_rounded),
       ],
     );
   }
 
-  Widget _buildStatCard(
-    String title,
-    String value,
-    String subtitle,
-    IconData icon,
-  ) {
+  Widget _buildStatCard(String title, String value, String subtitle, IconData icon) {
     return LayoutBuilder(
       builder: (context, constraints) {
         final parentWidth = MediaQuery.of(context).size.width;
@@ -385,7 +321,7 @@ class _ReceptionistDashboardScreenState
     );
   }
 
-  Widget _buildActiveBookingsSection() {
+  Widget _buildActiveBookingsSection(BookingProvider provider) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -411,13 +347,13 @@ class _ReceptionistDashboardScreenState
           ],
         ),
         const SizedBox(height: 12),
-        _buildActiveBookingsTable(),
+        _buildActiveBookingsTable(provider),
       ],
     );
   }
 
-  Widget _buildActiveBookingsTable() {
-    if (isLoading) {
+  Widget _buildActiveBookingsTable(BookingProvider provider) {
+    if (provider.isLoading) {
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(40.0),
@@ -426,7 +362,7 @@ class _ReceptionistDashboardScreenState
       );
     }
 
-    if (bookings.isEmpty) {
+    if (provider.bookings.isEmpty) {
       return Container(
         padding: const EdgeInsets.all(40),
         decoration: BoxDecoration(
@@ -533,102 +469,98 @@ class _ReceptionistDashboardScreenState
                     ),
                   ),
                 ],
-                rows:
-                    bookings.map((booking) {
-                      return DataRow(
-                        cells: [
-                          DataCell(
-                            Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: 16,
-                                  backgroundColor: AppColors.sky_blue
-                                      .withOpacity(0.15),
-                                  child: Text(
-                                    booking.customerName[0].toUpperCase(),
-                                    style: TextStyle(
-                                      color: AppColors.sky_blue,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14,
-                                    ),
-                                  ),
+                rows: provider.bookings.map((booking) {
+                  return DataRow(
+                    cells: [
+                      DataCell(
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 16,
+                              backgroundColor: AppColors.sky_blue.withOpacity(0.15),
+                              child: Text(
+                                booking.customerName.isNotEmpty ? booking.customerName[0].toUpperCase() : '?',
+                                style: TextStyle(
+                                  color: AppColors.sky_blue,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
                                 ),
-                                const SizedBox(width: 10),
-                                Text(
-                                  booking.customerName,
-                                  style: const TextStyle(
-                                    color: Color(0xFF2C3E50),
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
-                          DataCell(
+                            const SizedBox(width: 10),
                             Text(
-                              booking.vehicleNumber,
+                              booking.customerName,
                               style: const TextStyle(
                                 color: Color(0xFF2C3E50),
                                 fontSize: 14,
-                                fontWeight: FontWeight.w500,
                               ),
                             ),
+                          ],
+                        ),
+                      ),
+                      DataCell(
+                        Text(
+                          booking.vehicleNumber,
+                          style: const TextStyle(
+                            color: Color(0xFF2C3E50),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
                           ),
-                          DataCell(
+                        ),
+                      ),
+                      DataCell(
+                        Text(
+                          booking.problem,
+                          style: TextStyle(
+                            color: Colors.grey[700],
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      DataCell(
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: _getStatusColor(
+                              booking.vehicleBookingStatus,
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Text(
+                            booking.vehicleBookingStatus,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                      DataCell(
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.calendar_today,
+                              size: 14,
+                              color: Colors.grey[600],
+                            ),
+                            const SizedBox(width: 6),
                             Text(
-                              booking.problem,
+                              DateFormat('dd MMM yyyy').format(booking.readyDate),
                               style: TextStyle(
                                 color: Colors.grey[700],
                                 fontSize: 14,
                               ),
                             ),
-                          ),
-                          DataCell(
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 14,
-                                vertical: 6,
-                              ),
-                              decoration: BoxDecoration(
-                                color: _getStatusColor(
-                                  booking.vehicleBookingStatus,
-                                ),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Text(
-                                booking.vehicleBookingStatus,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ),
-                          DataCell(
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.calendar_today,
-                                  size: 14,
-                                  color: Colors.grey[600],
-                                ),
-                                const SizedBox(width: 6),
-                                Text(
-                                  DateFormat(
-                                    'dd MMM yyyy',
-                                  ).format(booking.readyDate),
-                                  style: TextStyle(
-                                    color: Colors.grey[700],
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      );
-                    }).toList(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                }).toList(),
               ),
             ),
           ),
@@ -653,7 +585,7 @@ class _ReceptionistDashboardScreenState
   }
 
   // Inventory Section (for mobile and tablet)
-  Widget _buildInventorySection() {
+  Widget _buildInventorySection(InventoryProvider provider) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -696,17 +628,18 @@ class _ReceptionistDashboardScreenState
             ],
           ),
           const SizedBox(height: 16),
-          ListView(
+          provider.isLoading
+              ? Center(child: CircularProgressIndicator(color: AppColors.sky_blue))
+              : ListView(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            children:
-                inventoryList.map((item) {
-                  return _buildInventoryItem(
-                    item.productName,
-                    item.productQuantity,
-                    item.productQuantity > 0,
-                  );
-                }).toList(),
+            children: provider.inventoryList.map((item) {
+              return _buildInventoryItem(
+                item.productName,
+                item.productQuantity,
+                item.productQuantity > 0,
+              );
+            }).toList(),
           ),
         ],
       ),
@@ -714,7 +647,7 @@ class _ReceptionistDashboardScreenState
   }
 
   // Inventory Panel (for desktop)
-  Widget _buildInventoryPanel() {
+  Widget _buildInventoryPanel(InventoryProvider provider) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -757,20 +690,20 @@ class _ReceptionistDashboardScreenState
             ],
           ),
           const SizedBox(height: 16),
-          Expanded(
-            child: ListView(
+          if (provider.isLoading)
+            Center(child: CircularProgressIndicator(color: AppColors.sky_blue))
+          else
+            ListView(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              children:
-                  inventoryList.map((item) {
-                    return _buildInventoryItem(
-                      item.productName,
-                      item.productQuantity,
-                      item.productQuantity > 0,
-                    );
-                  }).toList(),
+              children: provider.inventoryList.map((item) {
+                return _buildInventoryItem(
+                  item.productName,
+                  item.productQuantity,
+                  item.productQuantity > 0,
+                );
+              }).toList(),
             ),
-          ),
         ],
       ),
     );
@@ -814,19 +747,17 @@ class _ReceptionistDashboardScreenState
                             vertical: 4,
                           ),
                           decoration: BoxDecoration(
-                            color:
-                                inStock
-                                    ? const Color(0xFF66BB6A).withOpacity(0.15)
-                                    : const Color(0xFFFFB74D).withOpacity(0.15),
+                            color: inStock
+                                ? const Color(0xFF66BB6A).withOpacity(0.15)
+                                : const Color(0xFFFFB74D).withOpacity(0.15),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Text(
                             'Qty: $qty',
                             style: TextStyle(
-                              color:
-                                  inStock
-                                      ? const Color(0xFF66BB6A)
-                                      : const Color(0xFFFFB74D),
+                              color: inStock
+                                  ? const Color(0xFF66BB6A)
+                                  : const Color(0xFFFFB74D),
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                             ),

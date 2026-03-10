@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/common/widgets/custom_snack_bar.dart';
 import 'package:frontend/features/admin/widgets/notification_screen.dart';
-import 'package:frontend/features/receptionist/Bookings/services/booking_services.dart';
 import 'package:frontend/features/receptionist/Bookings/widgets/edit_booking_widget.dart';
+import 'package:frontend/features/receptionist/data/provider/booking_provider.dart';
 import 'package:frontend/features/receptionist/model/vehicle_booking_model.dart';
 import 'package:frontend/utils/colors.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class AdminBookingsScreen extends StatefulWidget {
   const AdminBookingsScreen({super.key});
@@ -15,13 +15,9 @@ class AdminBookingsScreen extends StatefulWidget {
 }
 
 class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
-  final VehicleBookingServices bookingServices = VehicleBookingServices();
-  List<NewBooking> bookings = [];
-  bool isLoading = true;
   DateTime selectedDate = DateTime.now();
   String searchQuery = '';
 
-  // Responsive breakpoints
   bool isMobile(double width) => width < 600;
   bool isTablet(double width) => width >= 600 && width < 1024;
   bool isDesktop(double width) => width >= 1024;
@@ -29,71 +25,48 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
   @override
   void initState() {
     super.initState();
-    fetchBookingData();
-  }
-
-  void fetchBookingData() async {
-    setState(() => isLoading = true);
-
-    try {
-      final fetched = await bookingServices.fetchAllBookings(context);
-      if (!mounted) return;
-      setState(() {
-        bookings = fetched;
-        isLoading = false;
-      });
-    } catch (e) {
-      if (!mounted) return;
-      setState(() => isLoading = false);
-
-      CustomSnackBar.show(
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<BookingProvider>(
         context,
-        message: "Unable to load bookings. Please try again.",
-        backgroundColor: AppColors.error,
-      );
-    }
-  }
-
-  void deleteVehicleBooking(String bookingId) async {
-    await bookingServices.deleteBooking(context: context, bookingId: bookingId);
-
-    setState(() {
-      bookings.removeWhere((b) => b.bookingId == bookingId);
+        listen: false,
+      ).loadAllBookings(context: context);
     });
-
-    fetchBookingData();
   }
 
-  List<NewBooking> get filteredBookings {
-    if (searchQuery.isEmpty) return bookings;
-    return bookings
-        .where((booking) =>
-    booking.customerName
-        .toLowerCase()
-        .contains(searchQuery.toLowerCase()) ||
-        booking.vehicleNumber
-            .toLowerCase()
-            .contains(searchQuery.toLowerCase()) ||
-        booking.customerContactNumber.contains(searchQuery))
+  List<NewBooking> _getFilteredBookings(List<NewBooking> allBookings) {
+    if (searchQuery.isEmpty) return allBookings;
+    return allBookings
+        .where(
+          (booking) =>
+              booking.customerName.toLowerCase().contains(
+                searchQuery.toLowerCase(),
+              ) ||
+              booking.vehicleNumber.toLowerCase().contains(
+                searchQuery.toLowerCase(),
+              ) ||
+              booking.customerContactNumber.contains(searchQuery),
+        )
         .toList();
   }
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final bookingProvider = Provider.of<BookingProvider>(context);
+    final bookings = bookingProvider.bookings;
 
     return Scaffold(
       backgroundColor: AppColors.admin_bg,
-      appBar: _buildModernAppBar(screenWidth),
+      appBar: _buildModernAppBar(screenWidth, bookingProvider),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(isMobile(screenWidth) ? 12 : 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildStatsRow(screenWidth),
+              _buildStatsRow(screenWidth, bookings),
               const SizedBox(height: 24),
-              _buildBookingsSection(screenWidth),
+              _buildBookingsSection(screenWidth, bookingProvider),
             ],
           ),
         ),
@@ -101,7 +74,10 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
     );
   }
 
-  PreferredSizeWidget _buildModernAppBar(double screenWidth) {
+  PreferredSizeWidget _buildModernAppBar(
+    double screenWidth,
+    BookingProvider provider,
+  ) {
     return AppBar(
       toolbarHeight: isMobile(screenWidth) ? 160 : 140,
       backgroundColor: AppColors.white,
@@ -174,14 +150,13 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                           Icons.notifications_outlined,
                           color: AppColors.admin_primary,
                         ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const AdminNotificationScreen(),
+                        onPressed:
+                            () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const AdminNotificationScreen(),
+                              ),
                             ),
-                          );
-                        },
                       ),
                       const SizedBox(width: 8),
                       Container(
@@ -228,18 +203,18 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                         Expanded(
                           child: TextField(
                             decoration: InputDecoration(
-                              hintText: isMobile(screenWidth)
-                                  ? 'Search...'
-                                  : 'Search by name, vehicle, or contact...',
+                              hintText:
+                                  isMobile(screenWidth)
+                                      ? 'Search...'
+                                      : 'Search by name, vehicle, or contact...',
                               hintStyle: TextStyle(
                                 color: AppColors.text_grey,
                                 fontSize: 14,
                               ),
                               border: InputBorder.none,
                             ),
-                            onChanged: (query) {
-                              setState(() => searchQuery = query);
-                            },
+                            onChanged:
+                                (query) => setState(() => searchQuery = query),
                           ),
                         ),
                       ],
@@ -266,7 +241,7 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                     ],
                   ),
                   child: ElevatedButton(
-                    onPressed: fetchBookingData,
+                    onPressed: () => provider.loadAllBookings(context: context),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.transparent,
                       shadowColor: AppColors.transparent,
@@ -293,7 +268,7 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
     );
   }
 
-  Widget _buildStatsRow(double screenWidth) {
+  Widget _buildStatsRow(double screenWidth, List<NewBooking> bookings) {
     final confirmedCount =
         bookings.where((b) => b.vehicleBookingStatus == 'Confirmed').length;
     final pendingCount =
@@ -307,13 +282,21 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
           Row(
             children: [
               Expanded(
-                child: _buildStatCard('Total', bookings.length,
-                    Icons.calendar_today_outlined, AppColors.admin_primary),
+                child: _buildStatCard(
+                  'Total',
+                  bookings.length,
+                  Icons.calendar_today_outlined,
+                  AppColors.admin_primary,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: _buildStatCard('Confirmed', confirmedCount,
-                    Icons.check_circle_outline, AppColors.status_completed),
+                child: _buildStatCard(
+                  'Confirmed',
+                  confirmedCount,
+                  Icons.check_circle_outline,
+                  AppColors.status_completed,
+                ),
               ),
             ],
           ),
@@ -321,13 +304,21 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
           Row(
             children: [
               Expanded(
-                child: _buildStatCard('Pending', pendingCount,
-                    Icons.pending_outlined, AppColors.status_pending),
+                child: _buildStatCard(
+                  'Pending',
+                  pendingCount,
+                  Icons.pending_outlined,
+                  AppColors.status_pending,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: _buildStatCard('Completed', completedCount,
-                    Icons.done_all_outlined, AppColors.admin_primary_dark),
+                child: _buildStatCard(
+                  'Completed',
+                  completedCount,
+                  Icons.done_all_outlined,
+                  AppColors.admin_primary_dark,
+                ),
               ),
             ],
           ),
@@ -339,14 +330,30 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
       spacing: 16,
       runSpacing: 16,
       children: [
-        _buildStatCard('Total Bookings', bookings.length,
-            Icons.calendar_today_outlined, AppColors.admin_primary),
-        _buildStatCard('Confirmed', confirmedCount,
-            Icons.check_circle_outline, AppColors.status_completed),
-        _buildStatCard('Pending', pendingCount, Icons.pending_outlined,
-            AppColors.status_pending),
-        _buildStatCard('Completed', completedCount, Icons.done_all_outlined,
-            AppColors.admin_primary_dark),
+        _buildStatCard(
+          'Total Bookings',
+          bookings.length,
+          Icons.calendar_today_outlined,
+          AppColors.admin_primary,
+        ),
+        _buildStatCard(
+          'Confirmed',
+          confirmedCount,
+          Icons.check_circle_outline,
+          AppColors.status_completed,
+        ),
+        _buildStatCard(
+          'Pending',
+          pendingCount,
+          Icons.pending_outlined,
+          AppColors.status_pending,
+        ),
+        _buildStatCard(
+          'Completed',
+          completedCount,
+          Icons.done_all_outlined,
+          AppColors.admin_primary_dark,
+        ),
       ],
     );
   }
@@ -354,7 +361,6 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
   Widget _buildStatCard(String title, int count, IconData icon, Color color) {
     final screenWidth = MediaQuery.of(context).size.width;
     final isSmall = isMobile(screenWidth);
-
     return Container(
       padding: EdgeInsets.all(isSmall ? 14 : 20),
       width: isSmall ? null : 200,
@@ -404,7 +410,7 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
     );
   }
 
-  Widget _buildBookingsSection(double screenWidth) {
+  Widget _buildBookingsSection(double screenWidth, BookingProvider provider) {
     return Container(
       constraints: BoxConstraints(
         minHeight: 400,
@@ -423,7 +429,6 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
       ),
       child: Column(
         children: [
-          // Title bar
           Padding(
             padding: EdgeInsets.all(isMobile(screenWidth) ? 16 : 20),
             child: Row(
@@ -445,25 +450,22 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
               ],
             ),
           ),
-
-          // Content
           if (isMobile(screenWidth))
-            Expanded(child: _buildMobileList())
+            Expanded(child: _buildMobileList(provider))
           else
-            Expanded(child: _buildDesktopTable(screenWidth)),
+            Expanded(child: _buildDesktopTable(screenWidth, provider)),
         ],
       ),
     );
   }
 
-  // Mobile card list
-  Widget _buildMobileList() {
-    if (isLoading) {
+  Widget _buildMobileList(BookingProvider provider) {
+    final filteredBookings = _getFilteredBookings(provider.bookings);
+
+    if (provider.isLoading)
       return Center(
         child: CircularProgressIndicator(color: AppColors.admin_primary),
       );
-    }
-
     if (filteredBookings.isEmpty) {
       return Center(
         child: Column(
@@ -517,11 +519,17 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                 ],
               ),
               const SizedBox(height: 12),
-              _buildInfoRow(Icons.directions_car_outlined,
-                  booking.vehicleNumber, AppColors.text_dark),
+              _buildInfoRow(
+                Icons.directions_car_outlined,
+                booking.vehicleNumber,
+                AppColors.text_dark,
+              ),
               const SizedBox(height: 8),
-              _buildInfoRow(Icons.phone_outlined,
-                  booking.customerContactNumber, AppColors.text_dark),
+              _buildInfoRow(
+                Icons.phone_outlined,
+                booking.customerContactNumber,
+                AppColors.text_dark,
+              ),
               const SizedBox(height: 8),
               Row(
                 children: [
@@ -546,45 +554,52 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                 children: [
                   Expanded(
                     child: OutlinedButton.icon(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (_) => EditBookingWidget(booking: booking),
-                        ).then((updatedBooking) {
-                          if (updatedBooking is NewBooking) {
-                            setState(() {
-                              bookings[index] = updatedBooking;
-                            });
-                          }
-                        });
-                      },
-                      icon: Icon(Icons.edit_outlined,
-                          size: 16, color: AppColors.status_completed),
-                      label: Text('Edit',
-                          style: TextStyle(
-                              color: AppColors.status_completed, fontSize: 13)),
+                      onPressed:
+                          () => showDialog(
+                            context: context,
+                            builder: (_) => EditBookingWidget(booking: booking),
+                          ),
+                      icon: Icon(
+                        Icons.edit_outlined,
+                        size: 16,
+                        color: AppColors.status_completed,
+                      ),
+                      label: Text(
+                        'Edit',
+                        style: TextStyle(
+                          color: AppColors.status_completed,
+                          fontSize: 13,
+                        ),
+                      ),
                       style: OutlinedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         side: BorderSide(color: AppColors.status_completed),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                       ),
                     ),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: OutlinedButton.icon(
-                      onPressed: () => _showDeleteDialog(booking.bookingId),
-                      icon: Icon(Icons.delete_outline,
-                          size: 16, color: AppColors.error),
-                      label: Text('Delete',
-                          style: TextStyle(
-                              color: AppColors.error, fontSize: 13)),
+                      onPressed:
+                          () => _showDeleteDialog(booking.bookingId, provider),
+                      icon: Icon(
+                        Icons.delete_outline,
+                        size: 16,
+                        color: AppColors.error,
+                      ),
+                      label: Text(
+                        'Delete',
+                        style: TextStyle(color: AppColors.error, fontSize: 13),
+                      ),
                       style: OutlinedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         side: BorderSide(color: AppColors.error),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                       ),
                     ),
                   ),
@@ -613,14 +628,13 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
     );
   }
 
-  // Desktop table
-  Widget _buildDesktopTable(double screenWidth) {
-    if (isLoading) {
+  Widget _buildDesktopTable(double screenWidth, BookingProvider provider) {
+    final filteredBookings = _getFilteredBookings(provider.bookings);
+
+    if (provider.isLoading)
       return Center(
         child: CircularProgressIndicator(color: AppColors.admin_primary),
       );
-    }
-
     if (filteredBookings.isEmpty) {
       return Center(
         child: Column(
@@ -643,7 +657,6 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
 
     return Column(
       children: [
-        // Table header
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
           decoration: BoxDecoration(
@@ -661,34 +674,37 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
             ],
           ),
         ),
-
-        // Table rows
         Expanded(
           child: ListView.separated(
             padding: const EdgeInsets.symmetric(vertical: 8),
             itemCount: filteredBookings.length,
-            separatorBuilder: (_, __) => Divider(
-              height: 1,
-              color: AppColors.border_grey.withOpacity(0.3),
-            ),
+            separatorBuilder:
+                (_, __) => Divider(
+                  height: 1,
+                  color: AppColors.border_grey.withOpacity(0.3),
+                ),
             itemBuilder: (context, index) {
               final booking = filteredBookings[index];
               return Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 12,
+                ),
                 child: Row(
                   children: [
                     _buildDataCell(booking.customerName, 2, true),
                     _buildDataCell(booking.vehicleNumber, 1, false),
                     _buildDataCell(booking.customerContactNumber, 1, false),
                     _buildDataCell(
-                        DateFormat('dd MMM yyyy').format(booking.bookedDate),
-                        1,
-                        false),
+                      DateFormat('dd MMM yyyy').format(booking.bookedDate),
+                      1,
+                      false,
+                    ),
                     _buildDataCell(
-                        DateFormat('dd MMM yyyy').format(booking.readyDate),
-                        1,
-                        false),
+                      DateFormat('dd MMM yyyy').format(booking.readyDate),
+                      1,
+                      false,
+                    ),
                     Expanded(
                       flex: 1,
                       child: _buildStatusChip(booking.vehicleBookingStatus),
@@ -700,30 +716,33 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                           IconButton(
                             padding: const EdgeInsets.all(8),
                             constraints: const BoxConstraints(),
-                            icon: Icon(Icons.edit_outlined,
-                                size: 18, color: AppColors.status_completed),
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (_) =>
-                                    EditBookingWidget(booking: booking),
-                              ).then((updatedBooking) {
-                                if (updatedBooking is NewBooking) {
-                                  setState(() {
-                                    bookings[index] = updatedBooking;
-                                  });
-                                }
-                              });
-                            },
+                            icon: Icon(
+                              Icons.edit_outlined,
+                              size: 18,
+                              color: AppColors.status_completed,
+                            ),
+                            onPressed:
+                                () => showDialog(
+                                  context: context,
+                                  builder:
+                                      (_) =>
+                                          EditBookingWidget(booking: booking),
+                                ),
                           ),
                           const SizedBox(width: 8),
                           IconButton(
                             padding: const EdgeInsets.all(8),
                             constraints: const BoxConstraints(),
-                            icon: Icon(Icons.delete_outline,
-                                size: 18, color: AppColors.error),
-                            onPressed: () =>
-                                _showDeleteDialog(booking.bookingId),
+                            icon: Icon(
+                              Icons.delete_outline,
+                              size: 18,
+                              color: AppColors.error,
+                            ),
+                            onPressed:
+                                () => _showDeleteDialog(
+                                  booking.bookingId,
+                                  provider,
+                                ),
                           ),
                         ],
                       ),
@@ -769,7 +788,6 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
 
   Widget _buildStatusChip(String? status) {
     Color color = _getStatusColor(status);
-
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
@@ -799,75 +817,86 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
         return AppColors.admin_primary;
       case 'Cancelled':
         return AppColors.error;
+      case 'In Progress':
+        return AppColors.status_in_progress;
       default:
         return AppColors.grey30;
     }
   }
 
-  void _showDeleteDialog(String bookingId) {
+  void _showDeleteDialog(String bookingId, BookingProvider provider) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: AppColors.error.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Icon(Icons.warning_amber_rounded, color: AppColors.error),
+      builder:
+          (context) => AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
             ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                "Confirm Deletion",
-                style: TextStyle(
-                  color: AppColors.text_dark,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+            title: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: AppColors.error.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(
+                    Icons.warning_amber_rounded,
+                    color: AppColors.error,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    "Confirm Deletion",
+                    style: TextStyle(
+                      color: AppColors.text_dark,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            content: Text(
+              'Are you sure you want to delete this booking? This action cannot be undone.',
+              style: TextStyle(color: AppColors.text_dark, fontSize: 14),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(
+                  "Cancel",
+                  style: TextStyle(
+                    color: AppColors.text_grey,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-        content: Text(
-          'Are you sure you want to delete this booking? This action cannot be undone.',
-          style: TextStyle(color: AppColors.text_dark, fontSize: 14),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(
-              "Cancel",
-              style: TextStyle(
-                color: AppColors.text_grey,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              color: AppColors.error,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: TextButton(
-              onPressed: () {
-                deleteVehicleBooking(bookingId);
-                Navigator.pop(context);
-              },
-              child: Text(
-                "Delete",
-                style: TextStyle(
-                  color: AppColors.white,
-                  fontWeight: FontWeight.w600,
+              Container(
+                decoration: BoxDecoration(
+                  color: AppColors.error,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: TextButton(
+                  onPressed: () {
+                    provider.removeBooking(
+                      context: context,
+                      bookingId: bookingId,
+                    );
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    "Delete",
+                    style: TextStyle(
+                      color: AppColors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
     );
   }
 }

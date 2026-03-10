@@ -38,4 +38,16 @@ class UserProvider extends ChangeNotifier {
     _user = user;
     notifyListeners(); // Tells widgets listening to UserProvider to rebuild
   }
+  void clearUser() {
+    _user = User(
+      id: '',
+      name: '',
+      password: '',
+      email: '',
+      role: '',
+      address: '',
+      token: '',
+    );
+    notifyListeners();
+  }
 }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_textfield.dart';
+import 'package:frontend/features/auth/data/provider/auth_provider.dart';
 import 'package:frontend/features/auth/screens/signin_screen.dart';
-import 'package:frontend/features/auth/services/auth_services.dart';
 import 'package:frontend/utils/colors.dart';
+import 'package:provider/provider.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -37,18 +38,6 @@ class _SignupScreenState extends State<SignupScreen> {
   String _selectedRole = 'Admin';
   bool _agreedToTerms = false;
 
-  AuthService authService = AuthService();
-
-  void signUpUser() {
-    authService.signUpUser(
-      context: context,
-      name: _nameController.text,
-      email: _emailController.text,
-      password: _passwordController.text,
-      role: _selectedRole,
-    );
-  }
-
   // Responsive breakpoints
   bool isMobile(double width) => width < 600;
   bool isTablet(double width) => width >= 600 && width < 900;
@@ -56,6 +45,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       backgroundColor: const Color(0xFFF5F8FA),
       body: LayoutBuilder(
@@ -79,7 +69,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         height: isMobile(constraints.maxWidth) ? 30 : 40,
                       ),
                       // Signup Form Card
-                      _buildSignupCard(constraints.maxWidth),
+                      _buildSignupCard(constraints.maxWidth,authProvider),
                     ],
                   ),
                 ),
@@ -113,7 +103,7 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  Widget _buildSignupCard(double screenWidth) {
+  Widget _buildSignupCard(double screenWidth, AuthProvider authProvider) {
     double cardWidth;
     double cardPadding;
 
@@ -334,7 +324,7 @@ class _SignupScreenState extends State<SignupScreen> {
             height: 50,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [AppColors.sky_blue, Color(0xFF29B6F6)],
+                colors: [AppColors.sky_blue, const Color(0xFF29B6F6)],
               ),
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
@@ -346,19 +336,35 @@ class _SignupScreenState extends State<SignupScreen> {
               ],
             ),
             child: ElevatedButton(
-              onPressed: () {
+              // Disable button if loading
+              onPressed: authProvider.isLoading ? null : () {
                 if (_formkey.currentState!.validate()) {
-                  signUpUser();
+                  // Call provider instead of service
+                  authProvider.signUpUser(
+                    context: context,
+                    name: _nameController.text,
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                    role: _selectedRole,
+                  );
                 }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.transparent,
                 shadowColor: Colors.transparent,
+                disabledBackgroundColor: Colors.transparent,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: const Text(
+              // Show loading spinner or text based on state
+              child: authProvider.isLoading
+                  ? const SizedBox(
+                  height: 24,
+                  width: 24,
+                  child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5)
+              )
+                  : const Text(
                 'Create Account',
                 style: TextStyle(
                   color: Colors.white,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/features/receptionist/Inventory/services/inventory_services.dart';
+import 'package:frontend/features/receptionist/data/provider/inventory_provider.dart';
 import 'package:frontend/utils/colors.dart';
+import 'package:provider/provider.dart';
 
 class EditProductDetailsForm extends StatefulWidget {
   final String productId;
@@ -27,7 +28,6 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
   late TextEditingController productQuantityController;
   late TextEditingController productPriceController;
 
-  // Responsive breakpoints
   bool isMobile(double width) => width < 600;
   bool isTablet(double width) => width >= 600 && width < 900;
   bool isDesktop(double width) => width >= 900;
@@ -53,6 +53,8 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<InventoryProvider>(context);
+
     return LayoutBuilder(
       builder: (context, constraints) {
         final screenWidth = MediaQuery.of(context).size.width;
@@ -69,14 +71,7 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: AppColors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.black.withOpacity(0.1),
-                  spreadRadius: 2,
-                  blurRadius: 20,
-                  offset: const Offset(0, 4),
-                ),
-              ],
+              boxShadow: [BoxShadow(color: AppColors.black.withOpacity(0.1), spreadRadius: 2, blurRadius: 20, offset: const Offset(0, 4))],
             ),
             child: SingleChildScrollView(
               child: Form(
@@ -85,118 +80,45 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Header with Icon
                     Row(
                       children: [
                         Container(
                           padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            color: AppColors.sky_blue.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Icon(
-                            Icons.edit_note_rounded,
-                            color: AppColors.sky_blue,
-                            size: 28,
-                          ),
+                          decoration: BoxDecoration(color: AppColors.sky_blue.withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
+                          child: Icon(Icons.edit_note_rounded, color: AppColors.sky_blue, size: 28),
                         ),
                         const SizedBox(width: 16),
-                        Expanded(
-                          child: Text(
-                            "Edit Product",
-                            style: TextStyle(
-                              fontSize: isSmallScreen ? 20 : 24,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.text_dark,
-                            ),
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () => Navigator.pop(context),
-                          icon: Icon(
-                            Icons.close_rounded,
-                            color: AppColors.text_grey,
-                          ),
-                        ),
+                        Expanded(child: Text("Edit Product", style: TextStyle(fontSize: isSmallScreen ? 20 : 24, fontWeight: FontWeight.w600, color: AppColors.text_dark))),
+                        IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.close_rounded, color: AppColors.text_grey)),
                       ],
                     ),
                     SizedBox(height: isSmallScreen ? 20 : 28),
-
-                    // Quantity and Price in Row for larger screens
                     if (!isSmallScreen)
                       Row(
                         children: [
-                          Expanded(
-                            child: _buildTextField(
-                              controller: productQuantityController,
-                              label: "Quantity",
-                              icon: Icons.format_list_numbered_outlined,
-                              keyboardType: TextInputType.number,
-                              validator:
-                                  (val) =>
-                                      val == null || val.isEmpty
-                                          ? "Enter quantity"
-                                          : null,
-                            ),
-                          ),
+                          Expanded(child: _buildTextField(controller: productQuantityController, label: "Quantity", icon: Icons.format_list_numbered_outlined, keyboardType: TextInputType.number, validator: (val) => val == null || val.isEmpty ? "Enter quantity" : null)),
                           const SizedBox(width: 16),
-                          Expanded(
-                            child: _buildTextField(
-                              controller: productPriceController,
-                              label: "Price",
-                              icon: Icons.attach_money_outlined,
-                              keyboardType: TextInputType.number,
-                              validator:
-                                  (val) =>
-                                      val == null || val.isEmpty
-                                          ? "Enter price"
-                                          : null,
-                            ),
-                          ),
+                          Expanded(child: _buildTextField(controller: productPriceController, label: "Price", icon: Icons.attach_money_outlined, keyboardType: TextInputType.number, validator: (val) => val == null || val.isEmpty ? "Enter price" : null)),
                         ],
                       )
                     else ...[
-                      _buildTextField(
-                        controller: productQuantityController,
-                        label: "Quantity",
-                        icon: Icons.format_list_numbered_outlined,
-                        keyboardType: TextInputType.number,
-                        validator:
-                            (val) =>
-                                val == null || val.isEmpty
-                                    ? "Enter quantity"
-                                    : null,
-                      ),
+                      _buildTextField(controller: productQuantityController, label: "Quantity", icon: Icons.format_list_numbered_outlined, keyboardType: TextInputType.number, validator: (val) => val == null || val.isEmpty ? "Enter quantity" : null),
                       const SizedBox(height: 16),
-                      _buildTextField(
-                        controller: productPriceController,
-                        label: "Price",
-                        icon: Icons.attach_money_outlined,
-                        keyboardType: TextInputType.number,
-                        validator:
-                            (val) =>
-                                val == null || val.isEmpty
-                                    ? "Enter price"
-                                    : null,
-                      ),
+                      _buildTextField(controller: productPriceController, label: "Price", icon: Icons.attach_money_outlined, keyboardType: TextInputType.number, validator: (val) => val == null || val.isEmpty ? "Enter price" : null),
                     ],
                     const SizedBox(height: 16),
-
-                    // Status Dropdown
                     _buildStatusDropdown(),
                     SizedBox(height: isSmallScreen ? 24 : 32),
-
-                    // Action Buttons
                     if (!isSmallScreen)
                       Row(
                         children: [
                           Expanded(child: _buildCancelButton()),
                           const SizedBox(width: 16),
-                          Expanded(child: _buildUpdateButton()),
+                          Expanded(child: _buildUpdateButton(provider)),
                         ],
                       )
                     else ...[
-                      _buildUpdateButton(),
+                      _buildUpdateButton(provider),
                       const SizedBox(height: 12),
                       _buildCancelButton(),
                     ],
@@ -210,36 +132,14 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
     );
   }
 
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String label,
-    required IconData icon,
-    TextInputType keyboardType = TextInputType.text,
-    String? Function(String?)? validator,
-  }) {
+  Widget _buildTextField({required TextEditingController controller, required String label, required IconData icon, TextInputType keyboardType = TextInputType.text, String? Function(String?)? validator}) {
     return Container(
-      decoration: BoxDecoration(
-        color: AppColors.light_bg,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppColors.border_grey.withOpacity(0.5),
-          width: 1,
-        ),
-      ),
+      decoration: BoxDecoration(color: AppColors.light_bg, borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.border_grey.withOpacity(0.5), width: 1)),
       child: TextFormField(
         controller: controller,
         keyboardType: keyboardType,
         style: TextStyle(color: AppColors.text_dark, fontSize: 14),
-        decoration: InputDecoration(
-          labelText: label,
-          labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14),
-          prefixIcon: Icon(icon, color: AppColors.sky_blue, size: 20),
-          border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 16,
-          ),
-        ),
+        decoration: InputDecoration(labelText: label, labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14), prefixIcon: Icon(icon, color: AppColors.sky_blue, size: 20), border: InputBorder.none, contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16)),
         validator: validator,
       ),
     );
@@ -247,92 +147,35 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
 
   Widget _buildStatusDropdown() {
     return Container(
-      decoration: BoxDecoration(
-        color: AppColors.light_bg,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppColors.border_grey.withOpacity(0.5),
-          width: 1,
-        ),
-      ),
+      decoration: BoxDecoration(color: AppColors.light_bg, borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.border_grey.withOpacity(0.5), width: 1)),
       child: DropdownButtonFormField<String>(
         initialValue: productStatus,
         elevation: 2,
         borderRadius: BorderRadius.circular(12),
-        decoration: InputDecoration(
-          labelText: 'Status',
-          labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14),
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 16,
-          ),
-          border: InputBorder.none,
-          prefixIcon: Icon(
-            Icons.flag_outlined,
-            color: AppColors.sky_blue,
-            size: 20,
-          ),
-        ),
-        icon: Icon(
-          Icons.keyboard_arrow_down_rounded,
-          color: AppColors.sky_blue,
-        ),
-        items:
-            ['In Stock', 'Low Stock', 'Out Of Stock']
-                .map(
-                  (s) => DropdownMenuItem(
-                    value: s,
-                    child: Text(
-                      s,
-                      style: TextStyle(
-                        color: AppColors.text_dark,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                )
-                .toList(),
-        onChanged: (val) {
-          setState(() {
-            productStatus = val!;
-          });
-        },
+        decoration: InputDecoration(labelText: 'Status', labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14), contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16), border: InputBorder.none, prefixIcon: Icon(Icons.flag_outlined, color: AppColors.sky_blue, size: 20)),
+        icon: Icon(Icons.keyboard_arrow_down_rounded, color: AppColors.sky_blue),
+        items: ['In Stock', 'Low Stock', 'Out Of Stock'].map((s) => DropdownMenuItem(value: s, child: Text(s, style: TextStyle(color: AppColors.text_dark, fontSize: 14)))).toList(),
+        onChanged: (val) => setState(() => productStatus = val!),
       ),
     );
   }
 
-  Widget _buildUpdateButton() {
+  Widget _buildUpdateButton(InventoryProvider provider) {
     return Container(
       height: 50,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [AppColors.sky_blue, AppColors.sky_blue_light],
-        ),
+        gradient: LinearGradient(colors: [AppColors.sky_blue, AppColors.sky_blue_light]),
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.sky_blue.withOpacity(0.3),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: [BoxShadow(color: AppColors.sky_blue.withOpacity(0.3), blurRadius: 12, offset: const Offset(0, 4))],
       ),
       child: ElevatedButton.icon(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.transparent,
-          shadowColor: AppColors.transparent,
-          padding: const EdgeInsets.symmetric(vertical: 14),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-        onPressed: () {
+        style: ElevatedButton.styleFrom(backgroundColor: AppColors.transparent, shadowColor: AppColors.transparent, padding: const EdgeInsets.symmetric(vertical: 14), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+        onPressed: provider.isLoading ? null : () async {
           if (_formKey.currentState!.validate()) {
             final updatedQuantity = int.parse(productQuantityController.text);
             final updatedPrice = int.parse(productPriceController.text);
 
-            // Call update service
-            InventoryServices().updateInventoryProduct(
+            bool success = await provider.updateProduct(
               context: context,
               productId: widget.productId,
               productQuantity: updatedQuantity,
@@ -340,19 +183,15 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
               productStatus: productStatus,
             );
 
-            Navigator.pop(context);
+            if (success && mounted) {
+              Navigator.pop(context);
+            }
           }
         },
-        icon: Icon(Icons.update_outlined, color: AppColors.white, size: 20),
-        label: Text(
-          "Update Product",
-          style: TextStyle(
-            color: AppColors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 0.5,
-          ),
-        ),
+        icon: provider.isLoading ? const SizedBox() : Icon(Icons.update_outlined, color: AppColors.white, size: 20),
+        label: provider.isLoading
+            ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+            : Text("Update Product", style: TextStyle(color: AppColors.white, fontSize: 16, fontWeight: FontWeight.w600, letterSpacing: 0.5)),
       ),
     );
   }
@@ -360,31 +199,12 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
   Widget _buildCancelButton() {
     return Container(
       height: 50,
-      decoration: BoxDecoration(
-        color: AppColors.light_bg,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppColors.sky_blue.withOpacity(0.3),
-          width: 1.5,
-        ),
-      ),
+      decoration: BoxDecoration(color: AppColors.light_bg, borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.sky_blue.withOpacity(0.3), width: 1.5)),
       child: TextButton.icon(
         onPressed: () => Navigator.pop(context),
-        style: TextButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
+        style: TextButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
         icon: Icon(Icons.close_rounded, color: AppColors.sky_blue, size: 20),
-        label: Text(
-          "Cancel",
-          style: TextStyle(
-            color: AppColors.sky_blue,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 0.5,
-          ),
-        ),
+        label: Text("Cancel", style: TextStyle(color: AppColors.sky_blue, fontSize: 16, fontWeight: FontWeight.w600, letterSpacing: 0.5)),
       ),
     );
   }
