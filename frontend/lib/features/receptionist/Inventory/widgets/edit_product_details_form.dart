@@ -71,7 +71,14 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: AppColors.white,
-              boxShadow: [BoxShadow(color: AppColors.black.withOpacity(0.1), spreadRadius: 2, blurRadius: 20, offset: const Offset(0, 4))],
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.black.withOpacity(0.1),
+                  spreadRadius: 2,
+                  blurRadius: 20,
+                  offset: const Offset(0, 4),
+                ),
+              ],
             ),
             child: SingleChildScrollView(
               child: Form(
@@ -84,27 +91,93 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
                       children: [
                         Container(
                           padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(color: AppColors.sky_blue.withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
-                          child: Icon(Icons.edit_note_rounded, color: AppColors.sky_blue, size: 28),
+                          decoration: BoxDecoration(
+                            color: AppColors.sky_blue.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Icon(
+                            Icons.edit_note_rounded,
+                            color: AppColors.sky_blue,
+                            size: 28,
+                          ),
                         ),
                         const SizedBox(width: 16),
-                        Expanded(child: Text("Edit Product", style: TextStyle(fontSize: isSmallScreen ? 20 : 24, fontWeight: FontWeight.w600, color: AppColors.text_dark))),
-                        IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.close_rounded, color: AppColors.text_grey)),
+                        Expanded(
+                          child: Text(
+                            "Edit Product",
+                            style: TextStyle(
+                              fontSize: isSmallScreen ? 20 : 24,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.text_dark,
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () => Navigator.pop(context),
+                          icon: Icon(
+                            Icons.close_rounded,
+                            color: AppColors.text_grey,
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(height: isSmallScreen ? 20 : 28),
                     if (!isSmallScreen)
                       Row(
                         children: [
-                          Expanded(child: _buildTextField(controller: productQuantityController, label: "Quantity", icon: Icons.format_list_numbered_outlined, keyboardType: TextInputType.number, validator: (val) => val == null || val.isEmpty ? "Enter quantity" : null)),
+                          Expanded(
+                            child: _buildTextField(
+                              controller: productQuantityController,
+                              label: "Quantity",
+                              icon: Icons.format_list_numbered_outlined,
+                              keyboardType: TextInputType.number,
+                              validator:
+                                  (val) =>
+                                      val == null || val.isEmpty
+                                          ? "Enter quantity"
+                                          : null,
+                            ),
+                          ),
                           const SizedBox(width: 16),
-                          Expanded(child: _buildTextField(controller: productPriceController, label: "Price", icon: Icons.attach_money_outlined, keyboardType: TextInputType.number, validator: (val) => val == null || val.isEmpty ? "Enter price" : null)),
+                          Expanded(
+                            child: _buildTextField(
+                              controller: productPriceController,
+                              label: "Price",
+                              icon: Icons.attach_money_outlined,
+                              keyboardType: TextInputType.number,
+                              validator:
+                                  (val) =>
+                                      val == null || val.isEmpty
+                                          ? "Enter price"
+                                          : null,
+                            ),
+                          ),
                         ],
                       )
                     else ...[
-                      _buildTextField(controller: productQuantityController, label: "Quantity", icon: Icons.format_list_numbered_outlined, keyboardType: TextInputType.number, validator: (val) => val == null || val.isEmpty ? "Enter quantity" : null),
+                      _buildTextField(
+                        controller: productQuantityController,
+                        label: "Quantity",
+                        icon: Icons.format_list_numbered_outlined,
+                        keyboardType: TextInputType.number,
+                        validator:
+                            (val) =>
+                                val == null || val.isEmpty
+                                    ? "Enter quantity"
+                                    : null,
+                      ),
                       const SizedBox(height: 16),
-                      _buildTextField(controller: productPriceController, label: "Price", icon: Icons.attach_money_outlined, keyboardType: TextInputType.number, validator: (val) => val == null || val.isEmpty ? "Enter price" : null),
+                      _buildTextField(
+                        controller: productPriceController,
+                        label: "Price",
+                        icon: Icons.attach_money_outlined,
+                        keyboardType: TextInputType.number,
+                        validator:
+                            (val) =>
+                                val == null || val.isEmpty
+                                    ? "Enter price"
+                                    : null,
+                      ),
                     ],
                     const SizedBox(height: 16),
                     _buildStatusDropdown(),
@@ -132,14 +205,36 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
     );
   }
 
-  Widget _buildTextField({required TextEditingController controller, required String label, required IconData icon, TextInputType keyboardType = TextInputType.text, String? Function(String?)? validator}) {
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String label,
+    required IconData icon,
+    TextInputType keyboardType = TextInputType.text,
+    String? Function(String?)? validator,
+  }) {
     return Container(
-      decoration: BoxDecoration(color: AppColors.light_bg, borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.border_grey.withOpacity(0.5), width: 1)),
+      decoration: BoxDecoration(
+        color: AppColors.light_bg,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppColors.border_grey.withOpacity(0.5),
+          width: 1,
+        ),
+      ),
       child: TextFormField(
         controller: controller,
         keyboardType: keyboardType,
         style: TextStyle(color: AppColors.text_dark, fontSize: 14),
-        decoration: InputDecoration(labelText: label, labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14), prefixIcon: Icon(icon, color: AppColors.sky_blue, size: 20), border: InputBorder.none, contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16)),
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14),
+          prefixIcon: Icon(icon, color: AppColors.sky_blue, size: 20),
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 16,
+          ),
+        ),
         validator: validator,
       ),
     );
@@ -147,14 +242,51 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
 
   Widget _buildStatusDropdown() {
     return Container(
-      decoration: BoxDecoration(color: AppColors.light_bg, borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.border_grey.withOpacity(0.5), width: 1)),
+      decoration: BoxDecoration(
+        color: AppColors.light_bg,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppColors.border_grey.withOpacity(0.5),
+          width: 1,
+        ),
+      ),
       child: DropdownButtonFormField<String>(
         initialValue: productStatus,
         elevation: 2,
         borderRadius: BorderRadius.circular(12),
-        decoration: InputDecoration(labelText: 'Status', labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14), contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16), border: InputBorder.none, prefixIcon: Icon(Icons.flag_outlined, color: AppColors.sky_blue, size: 20)),
-        icon: Icon(Icons.keyboard_arrow_down_rounded, color: AppColors.sky_blue),
-        items: ['In Stock', 'Low Stock', 'Out Of Stock'].map((s) => DropdownMenuItem(value: s, child: Text(s, style: TextStyle(color: AppColors.text_dark, fontSize: 14)))).toList(),
+        decoration: InputDecoration(
+          labelText: 'Status',
+          labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 16,
+          ),
+          border: InputBorder.none,
+          prefixIcon: Icon(
+            Icons.flag_outlined,
+            color: AppColors.sky_blue,
+            size: 20,
+          ),
+        ),
+        icon: Icon(
+          Icons.keyboard_arrow_down_rounded,
+          color: AppColors.sky_blue,
+        ),
+        items:
+            ['In Stock', 'Low Stock', 'Out Of Stock']
+                .map(
+                  (s) => DropdownMenuItem(
+                    value: s,
+                    child: Text(
+                      s,
+                      style: TextStyle(
+                        color: AppColors.text_dark,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
         onChanged: (val) => setState(() => productStatus = val!),
       ),
     );
@@ -164,34 +296,73 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
     return Container(
       height: 50,
       decoration: BoxDecoration(
-        gradient: LinearGradient(colors: [AppColors.sky_blue, AppColors.sky_blue_light]),
+        gradient: LinearGradient(
+          colors: [AppColors.sky_blue, AppColors.sky_blue_light],
+        ),
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [BoxShadow(color: AppColors.sky_blue.withOpacity(0.3), blurRadius: 12, offset: const Offset(0, 4))],
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.sky_blue.withOpacity(0.3),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: ElevatedButton.icon(
-        style: ElevatedButton.styleFrom(backgroundColor: AppColors.transparent, shadowColor: AppColors.transparent, padding: const EdgeInsets.symmetric(vertical: 14), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-        onPressed: provider.isLoading ? null : () async {
-          if (_formKey.currentState!.validate()) {
-            final updatedQuantity = int.parse(productQuantityController.text);
-            final updatedPrice = int.parse(productPriceController.text);
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.transparent,
+          shadowColor: AppColors.transparent,
+          padding: const EdgeInsets.symmetric(vertical: 14),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        onPressed:
+            provider.isLoading
+                ? null
+                : () async {
+                  if (_formKey.currentState!.validate()) {
+                    final updatedQuantity = int.parse(
+                      productQuantityController.text,
+                    );
+                    final updatedPrice = int.parse(productPriceController.text);
 
-            bool success = await provider.updateProduct(
-              context: context,
-              productId: widget.productId,
-              productQuantity: updatedQuantity,
-              productPrice: updatedPrice,
-              productStatus: productStatus,
-            );
+                    bool success = await provider.updateProduct(
+                      context: context,
+                      productId: widget.productId,
+                      productQuantity: updatedQuantity,
+                      productPrice: updatedPrice,
+                      productStatus: productStatus,
+                    );
 
-            if (success && mounted) {
-              Navigator.pop(context);
-            }
-          }
-        },
-        icon: provider.isLoading ? const SizedBox() : Icon(Icons.update_outlined, color: AppColors.white, size: 20),
-        label: provider.isLoading
-            ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-            : Text("Update Product", style: TextStyle(color: AppColors.white, fontSize: 16, fontWeight: FontWeight.w600, letterSpacing: 0.5)),
+                    if (success && mounted) {
+                      Navigator.pop(context);
+                    }
+                  }
+                },
+        icon:
+            provider.isLoading
+                ? const SizedBox()
+                : Icon(Icons.update_outlined, color: AppColors.white, size: 20),
+        label:
+            provider.isLoading
+                ? const SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 2,
+                  ),
+                )
+                : Text(
+                  "Update Product",
+                  style: TextStyle(
+                    color: AppColors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.5,
+                  ),
+                ),
       ),
     );
   }
@@ -199,12 +370,31 @@ class _EditProductDetailsFormState extends State<EditProductDetailsForm> {
   Widget _buildCancelButton() {
     return Container(
       height: 50,
-      decoration: BoxDecoration(color: AppColors.light_bg, borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.sky_blue.withOpacity(0.3), width: 1.5)),
+      decoration: BoxDecoration(
+        color: AppColors.light_bg,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppColors.sky_blue.withOpacity(0.3),
+          width: 1.5,
+        ),
+      ),
       child: TextButton.icon(
         onPressed: () => Navigator.pop(context),
-        style: TextButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
         icon: Icon(Icons.close_rounded, color: AppColors.sky_blue, size: 20),
-        label: Text("Cancel", style: TextStyle(color: AppColors.sky_blue, fontSize: 16, fontWeight: FontWeight.w600, letterSpacing: 0.5)),
+        label: Text(
+          "Cancel",
+          style: TextStyle(
+            color: AppColors.sky_blue,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
+          ),
+        ),
       ),
     );
   }
