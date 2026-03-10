@@ -36,7 +36,7 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   String _selectedRole = 'Admin';
-  final String _selectedOption = '';
+  // final String _selectedOption = '';
   bool _rememberMe = false;
 
   void signInUser() {

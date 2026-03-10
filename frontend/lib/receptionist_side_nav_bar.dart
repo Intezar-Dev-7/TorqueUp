@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:easy_sidemenu/easy_sidemenu.dart';
+import 'package:flutter/material.dart';
 import 'package:frontend/features/receptionist/Bookings/screens/receptionist_booking_screen.dart';
 import 'package:frontend/features/receptionist/Dashboard/screens/receptionist_dashboard_screen.dart';
 import 'package:frontend/features/receptionist/Inventory/screens/receptionist_inventory_screen.dart';

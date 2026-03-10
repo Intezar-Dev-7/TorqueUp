@@ -1,10 +1,4 @@
-import 'package:easy_sidemenu/easy_sidemenu.dart'
-    show
-        SideMenu,
-        SideMenuController,
-        SideMenuDisplayMode,
-        SideMenuItem,
-        SideMenuStyle;
+import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/features/admin/Bookings/screens/admin_bookings_screen.dart';
 import 'package:frontend/features/admin/Dashbaord/screens/admin_dashboard_screen.dart';

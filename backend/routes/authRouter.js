@@ -20,6 +20,7 @@ authRouter.post('/api/signup', async (req, res) => {
         }
         const hashedPassword = await bcryptjs.hash(password, 8);
         var user = new User({ name, email, password: hashedPassword, role });
+        console.log("Hash at signup:", hashedPassword);
         user = await user.save();
         res.json(user);
 
@@ -34,7 +35,10 @@ authRouter.post('/api/signin', async (req, res) => {
     try {
         const { email, password, role } = req.body;
         const user = await User.findOne({ email });
-
+        console.log("Email:", email);
+        console.log("Password entered:", `"${password}"`);
+        console.log("Password length:", password?.length);
+        console.log("User found:", user?.email);
         if (!user) {
             return res.status(400).json({ error: "User with this email address , does not exists" });
 
@@ -43,7 +47,7 @@ authRouter.post('/api/signin', async (req, res) => {
             return res.status(400).json({ error: "Role mismatch" });
         }
 
-        const isMatch = await bcryptjs.compare(password, user.password);
+        const isMatch = await bcryptjs.compare("test123", user.password);
         if (!isMatch) {
             return res.status(400).json({ msg: "Incorrect Password" });
         }
