@@ -1,3 +1,3 @@
 class ApiConfig {
-  static const String baseUrl = "http://10.12.94.72:3000";
+  static const String baseUrl = "https://torqueup-sim5.onrender.com";
 }
