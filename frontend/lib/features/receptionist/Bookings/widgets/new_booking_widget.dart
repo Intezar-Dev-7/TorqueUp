@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_snack_bar.dart';
 import 'package:frontend/features/receptionist/data/provider/booking_provider.dart';
-import 'package:frontend/utils/colors.dart';
+import 'package:frontend/utils/constant/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +16,8 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController customerNameController = TextEditingController();
-  final TextEditingController customerContactNumberController = TextEditingController();
+  final TextEditingController customerContactNumberController =
+      TextEditingController();
   final TextEditingController vehicleNumberController = TextEditingController();
   final TextEditingController problemController = TextEditingController();
   final TextEditingController statusController = TextEditingController();
@@ -40,10 +41,10 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
   }
 
   Future<void> _pickDate(
-      BuildContext context,
-      TextEditingController controller,
-      bool isBookedDate,
-      ) async {
+    BuildContext context,
+    TextEditingController controller,
+    bool isBookedDate,
+  ) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -126,40 +127,138 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
                     children: [
                       Container(
                         padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(color: AppColors.sky_blue.withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
-                        child: Icon(Icons.add_circle_outline, color: AppColors.sky_blue, size: 28),
+                        decoration: BoxDecoration(
+                          color: AppColors.sky_blue.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Icon(
+                          Icons.add_circle_outline,
+                          color: AppColors.sky_blue,
+                          size: 28,
+                        ),
                       ),
                       const SizedBox(width: 16),
-                      Expanded(child: Text("New Booking", style: TextStyle(fontSize: isSmallScreen ? 20 : 24, fontWeight: FontWeight.w600, color: AppColors.text_dark))),
-                      IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.close_rounded, color: AppColors.text_grey)),
+                      Expanded(
+                        child: Text(
+                          "New Booking",
+                          style: TextStyle(
+                            fontSize: isSmallScreen ? 20 : 24,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.text_dark,
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: Icon(
+                          Icons.close_rounded,
+                          color: AppColors.text_grey,
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(height: isSmallScreen ? 20 : 28),
 
                   // Form Fields
-                  _buildTextField(controller: customerNameController, label: "Customer Name", icon: Icons.person_outline, validator: (val) => val == null || val.isEmpty ? "Enter customer name" : null),
+                  _buildTextField(
+                    controller: customerNameController,
+                    label: "Customer Name",
+                    icon: Icons.person_outline,
+                    validator:
+                        (val) =>
+                            val == null || val.isEmpty
+                                ? "Enter customer name"
+                                : null,
+                  ),
                   const SizedBox(height: 16),
-                  _buildTextField(controller: customerContactNumberController, label: "Customer Contact Number", icon: Icons.phone_outlined, keyboardType: TextInputType.phone, validator: (val) {
-                    if (val == null || val.isEmpty) return "Enter contact number";
-                    if (val.length != 10) return "Enter valid 10-digit number";
-                    return null;
-                  }),
+                  _buildTextField(
+                    controller: customerContactNumberController,
+                    label: "Customer Contact Number",
+                    icon: Icons.phone_outlined,
+                    keyboardType: TextInputType.phone,
+                    validator: (val) {
+                      if (val == null || val.isEmpty)
+                        return "Enter contact number";
+                      if (val.length != 10)
+                        return "Enter valid 10-digit number";
+                      return null;
+                    },
+                  ),
                   const SizedBox(height: 16),
-                  _buildTextField(controller: vehicleNumberController, label: "Vehicle Number", icon: Icons.directions_car_outlined, validator: (val) => val == null || val.isEmpty ? "Enter vehicle number" : null),
+                  _buildTextField(
+                    controller: vehicleNumberController,
+                    label: "Vehicle Number",
+                    icon: Icons.directions_car_outlined,
+                    validator:
+                        (val) =>
+                            val == null || val.isEmpty
+                                ? "Enter vehicle number"
+                                : null,
+                  ),
                   const SizedBox(height: 16),
-                  _buildTextField(controller: problemController, label: "Problem Description", icon: Icons.build_outlined, maxLines: 3, validator: (val) => val == null || val.isEmpty ? "Enter problem details" : null),
+                  _buildTextField(
+                    controller: problemController,
+                    label: "Problem Description",
+                    icon: Icons.build_outlined,
+                    maxLines: 3,
+                    validator:
+                        (val) =>
+                            val == null || val.isEmpty
+                                ? "Enter problem details"
+                                : null,
+                  ),
                   const SizedBox(height: 16),
 
                   // Status Dropdown
                   Container(
-                    decoration: BoxDecoration(color: AppColors.light_bg, borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.border_grey.withOpacity(0.5), width: 1)),
+                    decoration: BoxDecoration(
+                      color: AppColors.light_bg,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: AppColors.border_grey.withOpacity(0.5),
+                        width: 1,
+                      ),
+                    ),
                     child: DropdownButtonFormField<String>(
                       elevation: 2,
                       initialValue: vehicleStatus,
                       borderRadius: BorderRadius.circular(12),
-                      decoration: InputDecoration(labelText: 'Status', labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14), contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16), border: InputBorder.none, prefixIcon: Icon(Icons.flag_outlined, color: AppColors.sky_blue, size: 20)),
-                      icon: Icon(Icons.keyboard_arrow_down_rounded, color: AppColors.sky_blue),
-                      items: ['Pending', 'Confirmed', 'Completed'].map((s) => DropdownMenuItem(value: s, child: Text(s, style: TextStyle(color: AppColors.text_dark, fontSize: 14)))).toList(),
+                      decoration: InputDecoration(
+                        labelText: 'Status',
+                        labelStyle: TextStyle(
+                          color: AppColors.text_grey,
+                          fontSize: 14,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 16,
+                        ),
+                        border: InputBorder.none,
+                        prefixIcon: Icon(
+                          Icons.flag_outlined,
+                          color: AppColors.sky_blue,
+                          size: 20,
+                        ),
+                      ),
+                      icon: Icon(
+                        Icons.keyboard_arrow_down_rounded,
+                        color: AppColors.sky_blue,
+                      ),
+                      items:
+                          ['Pending', 'Confirmed', 'Completed']
+                              .map(
+                                (s) => DropdownMenuItem(
+                                  value: s,
+                                  child: Text(
+                                    s,
+                                    style: TextStyle(
+                                      color: AppColors.text_dark,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                              )
+                              .toList(),
                       onChanged: (val) => setState(() => vehicleStatus = val!),
                     ),
                   ),
@@ -169,23 +268,89 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
                   if (!isSmallScreen)
                     Row(
                       children: [
-                        Expanded(child: _buildDateField(controller: bookedDateController, label: "Booking Date", icon: Icons.calendar_today_outlined, onTap: () => _pickDate(context, bookedDateController, true), validator: (val) => val == null || val.isEmpty ? "Select booking date" : null)),
+                        Expanded(
+                          child: _buildDateField(
+                            controller: bookedDateController,
+                            label: "Booking Date",
+                            icon: Icons.calendar_today_outlined,
+                            onTap:
+                                () => _pickDate(
+                                  context,
+                                  bookedDateController,
+                                  true,
+                                ),
+                            validator:
+                                (val) =>
+                                    val == null || val.isEmpty
+                                        ? "Select booking date"
+                                        : null,
+                          ),
+                        ),
                         const SizedBox(width: 16),
-                        Expanded(child: _buildDateField(controller: readyDateController, label: "Ready By", icon: Icons.event_available_outlined, onTap: () => _pickDate(context, readyDateController, false), validator: (val) => val == null || val.isEmpty ? "Select ready date" : null)),
+                        Expanded(
+                          child: _buildDateField(
+                            controller: readyDateController,
+                            label: "Ready By",
+                            icon: Icons.event_available_outlined,
+                            onTap:
+                                () => _pickDate(
+                                  context,
+                                  readyDateController,
+                                  false,
+                                ),
+                            validator:
+                                (val) =>
+                                    val == null || val.isEmpty
+                                        ? "Select ready date"
+                                        : null,
+                          ),
+                        ),
                       ],
                     )
                   else ...[
-                    _buildDateField(controller: bookedDateController, label: "Booking Date", icon: Icons.calendar_today_outlined, onTap: () => _pickDate(context, bookedDateController, true), validator: (val) => val == null || val.isEmpty ? "Select booking date" : null),
+                    _buildDateField(
+                      controller: bookedDateController,
+                      label: "Booking Date",
+                      icon: Icons.calendar_today_outlined,
+                      onTap:
+                          () => _pickDate(context, bookedDateController, true),
+                      validator:
+                          (val) =>
+                              val == null || val.isEmpty
+                                  ? "Select booking date"
+                                  : null,
+                    ),
                     const SizedBox(height: 16),
-                    _buildDateField(controller: readyDateController, label: "Ready By", icon: Icons.event_available_outlined, onTap: () => _pickDate(context, readyDateController, false), validator: (val) => val == null || val.isEmpty ? "Select ready date" : null),
+                    _buildDateField(
+                      controller: readyDateController,
+                      label: "Ready By",
+                      icon: Icons.event_available_outlined,
+                      onTap:
+                          () => _pickDate(context, readyDateController, false),
+                      validator:
+                          (val) =>
+                              val == null || val.isEmpty
+                                  ? "Select ready date"
+                                  : null,
+                    ),
                   ],
 
                   SizedBox(height: isSmallScreen ? 24 : 32),
 
                   // Action Buttons
                   if (!isSmallScreen)
-                    Row(children: [Expanded(child: _buildCancelButton(context)), const SizedBox(width: 16), Expanded(child: _buildSaveButton(context, provider))])
-                  else ...[_buildSaveButton(context, provider), const SizedBox(height: 12), _buildCancelButton(context)],
+                    Row(
+                      children: [
+                        Expanded(child: _buildCancelButton(context)),
+                        const SizedBox(width: 16),
+                        Expanded(child: _buildSaveButton(context, provider)),
+                      ],
+                    )
+                  else ...[
+                    _buildSaveButton(context, provider),
+                    const SizedBox(height: 12),
+                    _buildCancelButton(context),
+                  ],
                 ],
               ),
             ),
@@ -195,28 +360,74 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
     );
   }
 
-  Widget _buildTextField({required TextEditingController controller, required String label, required IconData icon, TextInputType keyboardType = TextInputType.text, int maxLines = 1, String? Function(String?)? validator}) {
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String label,
+    required IconData icon,
+    TextInputType keyboardType = TextInputType.text,
+    int maxLines = 1,
+    String? Function(String?)? validator,
+  }) {
     return Container(
-      decoration: BoxDecoration(color: AppColors.light_bg, borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.border_grey.withOpacity(0.5), width: 1)),
+      decoration: BoxDecoration(
+        color: AppColors.light_bg,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppColors.border_grey.withOpacity(0.5),
+          width: 1,
+        ),
+      ),
       child: TextFormField(
         controller: controller,
         keyboardType: keyboardType,
         maxLines: maxLines,
         style: TextStyle(color: AppColors.text_dark, fontSize: 14),
-        decoration: InputDecoration(labelText: label, labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14), prefixIcon: Icon(icon, color: AppColors.sky_blue, size: 20), border: InputBorder.none, contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16)),
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14),
+          prefixIcon: Icon(icon, color: AppColors.sky_blue, size: 20),
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 16,
+          ),
+        ),
         validator: validator,
       ),
     );
   }
 
-  Widget _buildDateField({required TextEditingController controller, required String label, required IconData icon, required VoidCallback onTap, String? Function(String?)? validator}) {
+  Widget _buildDateField({
+    required TextEditingController controller,
+    required String label,
+    required IconData icon,
+    required VoidCallback onTap,
+    String? Function(String?)? validator,
+  }) {
     return Container(
-      decoration: BoxDecoration(color: AppColors.light_bg, borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.border_grey.withOpacity(0.5), width: 1)),
+      decoration: BoxDecoration(
+        color: AppColors.light_bg,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppColors.border_grey.withOpacity(0.5),
+          width: 1,
+        ),
+      ),
       child: TextFormField(
         controller: controller,
         readOnly: true,
         style: TextStyle(color: AppColors.text_dark, fontSize: 14),
-        decoration: InputDecoration(labelText: label, labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14), prefixIcon: Icon(icon, color: AppColors.sky_blue, size: 20), suffixIcon: Icon(Icons.arrow_drop_down, color: AppColors.sky_blue), border: InputBorder.none, contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16)),
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14),
+          prefixIcon: Icon(icon, color: AppColors.sky_blue, size: 20),
+          suffixIcon: Icon(Icons.arrow_drop_down, color: AppColors.sky_blue),
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 16,
+          ),
+        ),
         onTap: onTap,
         validator: validator,
       ),
@@ -226,37 +437,78 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
   Widget _buildSaveButton(BuildContext context, BookingProvider provider) {
     return Container(
       height: 50,
-      decoration: BoxDecoration(gradient: LinearGradient(colors: [AppColors.sky_blue, AppColors.sky_blue_light]), borderRadius: BorderRadius.circular(12), boxShadow: [BoxShadow(color: AppColors.sky_blue.withOpacity(0.3), blurRadius: 12, offset: const Offset(0, 4))]),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [AppColors.sky_blue, AppColors.sky_blue_light],
+        ),
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.sky_blue.withOpacity(0.3),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
       child: ElevatedButton.icon(
-        style: ElevatedButton.styleFrom(backgroundColor: AppColors.transparent, shadowColor: AppColors.transparent, padding: const EdgeInsets.symmetric(vertical: 14), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.transparent,
+          shadowColor: AppColors.transparent,
+          padding: const EdgeInsets.symmetric(vertical: 14),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
 
         // Disable button while provider is loading
-        onPressed: provider.isLoading ? null : () async {
-          if (_formKey.currentState!.validate()) {
+        onPressed:
+            provider.isLoading
+                ? null
+                : () async {
+                  if (_formKey.currentState!.validate()) {
+                    // Pass values directly to the provider using proper keys
+                    await provider.addBooking(
+                      context: context,
+                      customerName: customerNameController.text,
+                      vehicleNumber: vehicleNumberController.text,
+                      customerContactNumber:
+                          customerContactNumberController.text,
+                      problem: problemController.text,
+                      status: vehicleStatus,
+                      // Convert DateTime objects to Iso8601 strings so backend can parse them safely
+                      bookedDate: bookedDate ?? DateTime.now(),
+                      readyDate: readyDate ?? DateTime.now(),
+                    );
 
-            // Pass values directly to the provider using proper keys
-            await provider.addBooking(
-              context: context,
-              customerName: customerNameController.text,
-              vehicleNumber: vehicleNumberController.text,
-              customerContactNumber: customerContactNumberController.text,
-              problem: problemController.text,
-              status: vehicleStatus,
-              // Convert DateTime objects to Iso8601 strings so backend can parse them safely
-              bookedDate: bookedDate ?? DateTime.now(),
-              readyDate: readyDate ?? DateTime.now(),
-            );
-
-            // Pop dialog upon completion
-            if (context.mounted) {
-              Navigator.pop(context);
-            }
-          }
-        },
-        icon: provider.isLoading ? const SizedBox() : Icon(Icons.save_outlined, color: AppColors.white, size: 20),
-        label: provider.isLoading
-            ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-            : Text("Save Booking", style: TextStyle(color: AppColors.white, fontSize: 16, fontWeight: FontWeight.w600, letterSpacing: 0.5)),
+                    // Pop dialog upon completion
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                    }
+                  }
+                },
+        icon:
+            provider.isLoading
+                ? const SizedBox()
+                : Icon(Icons.save_outlined, color: AppColors.white, size: 20),
+        label:
+            provider.isLoading
+                ? const SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 2,
+                  ),
+                )
+                : Text(
+                  "Save Booking",
+                  style: TextStyle(
+                    color: AppColors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.5,
+                  ),
+                ),
       ),
     );
   }
@@ -264,12 +516,31 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
   Widget _buildCancelButton(BuildContext context) {
     return Container(
       height: 50,
-      decoration: BoxDecoration(color: AppColors.light_bg, borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.sky_blue.withOpacity(0.3), width: 1.5)),
+      decoration: BoxDecoration(
+        color: AppColors.light_bg,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppColors.sky_blue.withOpacity(0.3),
+          width: 1.5,
+        ),
+      ),
       child: TextButton.icon(
         onPressed: () => Navigator.pop(context),
-        style: TextButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
         icon: Icon(Icons.close_rounded, color: AppColors.sky_blue, size: 20),
-        label: Text("Cancel", style: TextStyle(color: AppColors.sky_blue, fontSize: 16, fontWeight: FontWeight.w600, letterSpacing: 0.5)),
+        label: Text(
+          "Cancel",
+          style: TextStyle(
+            color: AppColors.sky_blue,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
+          ),
+        ),
       ),
     );
   }

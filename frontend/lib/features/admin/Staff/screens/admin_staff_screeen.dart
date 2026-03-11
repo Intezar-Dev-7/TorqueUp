@@ -3,9 +3,8 @@ import 'package:frontend/features/admin/Staff/widgets/interns.dart';
 import 'package:frontend/features/admin/Staff/widgets/mechanics.dart';
 import 'package:frontend/features/admin/Staff/widgets/other_employees.dart';
 import 'package:frontend/features/receptionist/data/provider/receptionist_staff_provider.dart';
-import 'package:frontend/utils/colors.dart';
+import 'package:frontend/utils/constant/colors.dart';
 import 'package:provider/provider.dart';
-
 
 class AdminStaffScreen extends StatefulWidget {
   const AdminStaffScreen({super.key});
@@ -25,7 +24,10 @@ class _AdminStaffScreenState extends State<AdminStaffScreen> {
     super.initState();
     // Load all staff from the top level
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<ReceptionistStaffProvider>(context, listen: false).loadAllStaff();
+      Provider.of<ReceptionistStaffProvider>(
+        context,
+        listen: false,
+      ).loadAllStaff();
     });
   }
 
@@ -112,11 +114,23 @@ class _AdminStaffScreenState extends State<AdminStaffScreen> {
   Widget _buildStatsRow() {
     return Row(
       children: [
-        _buildQuickStat(Icons.build_outlined, 'Mechanics', AppColors.admin_primary),
+        _buildQuickStat(
+          Icons.build_outlined,
+          'Mechanics',
+          AppColors.admin_primary,
+        ),
         const SizedBox(width: 12),
-        _buildQuickStat(Icons.school_outlined, 'Interns', AppColors.status_pending),
+        _buildQuickStat(
+          Icons.school_outlined,
+          'Interns',
+          AppColors.status_pending,
+        ),
         const SizedBox(width: 12),
-        _buildQuickStat(Icons.person_outline, 'Others', AppColors.status_completed),
+        _buildQuickStat(
+          Icons.person_outline,
+          'Others',
+          AppColors.status_completed,
+        ),
       ],
     );
   }

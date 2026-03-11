@@ -4,7 +4,7 @@ import 'package:frontend/common/widgets/custom_textfield.dart';
 import 'package:frontend/features/auth/data/provider/auth_provider.dart';
 import 'package:frontend/features/auth/screens/signup_screen.dart';
 import 'package:frontend/features/auth/screens/forgot_password_screen.dart';
-import 'package:frontend/utils/colors.dart';
+import 'package:frontend/utils/constant/colors.dart';
 import 'package:provider/provider.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -69,7 +69,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         height: isMobile(constraints.maxWidth) ? 30 : 40,
                       ),
                       // Login Form Card
-                      _buildLoginCard(constraints.maxWidth,authProvider),
+                      _buildLoginCard(constraints.maxWidth, authProvider),
                     ],
                   ),
                 ),
@@ -330,41 +330,49 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
             child: ElevatedButton(
               // Disable button if loading
-              onPressed: authProvider.isLoading ? null : () {
-                if (_formkey.currentState!.validate()) {
-                  // Call provider instead of service
-                  authProvider.signInUser(
-                    context: context,
-                    email: _emailController.text,
-                    password: _passwordController.text,
-                    role: _selectedRole,
-                  );
-                }
-              },
+              onPressed:
+                  authProvider.isLoading
+                      ? null
+                      : () {
+                        if (_formkey.currentState!.validate()) {
+                          // Call provider instead of service
+                          authProvider.signInUser(
+                            context: context,
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                            role: _selectedRole,
+                          );
+                        }
+                      },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.transparent,
                 shadowColor: Colors.transparent,
-                disabledBackgroundColor: Colors.transparent, // Keep gradient when disabled
+                disabledBackgroundColor:
+                    Colors.transparent, // Keep gradient when disabled
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
               // Show loading spinner or text based on state
-              child: authProvider.isLoading
-                  ? const SizedBox(
-                  height: 24,
-                  width: 24,
-                  child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5)
-              )
-                  : const Text(
-                'Login',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0.5,
-                ),
-              ),
+              child:
+                  authProvider.isLoading
+                      ? const SizedBox(
+                        height: 24,
+                        width: 24,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2.5,
+                        ),
+                      )
+                      : const Text(
+                        'Login',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
             ),
           ),
           SizedBox(height: isMobile(screenWidth) ? 20 : 24),

@@ -5,7 +5,7 @@ import 'package:frontend/features/receptionist/Dashboard/screens/receptionist_da
 import 'package:frontend/features/receptionist/Inventory/screens/receptionist_inventory_screen.dart';
 import 'package:frontend/features/receptionist/Settings/screens/receptionist_settings_screen.dart';
 import 'package:frontend/features/receptionist/Staff/screens/receptionist_staff_screen.dart';
-import 'package:frontend/utils/colors.dart';
+import 'package:frontend/utils/constant/colors.dart';
 
 class ReceptionistSideNavBar extends StatefulWidget {
   const ReceptionistSideNavBar({super.key});

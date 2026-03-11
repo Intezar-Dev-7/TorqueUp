@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/utils/colors.dart';
+import 'package:frontend/utils/constant/colors.dart';
 
 class AnalyticsCard extends StatelessWidget {
   final String title;
@@ -23,10 +23,7 @@ class AnalyticsCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: color.withOpacity(0.2),
-          width: 2,
-        ),
+        border: Border.all(color: color.withOpacity(0.2), width: 2),
         boxShadow: [
           BoxShadow(
             color: AppColors.black.withOpacity(0.06),
@@ -49,11 +46,7 @@ class AnalyticsCard extends StatelessWidget {
                 ),
                 child: Icon(icon, color: color, size: 28),
               ),
-              Icon(
-                Icons.arrow_upward_rounded,
-                color: color,
-                size: 20,
-              ),
+              Icon(Icons.arrow_upward_rounded, color: color, size: 20),
             ],
           ),
           const SizedBox(height: 16),

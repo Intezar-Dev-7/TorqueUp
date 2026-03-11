@@ -3,7 +3,7 @@ import 'package:frontend/features/receptionist/Inventory/widgets/add_inventory_f
 import 'package:frontend/features/receptionist/Inventory/widgets/edit_product_details_form.dart';
 import 'package:frontend/features/receptionist/data/provider/inventory_provider.dart';
 import 'package:frontend/features/receptionist/model/inventory_model.dart';
-import 'package:frontend/utils/colors.dart';
+import 'package:frontend/utils/constant/colors.dart';
 import 'package:provider/provider.dart';
 
 class AdminInventoryScreen extends StatefulWidget {
@@ -24,41 +24,50 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<InventoryProvider>(context, listen: false).loadAllProducts(context: context);
+      Provider.of<InventoryProvider>(
+        context,
+        listen: false,
+      ).loadAllProducts(context: context);
     });
   }
 
   void _openAddInventoryForm() {
     showDialog(
       context: context,
-      builder: (context) => Dialog(
-        backgroundColor: Colors.transparent,
-        insetPadding: const EdgeInsets.all(20),
-        child: const AddInventoryForm(),
-      ),
+      builder:
+          (context) => Dialog(
+            backgroundColor: Colors.transparent,
+            insetPadding: const EdgeInsets.all(20),
+            child: const AddInventoryForm(),
+          ),
     );
   }
 
   void _openEditProductForm(Inventory item) {
     showDialog(
       context: context,
-      builder: (context) => Dialog(
-        backgroundColor: Colors.transparent,
-        insetPadding: const EdgeInsets.all(20),
-        child: EditProductDetailsForm(
-          productId: item.productId,
-          productQuantity: item.productQuantity,
-          productPrice: item.productPrice,
-          productStatus: item.productStatus,
-        ),
-      ),
+      builder:
+          (context) => Dialog(
+            backgroundColor: Colors.transparent,
+            insetPadding: const EdgeInsets.all(20),
+            child: EditProductDetailsForm(
+              productId: item.productId,
+              productQuantity: item.productQuantity,
+              productPrice: item.productPrice,
+              productStatus: item.productStatus,
+            ),
+          ),
     );
   }
 
   List<Inventory> _getFilteredInventory(List<Inventory> allInventory) {
     if (searchQuery.isEmpty) return allInventory;
     return allInventory
-        .where((item) => item.productName.toLowerCase().contains(searchQuery.toLowerCase()))
+        .where(
+          (item) => item.productName.toLowerCase().contains(
+            searchQuery.toLowerCase(),
+          ),
+        )
         .toList();
   }
 
@@ -105,17 +114,38 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
                     children: [
                       Container(
                         padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(color: AppColors.admin_primary.withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
-                        child: Icon(Icons.inventory_2_outlined, color: AppColors.admin_primary, size: 24),
+                        decoration: BoxDecoration(
+                          color: AppColors.admin_primary.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Icon(
+                          Icons.inventory_2_outlined,
+                          color: AppColors.admin_primary,
+                          size: 24,
+                        ),
                       ),
                       const SizedBox(width: 12),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Inventory Management', style: TextStyle(fontSize: isMobile(screenWidth) ? 18 : 22, color: AppColors.text_dark, fontWeight: FontWeight.w600)),
+                            Text(
+                              'Inventory Management',
+                              style: TextStyle(
+                                fontSize: isMobile(screenWidth) ? 18 : 22,
+                                color: AppColors.text_dark,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                             const SizedBox(height: 2),
-                            Text('Manage stock, pricing, and availability', style: TextStyle(fontSize: isMobile(screenWidth) ? 12 : 14, color: AppColors.text_grey, fontWeight: FontWeight.w400)),
+                            Text(
+                              'Manage stock, pricing, and availability',
+                              style: TextStyle(
+                                fontSize: isMobile(screenWidth) ? 12 : 14,
+                                color: AppColors.text_grey,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -129,14 +159,27 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
             Container(
               height: 50,
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              decoration: BoxDecoration(color: AppColors.light_bg, borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.border_grey.withOpacity(0.5))),
+              decoration: BoxDecoration(
+                color: AppColors.light_bg,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: AppColors.border_grey.withOpacity(0.5),
+                ),
+              ),
               child: Row(
                 children: [
                   Icon(Icons.search, color: AppColors.admin_primary),
                   const SizedBox(width: 12),
                   Expanded(
                     child: TextField(
-                      decoration: InputDecoration(hintText: 'Search products...', hintStyle: TextStyle(color: AppColors.text_grey, fontSize: 14), border: InputBorder.none),
+                      decoration: InputDecoration(
+                        hintText: 'Search products...',
+                        hintStyle: TextStyle(
+                          color: AppColors.text_grey,
+                          fontSize: 14,
+                        ),
+                        border: InputBorder.none,
+                      ),
                       onChanged: (query) => setState(() => searchQuery = query),
                     ),
                   ),
@@ -150,26 +193,59 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
   }
 
   Widget _buildStatsCards(double screenWidth, List<Inventory> inventoryList) {
-    final totalValue = inventoryList.fold<int>(0, (sum, item) => sum + (item.productQuantity * item.productPrice));
-    final lowStock = inventoryList.where((p) => p.productStatus == 'Low Stock').length;
-    final outOfStock = inventoryList.where((p) => p.productStatus == 'Out of Stock').length;
+    final totalValue = inventoryList.fold<int>(
+      0,
+      (sum, item) => sum + (item.productQuantity * item.productPrice),
+    );
+    final lowStock =
+        inventoryList.where((p) => p.productStatus == 'Low Stock').length;
+    final outOfStock =
+        inventoryList.where((p) => p.productStatus == 'Out of Stock').length;
 
     if (isMobile(screenWidth)) {
       return Column(
         children: [
           Row(
             children: [
-              Expanded(child: _buildStatCard('Total Products', inventoryList.length, Icons.inventory_2_outlined, AppColors.admin_primary)),
+              Expanded(
+                child: _buildStatCard(
+                  'Total Products',
+                  inventoryList.length,
+                  Icons.inventory_2_outlined,
+                  AppColors.admin_primary,
+                ),
+              ),
               const SizedBox(width: 12),
-              Expanded(child: _buildStatCard('Low Stock', lowStock, Icons.warning_amber_rounded, AppColors.status_pending)),
+              Expanded(
+                child: _buildStatCard(
+                  'Low Stock',
+                  lowStock,
+                  Icons.warning_amber_rounded,
+                  AppColors.status_pending,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 12),
           Row(
             children: [
-              Expanded(child: _buildStatCard('Out of Stock', outOfStock, Icons.hourglass_bottom_outlined, AppColors.error)),
+              Expanded(
+                child: _buildStatCard(
+                  'Out of Stock',
+                  outOfStock,
+                  Icons.hourglass_bottom_outlined,
+                  AppColors.error,
+                ),
+              ),
               const SizedBox(width: 12),
-              Expanded(child: _buildStatCard('Total Value', totalValue, Icons.attach_money_outlined, AppColors.status_completed)),
+              Expanded(
+                child: _buildStatCard(
+                  'Total Value',
+                  totalValue,
+                  Icons.attach_money_outlined,
+                  AppColors.status_completed,
+                ),
+              ),
             ],
           ),
         ],
@@ -180,10 +256,30 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
       spacing: 16,
       runSpacing: 16,
       children: [
-        _buildStatCard('Total Products', inventoryList.length, Icons.inventory_2_outlined, AppColors.admin_primary),
-        _buildStatCard('Low Stock', lowStock, Icons.warning_amber_rounded, AppColors.status_pending),
-        _buildStatCard('Out of Stock', outOfStock, Icons.hourglass_bottom_outlined, AppColors.error),
-        _buildStatCard('Total Value', totalValue, Icons.attach_money_outlined, AppColors.status_completed),
+        _buildStatCard(
+          'Total Products',
+          inventoryList.length,
+          Icons.inventory_2_outlined,
+          AppColors.admin_primary,
+        ),
+        _buildStatCard(
+          'Low Stock',
+          lowStock,
+          Icons.warning_amber_rounded,
+          AppColors.status_pending,
+        ),
+        _buildStatCard(
+          'Out of Stock',
+          outOfStock,
+          Icons.hourglass_bottom_outlined,
+          AppColors.error,
+        ),
+        _buildStatCard(
+          'Total Value',
+          totalValue,
+          Icons.attach_money_outlined,
+          AppColors.status_completed,
+        ),
       ],
     );
   }
@@ -192,15 +288,47 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
     return Container(
       padding: const EdgeInsets.all(20),
       width: 200,
-      decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(16), boxShadow: [BoxShadow(color: AppColors.black.withOpacity(0.06), spreadRadius: 2, blurRadius: 12, offset: const Offset(0, 4))]),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.black.withOpacity(0.06),
+            spreadRadius: 2,
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(padding: const EdgeInsets.all(12), decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(12)), child: Icon(icon, color: color, size: 28)),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(icon, color: color, size: 28),
+          ),
           const SizedBox(height: 16),
-          Text(value.toString(), style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.text_dark)),
+          Text(
+            value.toString(),
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: AppColors.text_dark,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text(title, style: TextStyle(color: AppColors.text_grey, fontSize: 14, fontWeight: FontWeight.w500)),
+          Text(
+            title,
+            style: TextStyle(
+              color: AppColors.text_grey,
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ],
       ),
     );
@@ -211,33 +339,130 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
 
     return Expanded(
       child: Container(
-        decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(16), boxShadow: [BoxShadow(color: AppColors.black.withOpacity(0.06), blurRadius: 12, offset: const Offset(0, 4))]),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.black.withOpacity(0.06),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
         child: Column(
           children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              decoration: BoxDecoration(color: AppColors.admin_primary.withOpacity(0.08), borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16))),
+              decoration: BoxDecoration(
+                color: AppColors.admin_primary.withOpacity(0.08),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(16),
+                  topRight: Radius.circular(16),
+                ),
+              ),
               child: Row(
                 children: [
-                  Expanded(flex: 3, child: Text('Product Name', style: TextStyle(fontWeight: FontWeight.w600, color: AppColors.admin_primary, fontSize: 14))),
-                  Expanded(flex: 1, child: Text('Quantity', style: TextStyle(fontWeight: FontWeight.w600, color: AppColors.admin_primary, fontSize: 14))),
-                  Expanded(flex: 1, child: Text('Price', style: TextStyle(fontWeight: FontWeight.w600, color: AppColors.admin_primary, fontSize: 14))),
-                  Expanded(flex: 1, child: Text('Status', style: TextStyle(fontWeight: FontWeight.w600, color: AppColors.admin_primary, fontSize: 14))),
-                  Expanded(flex: 1, child: Text('Actions', style: TextStyle(fontWeight: FontWeight.w600, color: AppColors.admin_primary, fontSize: 14))),
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      'Product Name',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.admin_primary,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Text(
+                      'Quantity',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.admin_primary,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Text(
+                      'Price',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.admin_primary,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Text(
+                      'Status',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.admin_primary,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Text(
+                      'Actions',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.admin_primary,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
             if (provider.isLoading)
-              const Expanded(child: Center(child: CircularProgressIndicator(color: Color(0xFF00897B))))
+              const Expanded(
+                child: Center(
+                  child: CircularProgressIndicator(color: Color(0xFF00897B)),
+                ),
+              )
             else if (filteredInventory.isEmpty)
-              Expanded(child: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Icon(Icons.inventory_2_outlined, size: 64, color: AppColors.text_grey.withOpacity(0.5)), const SizedBox(height: 16), Text('No inventory items found', style: TextStyle(fontSize: 16, color: AppColors.text_grey))])) )
+              Expanded(
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.inventory_2_outlined,
+                        size: 64,
+                        color: AppColors.text_grey.withOpacity(0.5),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'No inventory items found',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: AppColors.text_grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
             else
               Expanded(
                 child: ListView.separated(
                   padding: const EdgeInsets.all(12),
                   itemCount: filteredInventory.length,
-                  separatorBuilder: (context, index) => Divider(height: 1, color: AppColors.border_grey.withOpacity(0.3)),
-                  itemBuilder: (context, index) => _buildProductRow(filteredInventory[index], provider),
+                  separatorBuilder:
+                      (context, index) => Divider(
+                        height: 1,
+                        color: AppColors.border_grey.withOpacity(0.3),
+                      ),
+                  itemBuilder:
+                      (context, index) =>
+                          _buildProductRow(filteredInventory[index], provider),
                 ),
               ),
           ],
@@ -258,19 +483,57 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
                 Container(
                   width: 48,
                   height: 48,
-                  decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: AppColors.admin_primary.withOpacity(0.3), width: 2)),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: AppColors.admin_primary.withOpacity(0.3),
+                      width: 2,
+                    ),
+                  ),
                   child: CircleAvatar(
-                    backgroundImage: item.productImageBytes != null ? MemoryImage(item.productImageBytes!) : const NetworkImage('https://via.placeholder.com/40') as ImageProvider,
+                    backgroundImage:
+                        item.productImageBytes != null
+                            ? MemoryImage(item.productImageBytes!)
+                            : const NetworkImage(
+                                  'https://via.placeholder.com/40',
+                                )
+                                as ImageProvider,
                     backgroundColor: AppColors.admin_primary.withOpacity(0.1),
                   ),
                 ),
                 const SizedBox(width: 12),
-                Expanded(child: Text(item.productName, style: TextStyle(fontWeight: FontWeight.w600, color: AppColors.text_dark, fontSize: 14), overflow: TextOverflow.ellipsis)),
+                Expanded(
+                  child: Text(
+                    item.productName,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.text_dark,
+                      fontSize: 14,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               ],
             ),
           ),
-          Expanded(flex: 1, child: Text(item.productQuantity.toString(), style: TextStyle(color: AppColors.text_dark, fontSize: 14))),
-          Expanded(flex: 1, child: Text('₹${item.productPrice}', style: TextStyle(color: AppColors.text_dark, fontSize: 14, fontWeight: FontWeight.w500))),
+          Expanded(
+            flex: 1,
+            child: Text(
+              item.productQuantity.toString(),
+              style: TextStyle(color: AppColors.text_dark, fontSize: 14),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Text(
+              '₹${item.productPrice}',
+              style: TextStyle(
+                color: AppColors.text_dark,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
           Expanded(flex: 1, child: _buildStatusChip(item.productStatus)),
           Expanded(
             flex: 1,
@@ -278,13 +541,37 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  decoration: BoxDecoration(color: AppColors.status_completed.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
-                  child: IconButton(padding: const EdgeInsets.all(8), constraints: const BoxConstraints(), icon: Icon(Icons.edit_outlined, size: 18, color: AppColors.status_completed), onPressed: () => _openEditProductForm(item)),
+                  decoration: BoxDecoration(
+                    color: AppColors.status_completed.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: IconButton(
+                    padding: const EdgeInsets.all(8),
+                    constraints: const BoxConstraints(),
+                    icon: Icon(
+                      Icons.edit_outlined,
+                      size: 18,
+                      color: AppColors.status_completed,
+                    ),
+                    onPressed: () => _openEditProductForm(item),
+                  ),
                 ),
                 const SizedBox(width: 8),
                 Container(
-                  decoration: BoxDecoration(color: AppColors.error.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
-                  child: IconButton(padding: const EdgeInsets.all(8), constraints: const BoxConstraints(), icon: Icon(Icons.delete_outline, size: 18, color: AppColors.error), onPressed: () => _confirmDelete(item.productId, provider)),
+                  decoration: BoxDecoration(
+                    color: AppColors.error.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: IconButton(
+                    padding: const EdgeInsets.all(8),
+                    constraints: const BoxConstraints(),
+                    icon: Icon(
+                      Icons.delete_outline,
+                      size: 18,
+                      color: AppColors.error,
+                    ),
+                    onPressed: () => _confirmDelete(item.productId, provider),
+                  ),
                 ),
               ],
             ),
@@ -302,38 +589,96 @@ class _AdminInventoryScreenState extends State<AdminInventoryScreen> {
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(20), border: Border.all(color: color.withOpacity(0.3))),
-      child: Text(status, textAlign: TextAlign.center, style: TextStyle(color: color, fontWeight: FontWeight.w600, fontSize: 12)),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: color.withOpacity(0.3)),
+      ),
+      child: Text(
+        status,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: color,
+          fontWeight: FontWeight.w600,
+          fontSize: 12,
+        ),
+      ),
     );
   }
 
   void _confirmDelete(String productId, InventoryProvider provider) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: Row(
-          children: [
-            Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: AppColors.error.withOpacity(0.1), borderRadius: BorderRadius.circular(8)), child: Icon(Icons.warning_amber_rounded, color: AppColors.error)),
-            const SizedBox(width: 12),
-            Expanded(child: Text("Confirm Deletion", style: TextStyle(color: AppColors.text_dark, fontSize: 18, fontWeight: FontWeight.w600))),
-          ],
-        ),
-        content: Text('Are you sure you want to delete this product? This action cannot be undone.', style: TextStyle(color: AppColors.text_dark, fontSize: 14)),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: Text("Cancel", style: TextStyle(color: AppColors.text_grey, fontWeight: FontWeight.w600))),
-          Container(
-            decoration: BoxDecoration(color: AppColors.error, borderRadius: BorderRadius.circular(8)),
-            child: TextButton(
-              onPressed: () {
-                provider.deleteProduct(context: context, productId: productId);
-                Navigator.pop(context);
-              },
-              child: Text("Delete", style: TextStyle(color: AppColors.white, fontWeight: FontWeight.w600)),
+      builder:
+          (context) => AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
             ),
+            title: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: AppColors.error.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(
+                    Icons.warning_amber_rounded,
+                    color: AppColors.error,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    "Confirm Deletion",
+                    style: TextStyle(
+                      color: AppColors.text_dark,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            content: Text(
+              'Are you sure you want to delete this product? This action cannot be undone.',
+              style: TextStyle(color: AppColors.text_dark, fontSize: 14),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(
+                  "Cancel",
+                  style: TextStyle(
+                    color: AppColors.text_grey,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: AppColors.error,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: TextButton(
+                  onPressed: () {
+                    provider.deleteProduct(
+                      context: context,
+                      productId: productId,
+                    );
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    "Delete",
+                    style: TextStyle(
+                      color: AppColors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 }

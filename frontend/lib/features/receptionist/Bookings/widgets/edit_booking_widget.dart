@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/receptionist/data/provider/booking_provider.dart';
 import 'package:frontend/features/receptionist/model/vehicle_booking_model.dart';
-import 'package:frontend/utils/colors.dart';
+import 'package:frontend/utils/constant/colors.dart';
 import 'package:provider/provider.dart';
 
 class EditBookingWidget extends StatefulWidget {
@@ -34,12 +34,20 @@ class _EditBookingWidgetState extends State<EditBookingWidget> {
               color: AppColors.sky_blue.withOpacity(0.1),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Icon(Icons.edit_note_rounded, color: AppColors.sky_blue, size: 24),
+            child: Icon(
+              Icons.edit_note_rounded,
+              color: AppColors.sky_blue,
+              size: 24,
+            ),
           ),
           const SizedBox(width: 12),
           Text(
             'Change Status',
-            style: TextStyle(color: AppColors.text_dark, fontSize: 20, fontWeight: FontWeight.w600),
+            style: TextStyle(
+              color: AppColors.text_dark,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ],
       ),
@@ -53,7 +61,10 @@ class _EditBookingWidgetState extends State<EditBookingWidget> {
               decoration: BoxDecoration(
                 color: AppColors.light_bg,
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: AppColors.border_grey.withOpacity(0.5), width: 1),
+                border: Border.all(
+                  color: AppColors.border_grey.withOpacity(0.5),
+                  width: 1,
+                ),
               ),
               child: DropdownButtonFormField<String>(
                 elevation: 2,
@@ -61,15 +72,40 @@ class _EditBookingWidgetState extends State<EditBookingWidget> {
                 borderRadius: BorderRadius.circular(12),
                 decoration: InputDecoration(
                   labelText: 'Status',
-                  labelStyle: TextStyle(color: AppColors.text_grey, fontSize: 14),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  labelStyle: TextStyle(
+                    color: AppColors.text_grey,
+                    fontSize: 14,
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
                   border: InputBorder.none,
-                  prefixIcon: Icon(Icons.flag_outlined, color: AppColors.sky_blue, size: 20),
+                  prefixIcon: Icon(
+                    Icons.flag_outlined,
+                    color: AppColors.sky_blue,
+                    size: 20,
+                  ),
                 ),
-                icon: Icon(Icons.keyboard_arrow_down_rounded, color: AppColors.sky_blue),
-                items: ['Pending', 'In Progress', 'Completed']
-                    .map((s) => DropdownMenuItem(value: s, child: Text(s, style: TextStyle(color: AppColors.text_dark, fontSize: 14))))
-                    .toList(),
+                icon: Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  color: AppColors.sky_blue,
+                ),
+                items:
+                    ['Pending', 'In Progress', 'Completed']
+                        .map(
+                          (s) => DropdownMenuItem(
+                            value: s,
+                            child: Text(
+                              s,
+                              style: TextStyle(
+                                color: AppColors.text_dark,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
                 onChanged: (val) {
                   setState(() {
                     status = val!;
@@ -83,27 +119,54 @@ class _EditBookingWidgetState extends State<EditBookingWidget> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          style: TextButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12)),
-          child: Text('Cancel', style: TextStyle(color: AppColors.text_grey, fontWeight: FontWeight.w600)),
+          style: TextButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          ),
+          child: Text(
+            'Cancel',
+            style: TextStyle(
+              color: AppColors.text_grey,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
         Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [AppColors.sky_blue, AppColors.sky_blue_light]),
+            gradient: LinearGradient(
+              colors: [AppColors.sky_blue, AppColors.sky_blue_light],
+            ),
             borderRadius: BorderRadius.circular(8),
-            boxShadow: [BoxShadow(color: AppColors.sky_blue.withOpacity(0.3), blurRadius: 8, offset: const Offset(0, 2))],
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.sky_blue.withOpacity(0.3),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
           ),
           child: TextButton(
             onPressed: () async {
               // Call the provider directly. It updates the global list and UI automatically.
-              await Provider.of<BookingProvider>(context, listen: false).updateBookingStatus(
+              await Provider.of<BookingProvider>(
+                context,
+                listen: false,
+              ).updateBookingStatus(
                 context: context,
                 bookingId: widget.booking.bookingId,
                 status: status,
               );
               if (context.mounted) Navigator.of(context).pop();
             },
-            style: TextButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12)),
-            child: Text('Save', style: TextStyle(color: AppColors.white, fontWeight: FontWeight.w600)),
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            ),
+            child: Text(
+              'Save',
+              style: TextStyle(
+                color: AppColors.white,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
         ),
       ],

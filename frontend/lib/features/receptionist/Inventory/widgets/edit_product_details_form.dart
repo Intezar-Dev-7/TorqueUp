@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/receptionist/data/provider/inventory_provider.dart';
-import 'package:frontend/utils/colors.dart';
+import 'package:frontend/utils/constant/colors.dart';
 import 'package:provider/provider.dart';
 
 class EditProductDetailsForm extends StatefulWidget {

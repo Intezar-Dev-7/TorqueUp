@@ -3,7 +3,7 @@ import 'package:frontend/features/admin/widgets/notification_screen.dart';
 import 'package:frontend/features/receptionist/Bookings/widgets/edit_booking_widget.dart';
 import 'package:frontend/features/receptionist/data/provider/booking_provider.dart';
 import 'package:frontend/features/receptionist/model/vehicle_booking_model.dart';
-import 'package:frontend/utils/colors.dart';
+import 'package:frontend/utils/constant/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 

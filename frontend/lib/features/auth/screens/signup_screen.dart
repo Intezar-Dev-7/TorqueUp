@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/common/widgets/custom_textfield.dart';
 import 'package:frontend/features/auth/data/provider/auth_provider.dart';
 import 'package:frontend/features/auth/screens/signin_screen.dart';
-import 'package:frontend/utils/colors.dart';
+import 'package:frontend/utils/constant/colors.dart';
 import 'package:provider/provider.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -69,7 +69,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         height: isMobile(constraints.maxWidth) ? 30 : 40,
                       ),
                       // Signup Form Card
-                      _buildSignupCard(constraints.maxWidth,authProvider),
+                      _buildSignupCard(constraints.maxWidth, authProvider),
                     ],
                   ),
                 ),
@@ -337,18 +337,21 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
             child: ElevatedButton(
               // Disable button if loading
-              onPressed: authProvider.isLoading ? null : () {
-                if (_formkey.currentState!.validate()) {
-                  // Call provider instead of service
-                  authProvider.signUpUser(
-                    context: context,
-                    name: _nameController.text,
-                    email: _emailController.text,
-                    password: _passwordController.text,
-                    role: _selectedRole,
-                  );
-                }
-              },
+              onPressed:
+                  authProvider.isLoading
+                      ? null
+                      : () {
+                        if (_formkey.currentState!.validate()) {
+                          // Call provider instead of service
+                          authProvider.signUpUser(
+                            context: context,
+                            name: _nameController.text,
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                            role: _selectedRole,
+                          );
+                        }
+                      },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.transparent,
                 shadowColor: Colors.transparent,
@@ -358,21 +361,25 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ),
               // Show loading spinner or text based on state
-              child: authProvider.isLoading
-                  ? const SizedBox(
-                  height: 24,
-                  width: 24,
-                  child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5)
-              )
-                  : const Text(
-                'Create Account',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0.5,
-                ),
-              ),
+              child:
+                  authProvider.isLoading
+                      ? const SizedBox(
+                        height: 24,
+                        width: 24,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2.5,
+                        ),
+                      )
+                      : const Text(
+                        'Create Account',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
             ),
           ),
           SizedBox(height: isMobile(screenWidth) ? 20 : 24),

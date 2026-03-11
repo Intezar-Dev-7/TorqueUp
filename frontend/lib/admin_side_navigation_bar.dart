@@ -6,7 +6,7 @@ import 'package:frontend/features/admin/Inventory/screens/admin_inventory_screen
 import 'package:frontend/features/admin/Staff/screens/admin_staff_screeen.dart';
 import 'package:frontend/features/admin/ReportsAndAnalytics/screens/reports_and_analytics_screen.dart';
 import 'package:frontend/features/admin/Settings/screens/admin_settings_screen.dart';
-import 'package:frontend/utils/colors.dart';
+import 'package:frontend/utils/constant/colors.dart';
 import 'package:iconsax/iconsax.dart';
 
 class AdminSideNavigationBar extends StatefulWidget {
