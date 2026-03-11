@@ -23,12 +23,19 @@ class AdminSettingsRepository {
       throw 'User not logged in or session expired.';
     }
 
-    final response = await _service.changePassword(oldPassword, newPassword, token);
+    final response = await _service.changePassword(
+      oldPassword,
+      newPassword,
+      token,
+    );
 
     if (response.statusCode == 200) {
-      return jsonDecode(response.body)['msg'] ?? 'Password changed successfully!';
+      return jsonDecode(response.body)['msg'] ??
+          'Password changed successfully!';
     } else {
-      throw jsonDecode(response.body)['msg'] ?? jsonDecode(response.body)['error'] ?? 'Password change failed!';
+      throw jsonDecode(response.body)['msg'] ??
+          jsonDecode(response.body)['error'] ??
+          'Password change failed!';
     }
   }
 }

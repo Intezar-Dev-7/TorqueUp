@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+class splashScreen extends StatefulWidget {
+  const splashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<splashScreen> createState() => _splashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
+class _splashScreenState extends State<splashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 

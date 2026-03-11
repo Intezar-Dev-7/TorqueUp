@@ -11,7 +11,7 @@ import 'package:frontend/features/receptionist/data/provider/receptionist_staff_
 import 'package:frontend/receptionist_side_nav_bar.dart';
 import 'package:frontend/provider/user_provider.dart';
 import 'package:frontend/service_locator.dart';
-import 'package:frontend/splashScreen.dart';
+import 'package:frontend/splash_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -31,9 +31,13 @@ void main() async {
 
         ChangeNotifierProvider(create: (context) => InventoryProvider()),
 
-        ChangeNotifierProvider(create: (context) => ReceptionistSettingsProvider()),
+        ChangeNotifierProvider(
+          create: (context) => ReceptionistSettingsProvider(),
+        ),
 
-        ChangeNotifierProvider(create: (context) => ReceptionistStaffProvider()),
+        ChangeNotifierProvider(
+          create: (context) => ReceptionistStaffProvider(),
+        ),
 
         ChangeNotifierProvider(create: (context) => AnalyticsProvider()),
       ],
@@ -75,7 +79,7 @@ class _SplashWrapperState extends State<SplashWrapper> {
     final userProvider = widget.userProvider;
 
     if (showSplash) {
-      return const SplashScreen();
+      return const splashScreen();
     }
 
     return _getHomeScreen(userProvider);
@@ -101,7 +105,10 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     // Safely call the provider after the first frame builds
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<AuthProvider>(context, listen: false).getUserData(context: context);
+      Provider.of<AuthProvider>(
+        context,
+        listen: false,
+      ).getUserData(context: context);
     });
   }
 

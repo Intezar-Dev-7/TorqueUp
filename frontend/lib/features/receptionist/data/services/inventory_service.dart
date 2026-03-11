@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:frontend/features/receptionist/model/inventory_model.dart';
 import 'package:frontend/utils/constant/api.dart';
 import 'package:http/http.dart' as http;
@@ -20,11 +19,11 @@ class InventoryServices {
   }
 
   Future<http.Response> updateInventoryProduct(
-      String productId,
-      int productQuantity,
-      int productPrice,
-      String productStatus,
-      ) async {
+    String productId,
+    int productQuantity,
+    int productPrice,
+    String productStatus,
+  ) async {
     return await http.patch(
       Uri.parse('${ApiConfig.baseUrl}/api/updateInventoryProduct/$productId'),
       headers: {'Content-Type': 'application/json; charset=UTF-8'},

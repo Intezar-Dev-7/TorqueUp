@@ -23,7 +23,9 @@ class AuthService {
     return await http.post(
       Uri.parse('${ApiConfig.baseUrl}/api/signup'),
       body: user.toJson(),
-      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
     );
   }
 

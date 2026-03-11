@@ -462,10 +462,11 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
   Widget _buildMobileList(BookingProvider provider) {
     final filteredBookings = _getFilteredBookings(provider.bookings);
 
-    if (provider.isLoading)
+    if (provider.isLoading) {
       return Center(
         child: CircularProgressIndicator(color: AppColors.admin_primary),
       );
+    }
     if (filteredBookings.isEmpty) {
       return Center(
         child: Column(
@@ -631,10 +632,11 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
   Widget _buildDesktopTable(double screenWidth, BookingProvider provider) {
     final filteredBookings = _getFilteredBookings(provider.bookings);
 
-    if (provider.isLoading)
+    if (provider.isLoading) {
       return Center(
         child: CircularProgressIndicator(color: AppColors.admin_primary),
       );
+    }
     if (filteredBookings.isEmpty) {
       return Center(
         child: Column(
