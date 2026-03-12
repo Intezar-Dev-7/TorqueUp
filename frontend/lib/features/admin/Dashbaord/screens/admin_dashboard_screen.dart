@@ -716,6 +716,19 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
           SizedBox(height: isSmallScreen ? 12 : 16),
           isInventoryLoading
               ? const Center(child: CircularProgressIndicator())
+              : inventoryList.isEmpty
+              ? Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Text(
+                    "No products in inventory",
+                    style: TextStyle(
+                      color: AppColors.text_dark.withOpacity(0.6),
+                      fontSize: isSmallScreen ? 13 : 14,
+                    ),
+                  ),
+                ),
+              )
               : ListView(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),

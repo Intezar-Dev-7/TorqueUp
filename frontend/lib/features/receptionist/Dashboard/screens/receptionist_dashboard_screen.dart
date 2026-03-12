@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/receptionist/data/provider/booking_provider.dart';
 import 'package:frontend/features/receptionist/data/provider/inventory_provider.dart';
+import 'package:frontend/features/receptionist/model/inventory_model.dart';
 import 'package:frontend/utils/constant/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,8 @@ class ReceptionistDashboardScreen extends StatefulWidget {
 
 class _ReceptionistDashboardScreenState
     extends State<ReceptionistDashboardScreen> {
+  bool isInventoryLoading = true;
+  List<Inventory> inventoryList = [];
   @override
   void initState() {
     super.initState();
@@ -37,6 +40,7 @@ class _ReceptionistDashboardScreenState
 
   @override
   Widget build(BuildContext context) {
+    ;
     // We listen to the providers at the top of the tree so the whole screen updates
     final bookingProvider = Provider.of<BookingProvider>(context);
     final inventoryProvider = Provider.of<InventoryProvider>(context);
@@ -722,15 +726,42 @@ class _ReceptionistDashboardScreenState
             ],
           ),
           const SizedBox(height: 16),
-          provider.isLoading
+
+          // provider.isLoading
+          //     ? Center(
+          //       child: CircularProgressIndicator(color: AppColors.sky_blue),
+          //     )
+          //     : ListView(
+          //       shrinkWrap: true,
+          //       physics: const NeverScrollableScrollPhysics(),
+          //       children:
+          //           provider.inventoryList.map((item) {
+          //             return _buildInventoryItem(
+          //               item.productName,
+          //               item.productQuantity,
+          //               item.productQuantity > 0,
+          //             );
+          //           }).toList(),
+          //     ),
+          isInventoryLoading
+              ? const Center(child: CircularProgressIndicator())
+              : inventoryList.isEmpty
               ? Center(
-                child: CircularProgressIndicator(color: AppColors.sky_blue),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Text(
+                    "No products in inventory",
+                    style: TextStyle(
+                      color: AppColors.text_dark.withOpacity(0.6),
+                    ),
+                  ),
+                ),
               )
               : ListView(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 children:
-                    provider.inventoryList.map((item) {
+                    inventoryList.map((item) {
                       return _buildInventoryItem(
                         item.productName,
                         item.productQuantity,
