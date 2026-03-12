@@ -177,10 +177,12 @@ class _NewBookingWidgetState extends State<NewBookingWidget> {
                     icon: Icons.phone_outlined,
                     keyboardType: TextInputType.phone,
                     validator: (val) {
-                      if (val == null || val.isEmpty)
+                      if (val == null || val.isEmpty) {
                         return "Enter contact number";
-                      if (val.length != 10)
+                      }
+                      if (val.length != 10) {
                         return "Enter valid 10-digit number";
+                      }
                       return null;
                     },
                   ),

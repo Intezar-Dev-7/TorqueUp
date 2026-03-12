@@ -76,23 +76,27 @@ class ReportsChart extends StatelessWidget {
                         'Sat',
                         'Sun',
                       ];
-                      if (value.toInt() < days.length)
+                      if (value.toInt() < days.length) {
                         label = days[value.toInt()];
+                      }
                       break;
                     case 'Weekly':
                       const weeks = ['W1', 'W2', 'W3', 'W4', 'W5'];
-                      if (value.toInt() < weeks.length)
+                      if (value.toInt() < weeks.length) {
                         label = weeks[value.toInt()];
+                      }
                       break;
                     case 'Monthly':
                       const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
-                      if (value.toInt() < months.length)
+                      if (value.toInt() < months.length) {
                         label = months[value.toInt()];
+                      }
                       break;
                     case 'Yearly':
                       const years = ['2020', '2021', '2022', '2023', '2024'];
-                      if (value.toInt() < years.length)
+                      if (value.toInt() < years.length) {
                         label = years[value.toInt()];
+                      }
                       break;
                   }
                   return Text(label, style: style);

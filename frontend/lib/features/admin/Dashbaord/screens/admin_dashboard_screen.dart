@@ -451,13 +451,14 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   }
 
   Widget _buildMobileBookingsList(List<NewBooking> bookings, bool isLoading) {
-    if (isLoading)
+    if (isLoading) {
       return SizedBox(
         height: 300,
         child: Center(
           child: CircularProgressIndicator(color: AppColors.admin_primary),
         ),
       );
+    }
     if (bookings.isEmpty) {
       return SizedBox(
         height: 300,
@@ -556,13 +557,14 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
     List<NewBooking> bookings,
     bool isLoading,
   ) {
-    if (isLoading)
+    if (isLoading) {
       return SizedBox(
         height: 300,
         child: Center(
           child: CircularProgressIndicator(color: AppColors.admin_primary),
         ),
       );
+    }
     if (bookings.isEmpty) {
       return SizedBox(
         height: 300,

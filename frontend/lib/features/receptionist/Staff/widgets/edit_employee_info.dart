@@ -216,10 +216,12 @@ class _EditEmployeeInfoWidgetState extends State<EditEmployeeInfoWidget> {
                     icon: Icons.phone_outlined,
                     keyboardType: TextInputType.phone,
                     validator: (value) {
-                      if (value == null || value.trim().isEmpty)
+                      if (value == null || value.trim().isEmpty) {
                         return 'Contact number is required';
-                      if (!RegExp(r'^[0-9]{10}$').hasMatch(value))
+                      }
+                      if (!RegExp(r'^[0-9]{10}$').hasMatch(value)) {
                         return 'Enter valid 10-digit number';
+                      }
                       return null;
                     },
                   ),
@@ -231,8 +233,9 @@ class _EditEmployeeInfoWidgetState extends State<EditEmployeeInfoWidget> {
                     keyboardType: TextInputType.emailAddress,
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) return null;
-                      if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value))
+                      if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
                         return 'Enter valid email';
+                      }
                       return null;
                     },
                   ),

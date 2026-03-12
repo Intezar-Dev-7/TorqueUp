@@ -115,10 +115,12 @@ class _EditEmployeeDialogState extends State<EditEmployeeDialog> {
                         icon: Icons.email_outlined,
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
-                          if (value == null || value.isEmpty)
+                          if (value == null || value.isEmpty) {
                             return 'Please enter email';
-                          if (!value.contains('@'))
+                          }
+                          if (!value.contains('@')) {
                             return 'Please enter valid email';
+                          }
                           return null;
                         },
                       ),

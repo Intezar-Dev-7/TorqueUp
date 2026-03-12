@@ -194,10 +194,12 @@ class _AddStaffState extends State<AddStaff> {
                       icon: Icons.phone_outlined,
                       keyboardType: TextInputType.phone,
                       validator: (val) {
-                        if (val == null || val.isEmpty)
+                        if (val == null || val.isEmpty) {
                           return "Enter contact number";
-                        if (!RegExp(r'^[0-9]{10}$').hasMatch(val))
+                        }
+                        if (!RegExp(r'^[0-9]{10}$').hasMatch(val)) {
                           return "Enter valid 10-digit number";
+                        }
                         return null;
                       },
                     ),
@@ -209,8 +211,9 @@ class _AddStaffState extends State<AddStaff> {
                       keyboardType: TextInputType.emailAddress,
                       validator: (val) {
                         if (val == null || val.isEmpty) return null;
-                        if (!RegExp(r'\S+@\S+\.\S+').hasMatch(val))
+                        if (!RegExp(r'\S+@\S+\.\S+').hasMatch(val)) {
                           return "Enter valid email";
+                        }
                         return null;
                       },
                     ),
