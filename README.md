@@ -1,122 +1,115 @@
 # ⚙️ TorqueUp – Car & Bike Service Center Management System
 
-**TorqueUp** is a powerful **SaaS platform** built to simplify and digitize daily operations for **car and bike service centers**.  
-From customer bookings and vehicle tracking to inventory, employees, and analytics — TorqueUp empowers workshops to **run smarter, faster, and more efficiently**.
-
-> 🛠️ Built for efficiency. Designed for growth.
+**TorqueUp** is a SaaS platform for managing daily operations of **car and bike service centers**.
+It handles bookings, vehicles, inventory, employees, and reports in one system.
 
 ---
 
-## 🚀 Overview
+## ✨ Key Features
 
-TorqueUp enables service centers to manage everything from bookings to inventory in one place — ensuring a **paperless, transparent, and seamless service experience** for both workshops and customers.
-
----
-
-## ✨ Key Highlights
-
-- 📅 **Real-time bookings & scheduling**
-- 🧰 **Integrated inventory management** with stock alerts
-- 👩‍🔧 **Employee management & performance tracking**
-- 📊 **Detailed business insights & analytics**
-- 🔐 **Secure authentication & role-based access**
+* 📅 **Booking and scheduling**
+* 🧰 **Inventory tracking** 
+* 👩‍🔧 **Employee management**
+* 📊 **Reports and analytics**
+* 📊 **Dashboard overview** 
+* 🧑‍🔧 **Staff management** (mechanics, interns, employees)
+* 🔐 **Authentication and role-based access**
 
 ---
 
 ## 🧩 Core Modules & Features
 
+### 📊 Dashboard
+
+Provides a quick overview of key operations.
+
+#### Features:
+
+* View **inventory status** at a glance
+* Track **active bookings**
+
+
+---
+
 ### 👤 User Management
 
-- Secure registration & login system  
-- **Role-based access** for:
-  - Admin  
-  - Receptionist  
-  - Mechanic  
-- **Change password** functionality  
-- JWT-based authentication & protected APIs  
+* Secure registration and login
+* **Role-based access**:
+
+  * Admin
+  * Receptionist
+  * Customer
+* Change password
+* JWT-based authentication
 
 ---
 
 ### 📅 Booking Management
 
-Handle customer bookings and service requests with full CRUD capabilities.
+Handle customer bookings and service requests.
 
-**Features:**
-- ➕ Add new bookings (customer, vehicle, service)
-- 🔄 Update bookings (status, service type, assigned mechanic)
-- 📋 Fetch all or single bookings with filters
-- ❌ Delete bookings when canceled or completed
-- 🔁 Real-time job flow: *Scheduled → In Progress → Completed*
+#### Features:
 
----
-
-### 🧰 Service Management
-
-Define, manage, and monitor vehicle service packages & diagnostics.
-
-**Features:**
-- Create and customize service packages  
-- Add mechanic notes & digital checklists  
-- Automated service tracking and updates  
-- Status-driven workflow for each job  
+* ➕ Add bookings 
+* 🔄 Update booking status 
+* 📋 Fetch bookings with filters
+* ❌ Delete bookings
+* 🔁 Status flow: *Scheduled → In Progress → Completed*
 
 ---
 
 ### 🏷️ Inventory Management
 
-Manage all workshop parts, tools, and supplies seamlessly.
+Manage workshop parts and supplies.
 
-**Features:**
-- ➕ Add new parts or materials  
-- 🔄 Update inventory details & quantities  
-- 📋 Fetch inventory list (search & filter)  
-- ❌ Delete obsolete or unused items  
-- ⚠️ Low stock alerts & auto reorder triggers  
-- 🔗 Link parts directly to service jobs  
+#### Features:
 
----
-
-### 👩‍🔧 Employee Management
-
-Centralized staff management with role-based CRUD operations.
-
-**Features:**
-- ➕ Add new employees  
-- 🔄 Update employee roles or info  
-- 📋 Fetch employee lists (filter by role)  
-- ❌ Delete employee records  
-- 🧩 Assign roles dynamically (Admin, Mechanic, Receptionist)
+* ➕ Add parts 
+* 🔄 Update quantities and details
+* 📋 View inventory 
+* ❌ Delete items
+* ⚠️ Low stock alerts
 
 ---
 
-### 📈 Analytics & Reports
+### 👩‍🔧 Staff Management
 
-Comprehensive insights to monitor performance and revenue.
+Manage all staff including mechanics, interns, and other employees.
 
-**Metrics include:**
-- 💰 Revenue reports (daily, monthly, or custom range)
-- 🔧 Mechanic performance tracking
-- 🚗 Service volume analytics
-- 🧾 Inventory consumption trends
-- 💬 Customer engagement metrics
+#### Features:
+
+* ➕ Add staff members
+* 🔄 Update roles and details
+* 📋 View staff by role
+* ❌ Remove staff records
+
+---
+
+
+### 📈 Reports
+
+Track business data.
+
+#### Metrics include:
+
+* 💰 Revenue reports
+* 🧾 Inventory usage
+* 💬 Customer activity
 
 ---
 
 ## 🧠 Tech Stack
 
-| Layer | Technologies |
-|-------|---------------|
-| **Frontend** | Flutter |
-| **Backend** | Node.js, Express.js |
-| **Database** | MongoDB |
-| **Auth & Security** | JWT, bcrypt |
+| Layer          | Technologies                          |
+| -------------- | ------------------------------------- |
+| **Frontend**   | Flutter                               |
+| **Backend**    | Node.js, Express.js                   |
+| **Database**   | MongoDB                               |
+| **Auth**       | JWT, bcrypt                           |
 | **Deployment** | Netlify (Frontend) • Render (Backend) |
 
 ---
 
-## 🛑 License
+## 🔗 Project Link
 
-This project is released under a **Proprietary License**.  
-You **may not** copy, distribute, modify, or reuse any part of this codebase without explicit written permission.
-
----
+👉 **Live Demo:** https://vraxton.netlify.app/
