@@ -113,3 +113,42 @@ Track business data.
 ## 🔗 Project Link
 
 👉 **Live Demo:** https://vraxton.netlify.app/
+
+## Images 
+
+## Login Screen 
+![Alt Text](https://github.com/Intezar-Dev-7/TorqueUp/blob/e2f50b28af98de9face1be4e24d5370e754c28da/TorqueUp%20LoginScreen.png)
+
+## SignUp Screen 
+![Alt Text](https://github.com/Intezar-Dev-7/TorqueUp/blob/e2f50b28af98de9face1be4e24d5370e754c28da/TorqueUp%20SignUpScreen%20.png)
+
+## Role Based Signup
+![Alt Text](https://github.com/Intezar-Dev-7/TorqueUp/blob/main/TorqueUp%20Rolebased%20Access.png)
+
+## Dashboard Screen
+![Alt Text](https://github.com/Intezar-Dev-7/TorqueUp/blob/main/TorqueUp%20DashboardScreen.png)
+
+## Booking Screen 
+![Alt Text](https://github.com/Intezar-Dev-7/TorqueUp/blob/main/TorqueUp%20BookingScreen.png)
+
+## Add Booking Screen 
+![Alt Text](https://github.com/Intezar-Dev-7/TorqueUp/blob/main/TorqueUp%20AddBookingScreen.png)
+
+## Staff Screen 
+![Alt Text](https://github.com/Intezar-Dev-7/TorqueUp/blob/main/TorqueUp%20StaffScreen.png)
+
+## Add Staff Screen 
+![Alt Text](https://github.com/Intezar-Dev-7/TorqueUp/blob/main/TorqueUp%20AddStaffScreen.png)
+
+## Inventory Screen 
+![Alt Text](https://github.com/Intezar-Dev-7/TorqueUp/blob/main/TorqueUp%20InventoryScreen.png)
+
+## Add Inventory Screen
+![Alt Text](https://github.com/Intezar-Dev-7/TorqueUp/blob/main/TorqueUp%20AddInventoryScreen.png)
+
+## Report & Analytics Screeen 
+![Alt Text](https://github.com/Intezar-Dev-7/TorqueUp/blob/main/TorqueAdmin%20Reports%26Analytics.png)
+
+## Settings Screen 
+![Alt Text](https://github.com/Intezar-Dev-7/TorqueUp/blob/main/TorqueUp%20SettingsScreen.png)
+
